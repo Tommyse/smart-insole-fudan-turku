@@ -4,7 +4,10 @@
 
 1. (movesole - pediatric therapists ) https://www.theseus.fi/bitstream/handle/10024/143390/Manselius_Lauri.pdf?sequence=1&isAllowed=y
 
-2. (insole - hardware) https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3444133/
+2. (usability) https://www.theseus.fi/bitstream/handle/10024/155327/Ylikulju_Marko.pdf?sequence=1&isAllowed=y
+
+3. (insole - hardware) https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3444133/
+
 
 ## Ground Rules
 
