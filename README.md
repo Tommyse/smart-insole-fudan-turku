@@ -1,5 +1,10 @@
 # smart-insole-fudan-turku
 
+# Documentation(links)
+
+(movesole - pediatric therapists ) https://www.theseus.fi/bitstream/handle/10024/143390/Manselius_Lauri.pdf?sequence=1&isAllowed=y
+(insole - hardware) https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3444133/
+
 ## Ground Rules
 
 ### Meetings
