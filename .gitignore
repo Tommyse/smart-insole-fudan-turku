@@ -22,3 +22,5 @@ venv.bak/
 .spyderproject
 .spyproject
 
+
+jupyter notebooks/figs
