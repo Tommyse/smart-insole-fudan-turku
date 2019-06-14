@@ -1,5 +1,12 @@
 # smart-insole-fudan-turku
 
+## Classifier
+
+## Webapp
+
+### first steps
+
+
 ## Documentation(links)
 
 1. (movesole - pediatric therapists ) https://www.theseus.fi/bitstream/handle/10024/143390/Manselius_Lauri.pdf?sequence=1&isAllowed=y
