@@ -3,19 +3,42 @@
 ## Classifier
 
 ### To-Do
-- Ensemble learning
 
+- More feature selection/generation methods (better features?)
 
+- Testing features (Which ones are best? Some accuracy comparisons for classifiers)
+
+- Building some different classifiers (Traditional machine learning + Deep learning)
+
+- Unsupervised learning probably should be dropped. I think it wont give us good results.
+
+- Taking a look at semi-supervised learning instead (Labeling mixed unlabeled data based on previous data for more training/testing data?)
+
+- Some parameter tuning for the classifiers (avoiding overfitting and other bad things)
+
+- Ensemble learning (combining results from different classifiers built earlier)
 
 ### Implemented
-- Basic features
-- Basic classifiers
 
+- Basic features from feature selection/generation
+
+- Basic classifiers
 
 
 ## Webapp
 
-### first steps
+### To-Do
+
+- Movesole csv file handling? (parsing it and adding the values to the database)
+
+
+
+- Integrating the classifier(s)
+
+### Implemented
+- Login and account management
+
+
 
 
 ## Documentation(links)
