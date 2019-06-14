@@ -2,6 +2,17 @@
 
 ## Classifier
 
+### To-Do
+- Ensemble learning
+
+
+
+### Implemented
+- Basic features
+- Basic classifiers
+
+
+
 ## Webapp
 
 ### first steps
