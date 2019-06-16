@@ -1,0 +1,9 @@
+certifi==2018.11.29
+Django==2.1.7
+django-crispy-forms==1.7.2
+mysqlclient==1.4.2.post1
+Pillow==6.0.0
+pytz==2018.9
+scikit-fuzzy==0.3.1
+virtualenv==16.4.3
+wincertstore==0.2
