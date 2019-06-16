@@ -69,7 +69,51 @@ https://www.youtube.com/watch?v=UmljXZIypDc
 ### Implemented
 - Login and account management
 
+### Django configuration
 
+https://medium.com/python-pandemonium/better-python-dependency-and-package-management-b5d8ea29dff1
+
+Requirements
+
+```
+certifi==2018.11.29
+Django==2.1.7
+django-crispy-forms==1.7.2
+mysqlclient==1.4.2.post1
+Pillow==6.0.0
+pytz==2018.9
+scikit-fuzzy==0.3.1
+virtualenv==16.4.3
+wincertstore==0.2
+```
+
+List dependencies
+```
+pip freeze > requirements.txt
+```
+
+
+Install depencencies
+```
+pip install -r requirements.txt
+```
+
+Actions will be similar to the one below:
+
+Create a virtual environment $ python3 -m venv /path/to/new/virtual/env
+Install packages using $pip install <package> command
+Save all the packages in the file with $pip freeze > requirements.txt. Keep in mind that in this case, requirements.txt file will list all packages that have been installed in virtual environment, regardless of where they came from
+Pin all the package versions. You should be pinning your dependencies, meaning every package should have a fixed version.
+Add requirements.txt to the root directory of the project. Done.
+Install project dependencies
+When if you’re going to share the project with the rest of the world you will need to install dependencies by running $pip install -r requirements.txt
+
+To find more information about individual packages from the requiements.txt you can use $pip show <packagename>. But how informative the output is?
+	
+
+### Info
+
+There is already a template with charts and layout that we could use in our application. It is inside HTML folder. It has to be inegrated into Django project.
 
 ---
 ---
