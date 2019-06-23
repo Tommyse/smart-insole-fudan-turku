@@ -1,6 +1,6 @@
 """
-All data handling related functions.
-Selecting features and calculating needed values.
+Classifiers that are implemented with tensorflow.
+
 
 """
 
@@ -10,7 +10,6 @@ Selecting features and calculating needed values.
 
 import os
 import pandas as pd
-from scipy.stats import zscore
 
 
 #some column combinations, can be used for filtering
@@ -52,10 +51,6 @@ def calculateStepTime(data):
         data.loc[row,"S5_press_time"] = (data.loc[row,"S5_end_time"] - data.loc[row,"S5_start_time"])
         data.loc[row,"S6_press_time"] = (data.loc[row,"S6_end_time"] - data.loc[row,"S6_start_time"])
     return(data)
-
-
-
-
 
 
 #Calculating total forcce and adding the column to dataframe
@@ -140,7 +135,7 @@ def calculateForceDiff(data):
 selected_cols = ["S0_force","S1_force","S2_force","S3_force","S4_force","S5_force","S6_force",
                 "S0_press_time","S1_press_time","S2_press_time","S3_press_time","S4_press_time","S5_press_time","S6_press_time",
                 "S0_force_diff","S1_force_diff","S2_force_diff","S3_force_diff","S4_force_diff","S5_force_diff","S6_force_diff","total_force_diff",
-                "Contact_time","force_total","label"]
+                "Contact_time","force_total"]
 
 #Getting all wanted fetures from the raw dataset
 def getFeatures(data):
@@ -163,12 +158,3 @@ def getAllFeatures(data):
     dataBoth = data.loc[:,selected_cols]
 
     return(dataL, dataR, dataBoth)
-
-#Splitting data to x and y
-def getSplitData(data, x_cols, y_cols):
-    x = pd.DataFrame(data[x_cols])
-    y = pd.DataFrame(data[y_cols])
-    return(x,y)
-
-def zscoreStandardize(data):
-    return(data.apply(zscore))
