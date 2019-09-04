@@ -1,28 +1,62 @@
 # smart-insole-fudan-turku
 
+## Code
+
+- Pydoc documentation
+
+## Data
+
+- Data labeled to "Normal" and "Fall"
+
+-- "Normal", "Risk" and "Fall" could be another option
+
 ## Classifier
+
+The classifier and data processing library is currently at "classifier/jupyter notebooks/insoleLib"
 
 ### To-Do
 
-- More feature selection/generation methods (better features?)
+Building the library more and testing various things. This should make using it with the website much smaller hassle.
 
-- Testing features (Which ones are best? Some accuracy comparisons for classifiers)
+- More feature selection/generation methods
+
+- scaling forces could use more testing and observing
+
+-- The data needs to be standardized since every session can have different forces. (different persons probably walk and weigh differently)
+
+-- Needs further testing things.
+
+-- https://scikit-learn.org/stable/auto_examples/preprocessing/plot_all_scaling.html
+
+-- https://medium.com/@urvashilluniya/why-data-normalization-is-necessary-for-machine-learning-models-681b65a05029
+
+-- http://www.grroups.com/blog/about-feature-scaling-and-normalization-and-the-effect-of-standardization-for-machine-learning-algorithms
+
+-- https://sebastianraschka.com/Articles/2014_about_feature_scaling.html
+
+- Testing features. Which ones are best? accuracy/correlation comparisons
 
 - Building some different classifiers (Traditional machine learning + Deep learning)
-
-- Unsupervised learning probably should be dropped. I think it wont give us good results.
+--Deep learning things
+--Support Vector Machines?
+--Random Forests? (ensemble learning with trees)
 
 - Taking a look at semi-supervised learning instead (Labeling mixed unlabeled data based on previous data for more training/testing data?)
 
-- Some parameter tuning for the classifiers (avoiding overfitting and other bad things)
+- Some parameter tuning for the classifiers
+-- Better accuracy?
+-- Avoiding overfitting and other bad things
 
 - Ensemble learning (combining results from different classifiers built earlier)
 
 ### Implemented
 
-- Basic features from feature selection/generation
+- Some features
 
-- Basic classifiers
+- Classifiers
+-- KNN
+-- Decision trees
+-- Extreme gradient boosted trees
 
 
 ## Webapp
@@ -114,6 +148,13 @@ To find more information about individual packages from the requiements.txt you 
 ### Info
 
 There is already a template with charts and layout that we could use in our application. It is inside HTML folder. It has to be inegrated into Django project.
+
+
+
+## Other things
+
+- Project page text etc (Tommi)
+	- Needs a new illustration (with small fixes)
 
 ---
 ---
