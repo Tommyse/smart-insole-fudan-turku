@@ -1,5 +1,11 @@
 # smart-insole-fudan-turku
 
+## Notes
+
+- Including steps with errors alters the accuracy of classifiers a bit
+-- Seems to be a small change towards worse accuracy
+
+
 ## Code
 
 - Pydoc documentation
@@ -43,9 +49,12 @@ Building the library more and testing various things. This should make using it 
 
 - Taking a look at semi-supervised learning instead (Labeling mixed unlabeled data based on previous data for more training/testing data?)
 
-- Some parameter tuning for the classifiers
--- Better accuracy?
--- Avoiding overfitting and other bad things
+- Some checks for the classifiers
+-- Parameter tuning
+--- Better accuracy?
+--- Avoiding overfitting and underfitting
+-- Test if the classifiers acctually learn something
+--- Suffle data labels and test accuracies over 1000 times + histograms + compare average accuracy
 
 - Ensemble learning (combining results from different classifiers built earlier)
 

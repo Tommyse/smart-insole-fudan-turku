@@ -12,10 +12,6 @@ class UnlabeledClassifier:
     For semi-supervised learning.
     
     """
-    
-    
-    #TODO properly test force difference as a feature
-    
 
     #Picking the best k for KNN, non-nested approach
     def findBestK(x, y, min_k, max_k, xcols, ycols):
@@ -57,7 +53,7 @@ class UnlabeledClassifier:
     
             #ypred_np = np.array(ypred_df.values)
             #rlabel_np = np.array(rlabel_df.values)
-    #
+
             #print(ypred_np[0])
             #print(rlabel_np[0])
     
@@ -119,7 +115,5 @@ class UnlabeledClassifier:
         #unlabeled.loc[:, "score"] = score
     
         labeled = pd.concat([labeled, unlabeled], sort=False).reset_index(drop=True) #Combining
-    
-    
     
         return(labeled)

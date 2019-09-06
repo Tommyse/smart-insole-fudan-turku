@@ -1,3 +1,10 @@
+#%% [markdown]
+# Some early unsupervised learning tests for various values in data.
+#
+# Also checking what the real data looks like with labels.
+#
+# Unsupervised learning isn't going to give good results with insole data.
+
 #%% Change working directory from the workspace root to the ipynb file location. Turn this addition off with the DataScience.changeDirOnImportExport setting
 # ms-python.python added
 import os
@@ -26,7 +33,7 @@ from sklearn.metrics import silhouette_score
 
 
 #%%
-data = pd.read_csv('../combined_with_labels.csv', sep=";", header=0)
+data = pd.read_csv('../tommi_test_data.csv', sep=";", header=0)
 data = data.loc[data["Warning_code"] == 0]
 basedf = data
 
@@ -82,18 +89,26 @@ T1df.columns=["c1","c2"]
 T2df=pd.DataFrame(T2)
 T2df.columns=["c1","c2"]
 
-plt.scatter(T1df["c1"], T1df["c2"], c=data1L["label"])
+#Colors
+l_colors = data1L["label"]
+l_colors = l_colors.replace("Normal", "y")
+l_colors = l_colors.replace("Fall", "r")
+r_colors = data1R["label"]
+r_colors = r_colors.replace("Normal", "y")
+r_colors = r_colors.replace("Fall", "r")
+
+plt.scatter(T1df["c1"], T1df["c2"], c=l_colors)
 plt.title("PCA scatter plot, left foot force")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/1.png')
+plt.savefig('../figs/1.png')
 plt.show()
 
-plt.scatter(T2df["c1"], T2df["c2"], c=data1R["label"])
+plt.scatter(T2df["c1"], T2df["c2"], c=r_colors)
 plt.title("PCA scatter plot, right foot force")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/2.png')
+plt.savefig('../figs/2.png')
 plt.show()
 
 
@@ -144,20 +159,25 @@ T=pca.transform(Tdf)
 Tdf=pd.DataFrame(T)
 Tdf.columns=["c1","c2"]
 
+#Colors
+colors = labelL
+colors = colors.replace("Normal", "y")
+colors = colors.replace("Fall", "r")
+
 #Plot with prediction colors
 plt.scatter(Tdf["c1"], Tdf["c2"], c=y_pred)
 plt.title("Cluster scatter plot, left foot force")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/3.png')
+plt.savefig('../figs/3.png')
 plt.show()
 
 #Plot with label colors
-plt.scatter(Tdf["c1"], Tdf["c2"], c=labelL)
+plt.scatter(Tdf["c1"], Tdf["c2"], c=colors)
 plt.title("Cluster scatter plot, left foot force")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/4.png')
+plt.savefig('../figs/4.png')
 plt.show()
 
 best_k=0
@@ -206,20 +226,25 @@ T=pca.transform(Tdf)
 Tdf=pd.DataFrame(T)
 Tdf.columns=["c1","c2"]
 
+#Colors
+colors = labelR
+colors = colors.replace("Normal", "y")
+colors = colors.replace("Fall", "r")
+
 #Plot with prediction colors
 plt.scatter(Tdf["c1"], Tdf["c2"], c=y_pred)
 plt.title("Cluster scatter plot, right foot force")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/5.png')
+plt.savefig('../figs/5.png')
 plt.show()
 
 #Plot with label colors
-plt.scatter(Tdf["c1"], Tdf["c2"], c=labelR)
+plt.scatter(Tdf["c1"], Tdf["c2"], c=colors)
 plt.title("Cluster scatter plot, right foot force")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/6.png')
+plt.savefig('../figs/6.png')
 plt.show()
 
 
@@ -242,18 +267,26 @@ T1df.columns=["c1","c2"]
 T2df=pd.DataFrame(T2)
 T2df.columns=["c1","c2"]
 
-plt.scatter(T1df["c1"], T1df["c2"], c=data1L["label"])
+#Colors
+l_colors = data1L["label"]
+l_colors = l_colors.replace("Normal", "y")
+l_colors = l_colors.replace("Fall", "r")
+r_colors = data1R["label"]
+r_colors = r_colors.replace("Normal", "y")
+r_colors = r_colors.replace("Fall", "r")
+
+plt.scatter(T1df["c1"], T1df["c2"], c=l_colors)
 plt.title("PCA scatter plot, left foot start time")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/7.png')
+plt.savefig('../figs/7.png')
 plt.show()
 
-plt.scatter(T2df["c1"], T2df["c2"], c=data1R["label"])
+plt.scatter(T2df["c1"], T2df["c2"], c=r_colors)
 plt.title("PCA scatter plot, right foot start time")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/8.png')
+plt.savefig('../figs/8.png')
 plt.show()
 
 
@@ -304,20 +337,25 @@ T=pca.transform(Tdf)
 Tdf=pd.DataFrame(T)
 Tdf.columns=["c1","c2"]
 
+#Colors
+colors = labelL
+colors = colors.replace("Normal", "y")
+colors = colors.replace("Fall", "r")
+
 #Plot with prediction colors
 plt.scatter(Tdf["c1"], Tdf["c2"], c=y_pred)
 plt.title("Cluster scatter plot, left foot start time")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/9.png')
+plt.savefig('../figs/9.png')
 plt.show()
 
 #Plot with label colors
-plt.scatter(Tdf["c1"], Tdf["c2"], c=labelL)
+plt.scatter(Tdf["c1"], Tdf["c2"], c=colors)
 plt.title("Cluster scatter plot, left foot start time")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/10.png')
+plt.savefig('../figs/10.png')
 plt.show()
 
 best_k=0
@@ -366,20 +404,25 @@ T=pca.transform(Tdf)
 Tdf=pd.DataFrame(T)
 Tdf.columns=["c1","c2"]
 
+#Colors
+colors = labelR
+colors = colors.replace("Normal", "y")
+colors = colors.replace("Fall", "r")
+
 #Plot with prediction colors
 plt.scatter(Tdf["c1"], Tdf["c2"], c=y_pred)
 plt.title("Cluster scatter plot, right foot start time")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/11.png')
+plt.savefig('../figs/11.png')
 plt.show()
 
 #Plot with label colors
-plt.scatter(Tdf["c1"], Tdf["c2"], c=labelR)
+plt.scatter(Tdf["c1"], Tdf["c2"], c=colors)
 plt.title("Cluster scatter plot, right foot start time")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/12.png')
+plt.savefig('../figs/12.png')
 plt.show()
 
 
@@ -402,18 +445,26 @@ T1df.columns=["c1","c2"]
 T2df=pd.DataFrame(T2)
 T2df.columns=["c1","c2"]
 
-plt.scatter(T1df["c1"], T1df["c2"], c=data1L["label"])
+#Colors
+l_colors = data1L["label"]
+l_colors = l_colors.replace("Normal", "y")
+l_colors = l_colors.replace("Fall", "r")
+r_colors = data1R["label"]
+r_colors = r_colors.replace("Normal", "y")
+r_colors = r_colors.replace("Fall", "r")
+
+plt.scatter(T1df["c1"], T1df["c2"], c=l_colors)
 plt.title("PCA scatter plot, left foot max time")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/13.png')
+plt.savefig('../figs/13.png')
 plt.show()
 
-plt.scatter(T2df["c1"], T2df["c2"], c=data1R["label"])
+plt.scatter(T2df["c1"], T2df["c2"], c=r_colors)
 plt.title("PCA scatter plot, right foot max time")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/14.png')
+plt.savefig('../figs/14.png')
 plt.show()
 
 
@@ -464,20 +515,25 @@ T=pca.transform(Tdf)
 Tdf=pd.DataFrame(T)
 Tdf.columns=["c1","c2"]
 
+#Colors
+colors = labelL
+colors = colors.replace("Normal", "y")
+colors = colors.replace("Fall", "r")
+
 #Plot with prediction colors
 plt.scatter(Tdf["c1"], Tdf["c2"], c=y_pred)
 plt.title("Cluster scatter plot, left foot max time")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/15.png')
+plt.savefig('../figs/15.png')
 plt.show()
 
 #Plot with label colors
-plt.scatter(Tdf["c1"], Tdf["c2"], c=labelL)
+plt.scatter(Tdf["c1"], Tdf["c2"], c=colors)
 plt.title("Cluster scatter plot, left foot max time")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/16.png')
+plt.savefig('../figs/16.png')
 plt.show()
 
 best_k=0
@@ -526,20 +582,25 @@ T=pca.transform(Tdf)
 Tdf=pd.DataFrame(T)
 Tdf.columns=["c1","c2"]
 
+#Colors
+colors = labelR
+colors = colors.replace("Normal", "y")
+colors = colors.replace("Fall", "r")
+
 #Plot with prediction colors
 plt.scatter(Tdf["c1"], Tdf["c2"], c=y_pred)
 plt.title("Cluster scatter plot, right foot max time")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/17.png')
+plt.savefig('../figs/17.png')
 plt.show()
 
 #Plot with label colors
-plt.scatter(Tdf["c1"], Tdf["c2"], c=labelR)
+plt.scatter(Tdf["c1"], Tdf["c2"], c=colors)
 plt.title("Cluster scatter plot, right foot max time")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/18.png')
+plt.savefig('../figs/18.png')
 plt.show()
 
 
@@ -562,18 +623,26 @@ T1df.columns=["c1","c2"]
 T2df=pd.DataFrame(T2)
 T2df.columns=["c1","c2"]
 
-plt.scatter(T1df["c1"], T1df["c2"], c=data1L["label"])
+#Colors
+l_colors = data1L["label"]
+l_colors = l_colors.replace("Normal", "y")
+l_colors = l_colors.replace("Fall", "r")
+r_colors = data1R["label"]
+r_colors = r_colors.replace("Normal", "y")
+r_colors = r_colors.replace("Fall", "r")
+
+plt.scatter(T1df["c1"], T1df["c2"], c=l_colors)
 plt.title("PCA scatter plot, left foot end time")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/19.png')
+plt.savefig('../figs/19.png')
 plt.show()
 
-plt.scatter(T2df["c1"], T2df["c2"], c=data1R["label"])
+plt.scatter(T2df["c1"], T2df["c2"], c=r_colors)
 plt.title("PCA scatter plot, right foot end time")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/20.png')
+plt.savefig('../figs/20.png')
 plt.show()
 
 
@@ -624,20 +693,25 @@ T=pca.transform(Tdf)
 Tdf=pd.DataFrame(T)
 Tdf.columns=["c1","c2"]
 
+#Colors
+colors = labelL
+colors = colors.replace("Normal", "y")
+colors = colors.replace("Fall", "r")
+
 #Plot with prediction colors
 plt.scatter(Tdf["c1"], Tdf["c2"], c=y_pred)
 plt.title("Cluster scatter plot, left foot end time")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/21.png')
+plt.savefig('../figs/21.png')
 plt.show()
 
 #Plot with label colors
-plt.scatter(Tdf["c1"], Tdf["c2"], c=labelL)
+plt.scatter(Tdf["c1"], Tdf["c2"], c=colors)
 plt.title("Cluster scatter plot, left foot end time")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/22.png')
+plt.savefig('../figs/22.png')
 plt.show()
 
 best_k=0
@@ -686,20 +760,25 @@ T=pca.transform(Tdf)
 Tdf=pd.DataFrame(T)
 Tdf.columns=["c1","c2"]
 
+#Colors
+colors = labelR
+colors = colors.replace("Normal", "y")
+colors = colors.replace("Fall", "r")
+
 #Plot with prediction colors
 plt.scatter(Tdf["c1"], Tdf["c2"], c=y_pred)
 plt.title("Cluster scatter plot, right foot end time")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/23.png')
+plt.savefig('../figs/23.png')
 plt.show()
 
 #Plot with label colors
-plt.scatter(Tdf["c1"], Tdf["c2"], c=labelR)
+plt.scatter(Tdf["c1"], Tdf["c2"], c=colors)
 plt.title("Cluster scatter plot, right foot end time")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/24.png')
+plt.savefig('../figs/24.png')
 plt.show()
 
 
@@ -722,18 +801,26 @@ T1df.columns=["c1","c2"]
 T2df=pd.DataFrame(T2)
 T2df.columns=["c1","c2"]
 
-plt.scatter(T1df["c1"], T1df["c2"], c=data1L["label"])
+#Colors
+l_colors = data1L["label"]
+l_colors = l_colors.replace("Normal", "y")
+l_colors = l_colors.replace("Fall", "r")
+r_colors = data1R["label"]
+r_colors = r_colors.replace("Normal", "y")
+r_colors = r_colors.replace("Fall", "r")
+
+plt.scatter(T1df["c1"], T1df["c2"], c=l_colors)
 plt.title("PCA scatter plot, left foot step phases")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/25.png')
+plt.savefig('../figs/25.png')
 plt.show()
 
-plt.scatter(T2df["c1"], T2df["c2"], c=data1R["label"])
+plt.scatter(T2df["c1"], T2df["c2"], c=r_colors)
 plt.title("PCA scatter plot, right foot step phases")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/26.png')
+plt.savefig('../figs/26.png')
 plt.show()
 
 
@@ -784,20 +871,25 @@ T=pca.transform(Tdf)
 Tdf=pd.DataFrame(T)
 Tdf.columns=["c1","c2"]
 
+#Colors
+colors = labelL
+colors = colors.replace("Normal", "y")
+colors = colors.replace("Fall", "r")
+
 #Plot with prediction colors
 plt.scatter(Tdf["c1"], Tdf["c2"], c=y_pred)
 plt.title("Cluster scatter plot, left foot step phases")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/27.png')
+plt.savefig('../figs/27.png')
 plt.show()
 
 #Plot with label colors
-plt.scatter(Tdf["c1"], Tdf["c2"], c=labelL)
+plt.scatter(Tdf["c1"], Tdf["c2"], c=colors)
 plt.title("Cluster scatter plot, left foot step phases")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/28.png')
+plt.savefig('../figs/28.png')
 plt.show()
 
 best_k=0
@@ -846,20 +938,25 @@ T=pca.transform(Tdf)
 Tdf=pd.DataFrame(T)
 Tdf.columns=["c1","c2"]
 
+#Colors
+colors = labelR
+colors = colors.replace("Normal", "y")
+colors = colors.replace("Fall", "r")
+
 #Plot with prediction colors
 plt.scatter(Tdf["c1"], Tdf["c2"], c=y_pred)
 plt.title("Cluster scatter plot, right foot step phases")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/29.png')
+plt.savefig('../figs/29.png')
 plt.show()
 
 #Plot with label colors
-plt.scatter(Tdf["c1"], Tdf["c2"], c=labelR)
+plt.scatter(Tdf["c1"], Tdf["c2"], c=colors)
 plt.title("Cluster scatter plot, right foot step phases")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/30.png')
+plt.savefig('../figs/30.png')
 plt.show()
 
 
@@ -882,18 +979,26 @@ T1df.columns=["c1","c2"]
 T2df=pd.DataFrame(T2)
 T2df.columns=["c1","c2"]
 
-plt.scatter(T1df["c1"], T1df["c2"], c=data1L["label"])
+#Colors
+l_colors = data1L["label"]
+l_colors = l_colors.replace("Normal", "y")
+l_colors = l_colors.replace("Fall", "r")
+r_colors = data1R["label"]
+r_colors = r_colors.replace("Normal", "y")
+r_colors = r_colors.replace("Fall", "r")
+
+plt.scatter(T1df["c1"], T1df["c2"], c=l_colors)
 plt.title("PCA scatter plot, left foot step phases time")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/31.png')
+plt.savefig('../figs/31.png')
 plt.show()
 
-plt.scatter(T2df["c1"], T2df["c2"], c=data1R["label"])
+plt.scatter(T2df["c1"], T2df["c2"], c=r_colors)
 plt.title("PCA scatter plot, right foot step phases time")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/32.png')
+plt.savefig('../figs/32.png')
 plt.show()
 
 
@@ -944,20 +1049,25 @@ T=pca.transform(Tdf)
 Tdf=pd.DataFrame(T)
 Tdf.columns=["c1","c2"]
 
+#Colors
+colors = labelL
+colors = colors.replace("Normal", "y")
+colors = colors.replace("Fall", "r")
+
 #Plot with prediction colors
 plt.scatter(Tdf["c1"], Tdf["c2"], c=y_pred)
 plt.title("Cluster scatter plot, left foot step phases time")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/34.png')
+plt.savefig('../figs/34.png')
 plt.show()
 
 #Plot with label colors
-plt.scatter(Tdf["c1"], Tdf["c2"], c=labelL)
+plt.scatter(Tdf["c1"], Tdf["c2"], c=colors)
 plt.title("Cluster scatter plot, left foot step phases time")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/35.png')
+plt.savefig('../figs/35.png')
 plt.show()
 
 best_k=0
@@ -1006,20 +1116,25 @@ T=pca.transform(Tdf)
 Tdf=pd.DataFrame(T)
 Tdf.columns=["c1","c2"]
 
+#Colors
+colors = labelR
+colors = colors.replace("Normal", "y")
+colors = colors.replace("Fall", "r")
+
 #Plot with prediction colors
 plt.scatter(Tdf["c1"], Tdf["c2"], c=y_pred)
 plt.title("Cluster scatter plot, right foot step phases time")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/36.png')
+plt.savefig('../figs/36.png')
 plt.show()
 
 #Plot with label colors
-plt.scatter(Tdf["c1"], Tdf["c2"], c=labelR)
+plt.scatter(Tdf["c1"], Tdf["c2"], c=colors)
 plt.title("Cluster scatter plot, right foot step phases time")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/37.png')
+plt.savefig('../figs/37.png')
 plt.show()
 
 
@@ -1042,18 +1157,26 @@ T1df.columns=["c1","c2"]
 T2df=pd.DataFrame(T2)
 T2df.columns=["c1","c2"]
 
-plt.scatter(T1df["c1"], T1df["c2"], c=data1L["label"])
+#Colors
+l_colors = data1L["label"]
+l_colors = l_colors.replace("Normal", "y")
+l_colors = l_colors.replace("Fall", "r")
+r_colors = data1R["label"]
+r_colors = r_colors.replace("Normal", "y")
+r_colors = r_colors.replace("Fall", "r")
+
+plt.scatter(T1df["c1"], T1df["c2"], c=l_colors)
 plt.title("PCA scatter plot, left foot step phases force")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/38.png')
+plt.savefig('../figs/38.png')
 plt.show()
 
-plt.scatter(T2df["c1"], T2df["c2"], c=data1R["label"])
+plt.scatter(T2df["c1"], T2df["c2"], c=r_colors)
 plt.title("PCA scatter plot, right foot step phases force")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/39.png')
+plt.savefig('../figs/39.png')
 plt.show()
 
 
@@ -1104,20 +1227,25 @@ T=pca.transform(Tdf)
 Tdf=pd.DataFrame(T)
 Tdf.columns=["c1","c2"]
 
+#Colors
+colors = labelL
+colors = colors.replace("Normal", "y")
+colors = colors.replace("Fall", "r")
+
 #Plot with prediction colors
 plt.scatter(Tdf["c1"], Tdf["c2"], c=y_pred)
 plt.title("Cluster scatter plot, left foot step phases force")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/40.png')
+plt.savefig('../figs/40.png')
 plt.show()
 
 #Plot with label colors
-plt.scatter(Tdf["c1"], Tdf["c2"], c=labelL)
+plt.scatter(Tdf["c1"], Tdf["c2"], c=colors)
 plt.title("Cluster scatter plot, left foot step phases force")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/41.png')
+plt.savefig('../figs/41.png')
 plt.show()
 
 best_k=0
@@ -1166,20 +1294,25 @@ T=pca.transform(Tdf)
 Tdf=pd.DataFrame(T)
 Tdf.columns=["c1","c2"]
 
+#Colors
+colors = labelR
+colors = colors.replace("Normal", "y")
+colors = colors.replace("Fall", "r")
+
 #Plot with prediction colors
 plt.scatter(Tdf["c1"], Tdf["c2"], c=y_pred)
 plt.title("Cluster scatter plot, right foot step phases force")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/42.png')
+plt.savefig('../figs/42.png')
 plt.show()
 
 #Plot with label colors
-plt.scatter(Tdf["c1"], Tdf["c2"], c=labelR)
+plt.scatter(Tdf["c1"], Tdf["c2"], c=colors)
 plt.title("Cluster scatter plot, right foot step phases force")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/43.png')
+plt.savefig('../figs/43.png')
 plt.show()
 
 
@@ -1202,18 +1335,26 @@ T1df.columns=["c1","c2"]
 T2df=pd.DataFrame(T2)
 T2df.columns=["c1","c2"]
 
-plt.scatter(T1df["c1"], T1df["c2"], c=data1L["label"])
+#Colors
+l_colors = data1L["label"]
+l_colors = l_colors.replace("Normal", "y")
+l_colors = l_colors.replace("Fall", "r")
+r_colors = data1R["label"]
+r_colors = r_colors.replace("Normal", "y")
+r_colors = r_colors.replace("Fall", "r")
+
+plt.scatter(T1df["c1"], T1df["c2"], c=l_colors)
 plt.title("PCA scatter plot, left foot step")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/44.png')
+plt.savefig('../figs/44.png')
 plt.show()
 
-plt.scatter(T2df["c1"], T2df["c2"], c=data1R["label"])
+plt.scatter(T2df["c1"], T2df["c2"], c=r_colors)
 plt.title("PCA scatter plot, right foot step")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/45.png')
+plt.savefig('../figs/45.png')
 plt.show()
 
 
@@ -1264,20 +1405,25 @@ T=pca.transform(Tdf)
 Tdf=pd.DataFrame(T)
 Tdf.columns=["c1","c2"]
 
+#Colors
+colors = labelL
+colors = colors.replace("Normal", "y")
+colors = colors.replace("Fall", "r")
+
 #Plot with prediction colors
 plt.scatter(Tdf["c1"], Tdf["c2"], c=y_pred)
 plt.title("Cluster scatter plot, left foot step")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/46.png')
+plt.savefig('../figs/46.png')
 plt.show()
 
 #Plot with label colors
-plt.scatter(Tdf["c1"], Tdf["c2"], c=labelL)
+plt.scatter(Tdf["c1"], Tdf["c2"], c=colors)
 plt.title("Cluster scatter plot, left foot step")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/47.png')
+plt.savefig('../figs/47.png')
 plt.show()
 
 best_k=0
@@ -1326,26 +1472,31 @@ T=pca.transform(Tdf)
 Tdf=pd.DataFrame(T)
 Tdf.columns=["c1","c2"]
 
+#Colors
+colors = labelR
+colors = colors.replace("Normal", "y")
+colors = colors.replace("Fall", "r")
+
 #Plot with prediction colors
 plt.scatter(Tdf["c1"], Tdf["c2"], c=y_pred)
 plt.title("Cluster scatter plot, right foot step")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/48.png')
+plt.savefig('../figs/48.png')
 plt.show()
 
 #Plot with label colors
-plt.scatter(Tdf["c1"], Tdf["c2"], c=labelR)
+plt.scatter(Tdf["c1"], Tdf["c2"], c=colors)
 plt.title("Cluster scatter plot, right foot step")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
-plt.savefig('figs/49.png')
+plt.savefig('../figs/49.png')
 plt.show()
 
 
 #%%
-#silhouette graph example
 
+#silhouette graph example (from sklearn examples)
 
 from sklearn.datasets import make_blobs
 from sklearn.cluster import KMeans

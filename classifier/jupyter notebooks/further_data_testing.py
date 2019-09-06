@@ -26,7 +26,7 @@ from sklearn.metrics import silhouette_score
 
 
 #%%
-data = pd.read_csv('../combined_data_15-03.csv', sep=";", header=0)
+data = pd.read_csv('../tommi_test_data.csv', sep=";", header=0)
 #data = data.fillna(0)
 data = data.dropna()
 basedf = data
@@ -38,14 +38,15 @@ data = data.loc[data["Warning_code"] == 0]
 
 
 #%%
-data = data.drop(labels=["App_time","Left/Right"], axis=1)
-data = data.astype('int')
-data["App_time"] = basedf["App_time"]
-data["Left/Right"] = basedf["Left/Right"]
+#data = data.drop(labels=["App_time","Left/Right"], axis=1)
+#data = data.astype('int')
+#data["App_time"] = basedf["App_time"]
+#data["Left/Right"] = basedf["Left/Right"]
 
 
 #%%
-data1 = data.loc[data["session"] == 1]
+#data1 = data.loc[data["session"] == 1]
+data1 = data
 data1L = data.loc[data["Left/Right"] == "L"]
 data1R = data.loc[data["Left/Right"] == "R"]
 
@@ -914,9 +915,4 @@ plt.title("Cluster scatter plot, right foot end time")
 plt.xlabel("Principle Component 1")
 plt.ylabel("Principle Component 2")
 plt.show()
-
-
-#%%
-
-
 
