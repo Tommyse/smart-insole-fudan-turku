@@ -18,6 +18,13 @@ import matplotlib.pyplot as plt
 
 from insole.dataHandler import *
 
+plt.style.use(['ggplot'])
+plt.tight_layout()
+plt.gcf().subplots_adjust(bottom=0.13)
+plt.gcf().subplots_adjust(left=0.13)
+plt.rcParams["figure.figsize"] = (14,12)
+
+
 
 #%%
 pd.set_option('display.max_columns', None)

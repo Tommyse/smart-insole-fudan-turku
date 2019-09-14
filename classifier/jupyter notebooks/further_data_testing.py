@@ -24,6 +24,13 @@ from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score
 #https://scikit-learn.org/stable/modules/generated/sklearn.metrics.silhouette_score.html
 
+plt.style.use(['ggplot'])
+plt.tight_layout()
+plt.gcf().subplots_adjust(bottom=0.13)
+plt.gcf().subplots_adjust(left=0.13)
+plt.rcParams["figure.figsize"] = (14,12)
+
+
 
 #%%
 data = pd.read_csv('../tommi_test_data.csv', sep=";", header=0)

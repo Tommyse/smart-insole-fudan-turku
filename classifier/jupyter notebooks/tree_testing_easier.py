@@ -21,10 +21,20 @@ import matplotlib.pyplot as plt
 
 from columns import DataColumns
 from dataHandler import DataHandler
-from decisionTreeClassifiers import DecisionTreeClassifiers
+from treeClassifiers import TreeClassifiers
 from collections import namedtuple
 
+from sklearn.metrics import roc_auc_score
+
+plt.style.use(['ggplot'])
+plt.tight_layout()
+plt.gcf().subplots_adjust(bottom=0.13)
+plt.gcf().subplots_adjust(left=0.13)
+plt.rcParams["figure.figsize"] = (14,12)
+
+
 #%%
+
 data = pd.read_csv('../tommi_test_data.csv', sep=";", header=0)
 data = data.loc[data["Warning_code"] == 0]
 data = data.reset_index(drop=True)
@@ -36,88 +46,14 @@ step_t_DF = DataHandler.calculateStepTime(data)
 
 standardized_data = DataHandler.minmaxStandardizeForces(step_t_DF)
 
-
-#%% gini tree
-x_cols = DataColumns.getSelectedCols2()
-y_cols = ["label"]
-plots = True
-
-parameters = namedtuple("parameters", ["class_weight", "criterion", "max_depth", "max_features",
-    "max_leaf_nodes", "min_samples_leaf", "min_samples_split", "min_weight_fraction_leaf", "presort", "random_state", "splitter"])
-
-#Parameters
-params = parameters(
-    	class_weight=None,
-		criterion='gini',
-		max_depth=5,
-		max_features=None,
-		max_leaf_nodes=None,
-		min_samples_leaf=5,
-		min_samples_split=2,
-		min_weight_fraction_leaf=0.0,
-		presort=False,
-		random_state=123,
-		splitter='best'
-	)
-
-avg_acc, real_label, pred_label = DecisionTreeClassifiers.testTreePredictions(standardized_data, params, x_cols, y_cols, plots)
-
-#%% entropy tree
-x_cols = DataColumns.getSelectedCols2()
-y_cols = ["label"]
-plots = True
-
-parameters = namedtuple("parameters", ["class_weight", "criterion", "max_depth", "max_features",
-    "max_leaf_nodes", "min_samples_leaf", "min_samples_split", "min_weight_fraction_leaf", "presort", "random_state", "splitter"])
-
-#Parameters
-params = parameters(
-    	class_weight=None,
-		criterion='entropy',
-		max_depth=5,
-		max_features=None,
-		max_leaf_nodes=None,
-		min_samples_leaf=5,
-		min_samples_split=2,
-		min_weight_fraction_leaf=0.0,
-		presort=False,
-		random_state=123,
-		splitter='best'
-	)
-
-avg_acc, real_label, pred_label = DecisionTreeClassifiers.testTreePredictions(standardized_data, params, x_cols, y_cols, plots)
-
-
-#%%  XGBoost (Extreme Gradient Boost trees)
-
-x_cols = DataColumns.getSelectedCols2()
-y_cols = ["label"]
-plots = True
-
-parameters = namedtuple("parameters", ["class_weight", "criterion", "max_depth", "max_features",
-    "max_leaf_nodes", "min_samples_leaf", "min_samples_split", "min_weight_fraction_leaf", "presort", "random_state", "splitter"])
-
-#Parameters (unused currently)
-params = []
-
-
-avg_acc, real_label, pred_label = DecisionTreeClassifiers.testXGBoostPredictions(standardized_data, params, x_cols, y_cols, plots)
-
-
 #%%
-data = pd.read_csv('../tommi_test_data.csv', sep=";", header=0)
-#data = data.loc[data["Warning_code"] == 0]
-#data = data.reset_index(drop=True)
-basedf = data
 
-tforce_DF = DataHandler.calculateTotalForce(data)
-step_t_DF = DataHandler.calculateStepTime(data)
-#force_diff_DF = DataHandler.calculateForceDiff(data) #doesn't work currently
+#TreeClassifiers.testFigLayout("test_prefix")
 
-standardized_data = DataHandler.minmaxStandardizeForces(step_t_DF)
 
 
 #%% gini tree
+
 x_cols = DataColumns.getSelectedCols2()
 y_cols = ["label"]
 plots = True
@@ -140,9 +76,56 @@ params = parameters(
 		splitter='best'
 	)
 
-avg_acc, real_label, pred_label = DecisionTreeClassifiers.testTreePredictions(standardized_data, params, x_cols, y_cols, plots)
+avg_acc, real_label, pred_label = TreeClassifiers.testTreePredictions(standardized_data, params, x_cols, y_cols, plots)
+
+pred_label_df = pred_label
+real_label_df = real_label
+    
+pred_label_df = pred_label_df.replace("Normal", 0)
+pred_label_df = pred_label_df.replace("Fall", 1)
+
+real_label_df = real_label_df.replace("Normal", 0)
+real_label_df = real_label_df.replace("Fall", 1)
+
+avg_auc = roc_auc_score(real_label_df, pred_label_df)
+print("AUC score: ", round(avg_auc, 2))
+
+#%% Permutation tests
+
+# This test should give lower average accuracy than the proper implementation
+permutation_count = 2000 #how many times the suffled data is tested
+
+permutation_accs, permutation_aucs = TreeClassifiers.testTreeLearning(standardized_data, params, x_cols, y_cols, permutation_count, True, avg_acc, avg_auc, "tree1_gini_perm")
+
+
+#%%	Calculating the accuracy p-value
+
+print("Accuracy:")
+counter=0
+for num in range(0,len(permutation_accs)): #going through all results
+    if permutation_accs[num] >= avg_acc:
+        counter = counter+1
+pscore = counter/permutation_count
+print("counter =",counter)
+print("p-value =",pscore)
+
+#%%	Calculating the AUC p-value
+
+print("AUC:")
+counter=0
+for num in range(0,len(permutation_aucs)): #going through all results
+    if permutation_aucs[num] >= avg_auc:
+        counter = counter + 1
+pscore = counter/permutation_count
+print("counter =",counter)
+print("p-value =",pscore)
+
+
+
+#-------------------------------------------------------------------------------------------------------------------
 
 #%% entropy tree
+
 x_cols = DataColumns.getSelectedCols2()
 y_cols = ["label"]
 plots = True
@@ -165,8 +148,54 @@ params = parameters(
 		splitter='best'
 	)
 
-avg_acc, real_label, pred_label = DecisionTreeClassifiers.testTreePredictions(standardized_data, params, x_cols, y_cols, plots)
+avg_acc, real_label, pred_label = TreeClassifiers.testTreePredictions(standardized_data, params, x_cols, y_cols, plots)
 
+pred_label_df = pred_label
+real_label_df = real_label
+    
+pred_label_df = pred_label_df.replace("Normal", 0)
+pred_label_df = pred_label_df.replace("Fall", 1)
+
+real_label_df = real_label_df.replace("Normal", 0)
+real_label_df = real_label_df.replace("Fall", 1)
+
+avg_auc = roc_auc_score(real_label_df, pred_label_df)
+print("AUC score: ", round(avg_auc, 2))
+
+#%% Permutation tests
+
+# This test should give lower average accuracy than the proper implementation
+permutation_count = 2000 #how many times the suffled data is tested
+
+permutation_accs, permutation_aucs = TreeClassifiers.testTreeLearning(standardized_data, params, x_cols, y_cols, permutation_count, True, avg_acc, avg_auc, "tree1_entropy_perm")
+
+
+#%%	Calculating the accuracy p-value
+
+print("Accuracy:")
+counter=0
+for num in range(0,len(permutation_accs)): #going through all results
+    if permutation_accs[num] >= avg_acc:
+        counter = counter+1
+pscore = counter/permutation_count
+print("counter =",counter)
+print("p-value =",pscore)
+
+#%%	Calculating the AUC p-value
+
+print("AUC:")
+counter=0
+for num in range(0,len(permutation_aucs)): #going through all results
+    if permutation_aucs[num] >= avg_auc:
+        counter = counter + 1
+pscore = counter/permutation_count
+print("counter =",counter)
+print("p-value =",pscore)
+
+
+
+
+#-------------------------------------------------------------------------------------------------------------------
 
 #%%  XGBoost (Extreme Gradient Boost trees)
 
@@ -181,4 +210,51 @@ parameters = namedtuple("parameters", ["class_weight", "criterion", "max_depth",
 params = []
 
 
-avg_acc, real_label, pred_label = DecisionTreeClassifiers.testXGBoostPredictions(standardized_data, params, x_cols, y_cols, plots)
+avg_acc, real_label, pred_label = TreeClassifiers.testXGBoostPredictions(standardized_data, params, x_cols, y_cols, plots)
+
+pred_label_df = pred_label
+real_label_df = real_label
+    
+pred_label_df = pred_label_df.replace("Normal", 0)
+pred_label_df = pred_label_df.replace("Fall", 1)
+
+real_label_df = real_label_df.replace("Normal", 0)
+real_label_df = real_label_df.replace("Fall", 1)
+
+avg_auc = roc_auc_score(real_label_df, pred_label_df)
+print("AUC score: ", round(avg_auc, 2))
+
+#%% Permutation tests
+
+# This test should give lower average accuracy than the proper implementation
+permutation_count = 500 #how many times the suffled data is tested
+
+permutation_accs, permutation_aucs = TreeClassifiers.testXGBoostLearning(standardized_data, params, x_cols, y_cols, permutation_count, True, avg_acc, avg_auc, "xgboost")
+
+
+
+#%%	Calculating the accuracy p-value
+
+print("Accuracy:")
+counter=0
+for num in range(0,len(permutation_accs)): #going through all results
+    if permutation_accs[num] >= avg_acc:
+        counter = counter+1
+pscore = counter/permutation_count
+print("counter =",counter)
+print("p-value =",pscore)
+
+#%%	Calculating the AUC p-value
+
+print("AUC:")
+counter=0
+for num in range(0,len(permutation_aucs)): #going through all results
+    if permutation_aucs[num] >= avg_auc:
+        counter = counter + 1
+pscore = counter/permutation_count
+print("counter =",counter)
+print("p-value =",pscore)
+
+
+
+

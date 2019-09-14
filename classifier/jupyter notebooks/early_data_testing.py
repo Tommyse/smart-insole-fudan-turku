@@ -29,13 +29,20 @@ from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score
 #https://scikit-learn.org/stable/modules/generated/sklearn.metrics.silhouette_score.html
 
+print(plt.style.available)
+
+plt.style.use(['ggplot'])
+plt.tight_layout()
+plt.gcf().subplots_adjust(bottom=0.13)
+plt.gcf().subplots_adjust(left=0.13)
+plt.rcParams["figure.figsize"] = (14,12)
+
+
 
 #%%
 current_dir = os.getcwd()
 print("Current active working directory: ", current_dir)
 
-print(plt.style.available)
-plt.style.use(['ggplot'])
 
 #%%
 data = pd.read_csv("../combined_data_15-03.csv", sep=";", header=0)

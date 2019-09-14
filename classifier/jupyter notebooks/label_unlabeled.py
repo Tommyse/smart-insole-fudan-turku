@@ -19,7 +19,7 @@ from sklearn.decomposition import PCA
 
 
 from insole.dataHandler import *
-from insole.decisionTreeClassifiers import *
+from insole.treeClassifiers import *
 from insole.columns import *
 
 

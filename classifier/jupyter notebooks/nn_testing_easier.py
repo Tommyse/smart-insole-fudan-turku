@@ -1,3 +1,6 @@
+#%% [markdown]
+# This dataset has only falling data and normal walking forward
+
 #%% Change working directory from the workspace root to the ipynb file location. Turn this addition off with the DataScience.changeDirOnImportExport setting
 # ms-python.python added
 import os
@@ -16,12 +19,10 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-from dataHandler import DataHandler
-from treeClassifiers import TreeClassifiers
 from columns import DataColumns
-from ensemble import Ensemble
-
-from sklearn.metrics import classification_report
+from dataHandler import DataHandler
+from tfClassifiers import TfClassifiers
+from collections import namedtuple
 
 plt.style.use(['ggplot'])
 plt.tight_layout()
@@ -31,37 +32,22 @@ plt.rcParams["figure.figsize"] = (14,12)
 
 
 #%%
-#data = pd.read_csv('../tommi_test_data.csv', sep=";", header=0)
-data = pd.read_csv('../tommi_test_data_more_diff_steps.csv', sep=";", header=0)
-
+data = pd.read_csv('../tommi_test_data.csv', sep=";", header=0)
 data = data.loc[data["Warning_code"] == 0]
 data = data.reset_index(drop=True)
+basedf = data
 
 tforce_DF = DataHandler.calculateTotalForce(data)
 step_t_DF = DataHandler.calculateStepTime(data)
-#force_diff_DF = DataHandler.calculateForceDiff(data)
+#force_diff_DF = DataHandler.calculateForceDiff(data) #doesn't work currently
+
+standardized_data = DataHandler.minmaxStandardizeForces(step_t_DF)
 
 
 #%%
+x_cols = DataColumns.getSelectedCols2()
+y_cols = ["label"]
+plots = True
 
 
-avg_acc, real_label_df, pred_label_df = Ensemble.testBagging(step_t_DF)
-
-
-
-
-
-
-
-
-
-
-#%%
-train = step_t_DF
-unlabeled = step_t_DF #FOR TESTING ONLY
-
-predictions = Ensemble.getBaggingPredictions(train, unlabeled)
-
-
-print(classification_report(train["label"].values, predictions))
-
+avg_acc, real_label, pred_label = TfClassifiers.testNn(standardized_data, x_cols, y_cols, plots)

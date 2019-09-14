@@ -252,3 +252,22 @@ class DataHandler:
         result = pd.concat([other_data,force_normalized], axis=0, ignore_index=True)
         
         return(result)
+    
+    #scaling new data forces to same scale as the training data
+    def scaleData(train, data):
+        
+        return(data)
+    
+    #generating random datasets
+    #for using same classifier multiple times
+    def genRandomDatasets(data, amount, dropAmount):
+        
+        datasets = []
+        
+        for a in range(0,amount):
+            dataset = pd.DataFrame(data)
+            dataset = dataset.sample(frac=1).reset_index(drop=True) #suffling
+            dataset.drop(dataset.tail(dropAmount).index,inplace=True)
+            datasets.append(dataset)
+            
+        return(datasets)

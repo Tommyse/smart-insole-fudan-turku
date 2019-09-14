@@ -1,72 +1,120 @@
 # smart-insole-fudan-turku
 
-## Notes
-
-- Including steps with errors alters the accuracy of classifiers a bit
--- Seems to be a small change towards worse accuracy
-
-
 ## Code
 
 - Pydoc documentation
 
 ## Data
 
-- Data labeled to "Normal" and "Fall"
+- Data labeled as "Normal" and "Fall" based on collected sets
 
--- "Normal", "Risk" and "Fall" could be another option
+	- "Normal", "Risk" and "Fall" could be another option
 
 ## Classifier
 
-The classifier and data processing library is currently at "classifier/jupyter notebooks/insoleLib"
+The classifier and data processing library is currently at **"classifier/jupyter notebooks/insoleLib"**
+
+Various python files in **"classifier/jupyter notebooks"** are jupyter notebooks in alternate format
+
+### Notes
+
+- Including steps with errors alters the accuracy of classifiers a bit
+
+	- Seems to be a small change towards worse accuracy. Might be bigger problem when using data from multiple different persons.
+
+
+	- https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html
+
+	- https://towardsdatascience.com/fine-tuning-a-classifier-in-scikit-learn-66e048c21e65
+
+	- https://scikit-learn.org/stable/modules/ensemble.html
+
+	- https://scikit-learn.org/stable/modules/decomposition.html
+
+	- https://scikit-learn.org/stable/modules/feature_selection.html
 
 ### To-Do
 
-Building the library more and testing various things. This should make using it with the website much smaller hassle.
+- Test leave-three-out as CV?
+
+	- Leave-one-out might give too optimistic results
 
 - More feature selection/generation methods
 
 - scaling forces could use more testing and observing
 
--- The data needs to be standardized since every session can have different forces. (different persons probably walk and weigh differently)
+	- The data needs to be standardized since every session can have different forces. (different persons probably walk and weigh differently)
 
--- Needs further testing things.
+	- Needs further testing things
 
--- https://scikit-learn.org/stable/auto_examples/preprocessing/plot_all_scaling.html
+	- https://scikit-learn.org/stable/auto_examples/preprocessing/plot_all_scaling.html
 
--- https://medium.com/@urvashilluniya/why-data-normalization-is-necessary-for-machine-learning-models-681b65a05029
+	- https://medium.com/@urvashilluniya/why-data-normalization-is-necessary-for-machine-learning-models-681b65a05029
 
--- http://www.grroups.com/blog/about-feature-scaling-and-normalization-and-the-effect-of-standardization-for-machine-learning-algorithms
+	- http://www.grroups.com/blog/about-feature-scaling-and-normalization-and-the-effect-of-standardization-for-machine-learning-algorithms
 
--- https://sebastianraschka.com/Articles/2014_about_feature_scaling.html
+	- https://sebastianraschka.com/Articles/2014_about_feature_scaling.html
 
-- Testing features. Which ones are best? accuracy/correlation comparisons
+- Testing more different feature sets. Which is the best?
 
-- Building some different classifiers (Traditional machine learning + Deep learning)
---Deep learning things
---Support Vector Machines?
---Random Forests? (ensemble learning with trees)
+- Building different classifiers
 
-- Taking a look at semi-supervised learning instead (Labeling mixed unlabeled data based on previous data for more training/testing data?)
+	- Deep learning things
 
-- Some checks for the classifiers
--- Parameter tuning
---- Better accuracy?
---- Avoiding overfitting and underfitting
--- Test if the classifiers acctually learn something
---- Suffle data labels and test accuracies over 1000 times + histograms + compare average accuracy
+	- Custom KNN which is extra sensitive for fall labels?
 
-- Ensemble learning (combining results from different classifiers built earlier)
+		- even one fall label in neighbor could cause labeling row as fall?
+
+- Testing semi-supervised learning
+
+- Classifier parameter tuning
+
+	- Better accuracy
+
+	- Avoiding overfitting and underfitting
+
+- More ensemble learning stuff
+
+![Sklearn Flowchart](https://scikit-learn.org/stable/_static/ml_map.png)
+
+
+
+### Speeding up classifying process
+
+- Could use multiprocessing maybe
+
+- https://stackoverflow.com/questions/20548628/how-to-do-parallel-programming-in-python
+
+- https://docs.python.org/release/3.6.8/library/multiprocessing.html
+
+
+---
 
 ### Implemented
 
 - Some features
 
 - Classifiers
--- KNN
--- Decision trees
--- Extreme gradient boosted trees
 
+	- KNN
+
+	- Decision trees
+
+	- Extreme gradient boosted trees
+
+	- Support Vector Machines
+
+	- Tests if the classifiers acctually learn something
+
+- Tests
+
+	- Data labels suffled and test many times + plots + compared to real results
+
+- Ensemble learning
+
+	- Bagging
+
+---
 
 ## Webapp
 

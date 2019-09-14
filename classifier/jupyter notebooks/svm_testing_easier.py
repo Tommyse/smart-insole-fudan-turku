@@ -21,7 +21,7 @@ import matplotlib.pyplot as plt
 
 from columns import DataColumns
 from dataHandler import DataHandler
-from knnClassifiers import KnnClassifiers
+from svmClassifiers import SvmClassifiers
 from collections import namedtuple
 
 from sklearn.metrics import roc_auc_score
@@ -47,40 +47,15 @@ step_t_DF = DataHandler.calculateStepTime(data)
 standardized_data = DataHandler.minmaxStandardizeForces(step_t_DF)
 
 
-#%%
+#%% Classifier testing, rbf kernel
 x_cols = DataColumns.getSelectedCols2()
 y_cols = ["label"]
 plots = True
 
 #Parameters
-k = KnnClassifiers.findBestK(standardized_data, x_cols, y_cols)
+kern = "rbf"
 
-avg_acc, real_label, pred_label = KnnClassifiers.testKnn(standardized_data, k, x_cols, y_cols, plots)
-
-
-
-#%%
-data = pd.read_csv('../tommi_test_data.csv', sep=";", header=0)
-#data = data.loc[data["Warning_code"] == 0]
-#data = data.reset_index(drop=True)
-basedf = data
-
-tforce_DF = DataHandler.calculateTotalForce(data)
-step_t_DF = DataHandler.calculateStepTime(data)
-#force_diff_DF = DataHandler.calculateForceDiff(data) #doesn't work currently
-
-standardized_data = DataHandler.minmaxStandardizeForces(step_t_DF)
-
-
-#%% Classifier testing
-x_cols = DataColumns.getSelectedCols2()
-y_cols = ["label"]
-plots = True
-
-#Parameters
-k = KnnClassifiers.findBestK(standardized_data, x_cols, y_cols)
-
-avg_acc, real_label, pred_label = KnnClassifiers.testKnn(standardized_data, k, x_cols, y_cols, plots)
+avg_acc, real_label, pred_label = SvmClassifiers.testSvm(standardized_data, kern, x_cols, y_cols, plots)
 
 pred_label_df = pred_label
 real_label_df = real_label
@@ -94,12 +69,13 @@ real_label_df = real_label_df.replace("Fall", 1)
 avg_auc = roc_auc_score(real_label_df, pred_label_df)
 print("AUC score: ", round(avg_auc, 2))
 
+
 #%% Permutation tests
 
 # This test should give lower average accuracy than the proper implementation
-permutation_count = 2000 #how many times the suffled data is tested
+permutation_count = 400 #how many times the suffled data is tested
 
-permutation_accs, permutation_aucs = KnnClassifiers.testKnnLearning(standardized_data, k, x_cols, y_cols, permutation_count, True, avg_acc, avg_auc, "knn1_perm")
+permutation_accs, permutation_aucs = SvmClassifiers.testSvmLearning(standardized_data, kern, x_cols, y_cols, permutation_count, True, avg_acc, avg_auc, "svm1_rbf")
 
 
 
@@ -114,6 +90,7 @@ pscore = counter/permutation_count
 print("counter =",counter)
 print("p-value =",pscore)
 
+
 #%%	Calculating the AUC p-value
 
 print("AUC:")
@@ -124,3 +101,33 @@ for num in range(0,len(permutation_aucs)): #going through all results
 pscore = counter/permutation_count
 print("counter =",counter)
 print("p-value =",pscore)
+
+
+
+
+
+
+#%%
+
+# poly kernel gives bad results
+
+#x_cols = DataColumns.getSelectedCols2()
+#y_cols = ["label"]
+#plots = True
+#
+##Parameters
+#kern = "poly"
+#
+#avg_acc, real_label, pred_label = SvmClassifiers.testSvm(standardized_data, kern, x_cols, y_cols, plots)
+#
+#pred_label_df = pred_label
+#real_label_df = real_label
+#    
+#pred_label_df = pred_label_df.replace("Normal", 0)
+#pred_label_df = pred_label_df.replace("Fall", 1)
+#
+#real_label_df = real_label_df.replace("Normal", 0)
+#real_label_df = real_label_df.replace("Fall", 1)
+#
+#avg_auc = roc_auc_score(real_label_df, pred_label_df)
+#print("AUC score: ", round(avg_auc, 2))
