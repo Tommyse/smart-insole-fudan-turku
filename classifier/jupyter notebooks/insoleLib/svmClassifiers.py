@@ -78,11 +78,12 @@ class SvmClassifiers:
             cm_df = pd.DataFrame(cm, ["Fall", "Normal"], ["Fall", "Normal"])
             
             sn.set(font_scale=1.5)
-            sn.heatmap(cm_df, annot=True, annot_kws={"size": 20}) #font size 20
-            plt.show() #TODO removing the exponent offset...
+            sn.heatmap(cm_df, annot=True, annot_kws={"size": 32}, fmt='d')
+            plt.savefig("../figs/svm_heatmap.png", facecolor="w", bbox_inches="tight")
+            plt.show()
         
         #Checking accuracy
-        print("KNN average accuracy: ", round(avg_acc, 2)) #2 decimals
+        print("SVM average accuracy: ", round(avg_acc, 2)) #2 decimals
         
         #More detailed report
         print(classification_report(real_label_df, pred_label_df))
@@ -185,7 +186,7 @@ class SvmClassifiers:
         knn.fit(xtrain, ytrain.values.ravel())
         ypred=knn.predict(xdata)
 
-        data["label"] = ypred
+        #data["label"] = ypred
 
         return(ypred)
 

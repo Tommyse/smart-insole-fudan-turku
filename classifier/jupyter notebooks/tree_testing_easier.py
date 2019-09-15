@@ -31,7 +31,7 @@ plt.tight_layout()
 plt.gcf().subplots_adjust(bottom=0.13)
 plt.gcf().subplots_adjust(left=0.13)
 plt.rcParams["figure.figsize"] = (14,12)
-
+plt.ticklabel_format(style='plain', useOffset=False)
 
 #%%
 

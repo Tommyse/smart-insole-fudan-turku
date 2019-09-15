@@ -139,8 +139,9 @@ class TfClassifiers:
             cm_df = pd.DataFrame(cm, ["Fall", "Normal"], ["Fall", "Normal"])
             
             sn.set(font_scale=1.5)
-            sn.heatmap(cm_df, annot=True, annot_kws={"size": 20}) #font size 20
-            plt.show() #TODO removing the exponent offset...
+            sn.heatmap(cm_df, annot=True, annot_kws={"size": 32}, fmt='d')
+            plt.savefig("../figs/tf_heatmap.png", facecolor="w", bbox_inches="tight")
+            plt.show()
 
         avg_acc = np.mean(accuracy_a)
         

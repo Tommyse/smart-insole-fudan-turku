@@ -96,15 +96,65 @@ Various python files in **"classifier/jupyter notebooks"** are jupyter notebooks
 
 - Classifiers
 
-	- KNN
+KNN average accuracy:  **0.88**
 
-	- Decision trees
+            	precision    recall  f1-score   support
+        Fall		0.81      0.42      0.55        84
+      Normal		0.89      0.98      0.93       389
+   	micro avg       0.88      0.88      0.88       473
+  	macro avg       0.85      0.70      0.74       473
+	weighted avg    0.87      0.88      0.86       473
 
-	- Extreme gradient boosted trees
 
-	- Support Vector Machines
+---
 
-	- Tests if the classifiers acctually learn something
+Gini decision tree average accuracy:  **0.84**
+
+            	precision    recall  f1-score   support
+        Fall       	0.55      0.46      0.50        84
+      Normal       	0.89      0.92      0.90       389
+   	micro avg       0.84      0.84      0.84       473
+   	macro avg       0.72      0.69      0.70       473
+	weighted avg    0.83      0.84      0.83       473
+
+
+---
+
+Entropy decision tree average accuracy:  **0.85**
+
+              	precision    recall  f1-score   support
+        Fall       	0.60      0.51      0.55        84
+      Normal       	0.90      0.93      0.91       389
+   	micro avg       0.85      0.85      0.85       473
+   	macro avg       0.75      0.72      0.73       473
+	weighted avg    0.84      0.85      0.85       473
+
+
+---
+
+Extreme gradient boosted tree average accuracy:  **0.89**
+
+              	precision    recall  f1-score   support
+        Fall       	0.78      0.56      0.65        84
+      Normal       	0.91      0.97      0.94       389
+   	micro avg       0.89      0.89      0.89       473
+   	macro avg       0.85      0.76      0.80       473
+	weighted avg    0.89      0.89      0.89       473
+
+
+---	
+
+Support Vector Machine average accuracy:  **0.86**
+
+              	precision    recall  f1-score   support
+        Fall       	0.70      0.39      0.50        84
+      Normal       	0.88      0.96      0.92       389
+   	micro avg       0.86      0.86      0.86       473
+   	macro avg       0.79      0.68      0.71       473
+	weighted avg    0.85      0.86      0.85       473
+
+
+---
 
 - Tests
 
@@ -112,7 +162,15 @@ Various python files in **"classifier/jupyter notebooks"** are jupyter notebooks
 
 - Ensemble learning
 
-	- Bagging
+Bagging average accuracy:  **0.9**
+
+              	precision    recall  f1-score   support
+        Fall       	0.83      0.52      0.64        84
+      Normal       	0.90      0.98      0.94       389
+   	micro avg       0.90      0.90      0.90       473
+   	macro avg       0.87      0.75      0.79       473
+	weighted avg    0.89      0.90      0.89       473
+
 
 ---
 

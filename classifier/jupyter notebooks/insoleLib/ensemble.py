@@ -63,6 +63,9 @@ class Ensemble:
         accuracy_a = []
         real_label = []
         pred_label = []
+        
+        #KNN parameters
+        k = KnnClassifiers.findBestK(data, x_cols, y_cols) #best k
 
         for train_index, test_index in n: #Each row is test data once
             xtrain, xtest = x.iloc[train_index], x.iloc[test_index]
@@ -71,13 +74,12 @@ class Ensemble:
             train = xtrain
             train.loc[:,"label"] = ytrain
 
-            #generating datasets where data has been suffled and last random 30 rows has been dropped
-            dataset_amount = 5
-            drop_amount = 30
+            #generating datasets where data has been suffled and last random x rows has been dropped
+            dataset_amount = 10
+            drop_amount = 40
             datasets = DataHandler.genRandomDatasets(train, dataset_amount, drop_amount)
 
-            #KNN parameters
-            k = KnnClassifiers.findBestK(train, x_cols, y_cols) #best k
+            
 
             knn0_pred_label = KnnClassifiers.getKnnPredictions(train, xtest, k)
             knn1_pred_label = KnnClassifiers.getKnnPredictions(datasets[0], xtest, k)
@@ -85,6 +87,11 @@ class Ensemble:
             knn3_pred_label = KnnClassifiers.getKnnPredictions(datasets[2], xtest, k)
             knn4_pred_label = KnnClassifiers.getKnnPredictions(datasets[3], xtest, k)
             knn5_pred_label = KnnClassifiers.getKnnPredictions(datasets[4], xtest, k)
+            knn6_pred_label = KnnClassifiers.getKnnPredictions(datasets[5], xtest, k)
+            knn7_pred_label = KnnClassifiers.getKnnPredictions(datasets[6], xtest, k)
+            knn8_pred_label = KnnClassifiers.getKnnPredictions(datasets[7], xtest, k)
+            knn9_pred_label = KnnClassifiers.getKnnPredictions(datasets[8], xtest, k)
+            knn10_pred_label = KnnClassifiers.getKnnPredictions(datasets[9], xtest, k)
 
             #Tree1 parameters
             params1 = parameters(class_weight=None, criterion='gini', max_depth=5, max_features=None,
@@ -97,6 +104,11 @@ class Ensemble:
             tree1_3_pred_label = TreeClassifiers.getTreePredictions(datasets[2], xtest, params1, x_cols, y_cols)
             tree1_4_pred_label = TreeClassifiers.getTreePredictions(datasets[3], xtest, params1, x_cols, y_cols)
             tree1_5_pred_label = TreeClassifiers.getTreePredictions(datasets[4], xtest, params1, x_cols, y_cols)
+            tree1_6_pred_label = TreeClassifiers.getTreePredictions(datasets[5], xtest, params1, x_cols, y_cols)
+            tree1_7_pred_label = TreeClassifiers.getTreePredictions(datasets[6], xtest, params1, x_cols, y_cols)
+            tree1_8_pred_label = TreeClassifiers.getTreePredictions(datasets[7], xtest, params1, x_cols, y_cols)
+            tree1_9_pred_label = TreeClassifiers.getTreePredictions(datasets[8], xtest, params1, x_cols, y_cols)
+            tree1_10_pred_label = TreeClassifiers.getTreePredictions(datasets[9], xtest, params1, x_cols, y_cols)
 
             #Tree2 parameters
             params2 = parameters(class_weight=None, criterion='entropy', max_depth=5, max_features=None,
@@ -109,6 +121,11 @@ class Ensemble:
             tree2_3_pred_label = TreeClassifiers.getTreePredictions(datasets[2], xtest, params2, x_cols, y_cols)
             tree2_4_pred_label = TreeClassifiers.getTreePredictions(datasets[3], xtest, params2, x_cols, y_cols)
             tree2_5_pred_label = TreeClassifiers.getTreePredictions(datasets[4], xtest, params2, x_cols, y_cols)
+            tree2_6_pred_label = TreeClassifiers.getTreePredictions(datasets[5], xtest, params2, x_cols, y_cols)
+            tree2_7_pred_label = TreeClassifiers.getTreePredictions(datasets[6], xtest, params2, x_cols, y_cols)
+            tree2_8_pred_label = TreeClassifiers.getTreePredictions(datasets[7], xtest, params2, x_cols, y_cols)
+            tree2_9_pred_label = TreeClassifiers.getTreePredictions(datasets[8], xtest, params2, x_cols, y_cols)
+            tree2_10_pred_label = TreeClassifiers.getTreePredictions(datasets[9], xtest, params2, x_cols, y_cols)
 
             xgboost0_pred_label = TreeClassifiers.getXGBoostPredictions(train, xtest, x_cols, y_cols)
             xgboost1_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[0], xtest, x_cols, y_cols)
@@ -116,6 +133,11 @@ class Ensemble:
             xgboost3_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[2], xtest, x_cols, y_cols)
             xgboost4_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[3], xtest, x_cols, y_cols)
             xgboost5_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[4], xtest, x_cols, y_cols)
+            xgboost6_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[5], xtest, x_cols, y_cols)
+            xgboost7_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[6], xtest, x_cols, y_cols)
+            xgboost8_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[7], xtest, x_cols, y_cols)
+            xgboost9_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[8], xtest, x_cols, y_cols)
+            xgboost10_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[9], xtest, x_cols, y_cols)
 
             #SVM parameters
             kern = "rbf"
@@ -126,6 +148,11 @@ class Ensemble:
             svm3_pred_label = SvmClassifiers.svmGetPredictions(datasets[2], xtest, kern)
             svm4_pred_label = SvmClassifiers.svmGetPredictions(datasets[3], xtest, kern)
             svm5_pred_label = SvmClassifiers.svmGetPredictions(datasets[4], xtest, kern)
+            svm6_pred_label = SvmClassifiers.svmGetPredictions(datasets[5], xtest, kern)
+            svm7_pred_label = SvmClassifiers.svmGetPredictions(datasets[6], xtest, kern)
+            svm8_pred_label = SvmClassifiers.svmGetPredictions(datasets[7], xtest, kern)
+            svm9_pred_label = SvmClassifiers.svmGetPredictions(datasets[8], xtest, kern)
+            svm10_pred_label = SvmClassifiers.svmGetPredictions(datasets[9], xtest, kern)
 
             #tensorflow
 
@@ -136,9 +163,15 @@ class Ensemble:
 
 
             predictionSets = [knn0_pred_label, knn1_pred_label, knn2_pred_label, knn3_pred_label, knn4_pred_label, knn5_pred_label,
-                tree1_0_pred_label,tree1_1_pred_label, tree1_2_pred_label, tree1_3_pred_label, tree1_4_pred_label, tree1_5_pred_label,
+                knn6_pred_label, knn7_pred_label, knn8_pred_label, knn9_pred_label, knn10_pred_label,
+                tree1_0_pred_label, tree1_1_pred_label, tree1_2_pred_label, tree1_3_pred_label, tree1_4_pred_label, tree1_5_pred_label,
+                tree1_6_pred_label, tree1_7_pred_label, tree1_8_pred_label, tree1_9_pred_label, tree1_10_pred_label,
                 tree2_0_pred_label, tree2_1_pred_label, tree2_2_pred_label, tree2_3_pred_label, tree2_4_pred_label, tree2_5_pred_label,
-                svm0_pred_label, svm1_pred_label, svm2_pred_label, svm3_pred_label, svm4_pred_label, svm5_pred_label]
+                tree2_6_pred_label, tree2_7_pred_label, tree2_8_pred_label, tree2_9_pred_label, tree2_10_pred_label,
+                xgboost0_pred_label, xgboost1_pred_label, xgboost2_pred_label, xgboost3_pred_label, xgboost4_pred_label, xgboost5_pred_label,
+                xgboost6_pred_label, xgboost7_pred_label, xgboost8_pred_label, xgboost9_pred_label, xgboost10_pred_label,
+                svm0_pred_label, svm1_pred_label, svm2_pred_label, svm3_pred_label, svm4_pred_label, svm5_pred_label,
+                svm6_pred_label, svm7_pred_label, svm8_pred_label, svm9_pred_label, svm10_pred_label]
 
             results = []
 
@@ -188,12 +221,12 @@ class Ensemble:
             cm_df = pd.DataFrame(cm, ["Fall", "Normal"], ["Fall", "Normal"])
             
             sn.set(font_scale=1.5)
-            sn.heatmap(cm_df, annot=True, annot_kws={"size": 20}) #font size 20
-            plt.savefig("../figs/bagging_heatmat.png", facecolor="w", bbox_inches="tight")
-            plt.show() #TODO removing the exponent offset...
+            sn.heatmap(cm_df, annot=True, annot_kws={"size": 32}, fmt='d')
+            plt.savefig("../figs/bagging_heatmap.png", facecolor="w", bbox_inches="tight")
+            plt.show()
         
         #Checking accuracy
-        print("KNN average accuracy: ", round(avg_acc, 2)) #2 decimals
+        print("Ensemble average accuracy: ", round(avg_acc, 2)) #2 decimals
         
         #More detailed report
         print(classification_report(real_label_df, pred_label_df))
