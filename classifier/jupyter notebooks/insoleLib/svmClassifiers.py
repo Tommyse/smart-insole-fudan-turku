@@ -73,7 +73,6 @@ class SvmClassifiers:
             real_label_df.loc[row] = label_str
         
         if(plots):
-            print("test1")
             cm = confusion_matrix(real_label_df, pred_label_df)
             cm_df = pd.DataFrame(cm, ["Fall", "Normal"], ["Fall", "Normal"])
             

@@ -34,7 +34,7 @@ plt.rcParams["figure.figsize"] = (14,12)
 plt.ticklabel_format(style='plain', useOffset=False)
 
 
-#%%
+#%% without errors
 data = pd.read_csv('../tommi_test_data.csv', sep=";", header=0)
 data = data.loc[data["Warning_code"] == 0]
 data = data.reset_index(drop=True)
@@ -57,9 +57,52 @@ k = KnnClassifiers.findBestK(standardized_data, x_cols, y_cols)
 
 avg_acc, real_label, pred_label = KnnClassifiers.testKnn(standardized_data, k, x_cols, y_cols, plots)
 
+pred_label_df = pred_label
+real_label_df = real_label
+    
+pred_label_df = pred_label_df.replace("Normal", 0)
+pred_label_df = pred_label_df.replace("Fall", 1)
+
+real_label_df = real_label_df.replace("Normal", 0)
+real_label_df = real_label_df.replace("Fall", 1)
+
+avg_auc = roc_auc_score(real_label_df, pred_label_df)
+print("AUC score: ", round(avg_auc, 2))
+
+#%% Permutation tests
+
+# This test should give lower average accuracy than the proper implementation
+permutation_count = 2000 #how many times the suffled data is tested
+
+permutation_accs, permutation_aucs = KnnClassifiers.testKnnLearning(standardized_data, k, x_cols, y_cols, permutation_count, True, avg_acc, avg_auc, "knn1_perm")
 
 
-#%%
+
+#%%	Calculating the accuracy p-value
+
+print("Accuracy:")
+counter=0
+for num in range(0,len(permutation_accs)): #going through all results
+    if permutation_accs[num] >= avg_acc:
+        counter = counter+1
+pscore = counter/permutation_count
+print("counter =",counter)
+print("p-value =",pscore)
+
+#%%	Calculating the AUC p-value
+
+print("AUC:")
+counter=0
+for num in range(0,len(permutation_aucs)): #going through all results
+    if permutation_aucs[num] >= avg_auc:
+        counter = counter + 1
+pscore = counter/permutation_count
+print("counter =",counter)
+print("p-value =",pscore)
+
+
+
+#%% with errors
 data = pd.read_csv('../tommi_test_data.csv', sep=";", header=0)
 #data = data.loc[data["Warning_code"] == 0]
 #data = data.reset_index(drop=True)

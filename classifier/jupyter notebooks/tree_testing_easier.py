@@ -124,6 +124,20 @@ print("p-value =",pscore)
 
 #-------------------------------------------------------------------------------------------------------------------
 
+
+#%%
+
+data = pd.read_csv('../tommi_test_data.csv', sep=";", header=0)
+data = data.loc[data["Warning_code"] == 0]
+data = data.reset_index(drop=True)
+basedf = data
+
+tforce_DF = DataHandler.calculateTotalForce(data)
+step_t_DF = DataHandler.calculateStepTime(data)
+#force_diff_DF = DataHandler.calculateForceDiff(data) #doesn't work currently
+
+standardized_data = DataHandler.minmaxStandardizeForces(step_t_DF)
+
 #%% entropy tree
 
 x_cols = DataColumns.getSelectedCols2()
@@ -197,6 +211,20 @@ print("p-value =",pscore)
 
 #-------------------------------------------------------------------------------------------------------------------
 
+#%%
+
+data = pd.read_csv('../tommi_test_data.csv', sep=";", header=0)
+data = data.loc[data["Warning_code"] == 0]
+data = data.reset_index(drop=True)
+basedf = data
+
+tforce_DF = DataHandler.calculateTotalForce(data)
+step_t_DF = DataHandler.calculateStepTime(data)
+#force_diff_DF = DataHandler.calculateForceDiff(data) #doesn't work currently
+
+standardized_data = DataHandler.minmaxStandardizeForces(step_t_DF)
+
+
 #%%  XGBoost (Extreme Gradient Boost trees)
 
 x_cols = DataColumns.getSelectedCols2()
@@ -229,7 +257,7 @@ print("AUC score: ", round(avg_auc, 2))
 # This test should give lower average accuracy than the proper implementation
 permutation_count = 500 #how many times the suffled data is tested
 
-permutation_accs, permutation_aucs = TreeClassifiers.testXGBoostLearning(standardized_data, params, x_cols, y_cols, permutation_count, True, avg_acc, avg_auc, "xgboost")
+permutation_accs, permutation_aucs = TreeClassifiers.testXGBoostLearning(standardized_data, params, x_cols, y_cols, permutation_count, True, avg_acc, avg_auc, "xgboost1")
 
 
 
