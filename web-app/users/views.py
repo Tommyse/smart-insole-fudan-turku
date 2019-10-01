@@ -50,3 +50,11 @@ def profile(request):
     }
 
     return render(request, 'users/profile.html', context)
+
+@login_required
+def sessions(request):
+    context = {
+
+    }
+
+    return render(request, 'users/sessions.html', context)
