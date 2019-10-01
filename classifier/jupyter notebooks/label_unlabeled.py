@@ -6,10 +6,10 @@ try:
 	print(os.getcwd())
 except:
 	pass
-#%%
+
 from IPython import get_ipython
 
-#%%
+
 get_ipython().run_line_magic('matplotlib', 'inline')
 import pandas as pd
 import numpy as np
@@ -116,9 +116,9 @@ plt.show()
 
 
 #%%
-#k = findBestK(x, y, 1, 10, values_cols, ycols) #testing 2 to 20
+#k = findBestK(x, y, 1, 10, values_cols, ycols) #testing 2 to 10
+#print("Best k =",k)
 k = 3
-print("Best k =",k)
 
 
 #%%
@@ -212,38 +212,5 @@ plt.show()
 
 
 #%%
-
-
-
-#%%
-
-
-
-#%%
-
-
-
-#%%
-
-
-
-#%%
-
-
-
-#%%
-
-
-
-#%%
-
-
-
-#%%
-
-
-
-#%%
-
 
 

@@ -38,7 +38,7 @@ class KnnClassifiers:
             loo = LeaveOneOut()
             loo.get_n_splits(data)
             n=loo.split(data)
-            knn = KNeighborsClassifier(n_neighbors=k, weights="uniform", metric="euclidean")
+            knnClassifier = KNeighborsClassifier(n_neighbors=k, weights="uniform", metric="euclidean")
 
             accuracy_a = []
             real_label = []
@@ -48,8 +48,8 @@ class KnnClassifiers:
                 xtrain, xtest = x.iloc[train_index], x.iloc[test_index]
                 ytrain, ytest = y.iloc[train_index], y.iloc[test_index]
 
-                knn.fit(xtrain, ytrain.values.ravel())
-                ypred=knn.predict(xtest)
+                knnClassifier.fit(xtrain, ytrain.values.ravel())
+                ypred=knnClassifier.predict(xtest)
                 pred_label.append(ypred)
                 real_label.append(ytest)
                 
@@ -86,7 +86,7 @@ class KnnClassifiers:
         loo = LeaveOneOut()
         loo.get_n_splits(data)
         n=loo.split(data)
-        knn = KNeighborsClassifier(n_neighbors=k, weights="uniform", metric="euclidean")
+        knnClassifier = KNeighborsClassifier(n_neighbors=k, weights="uniform", metric="euclidean")
 
         accuracy_a = []
         real_label = []
@@ -96,8 +96,8 @@ class KnnClassifiers:
             xtrain, xtest = x.iloc[train_index], x.iloc[test_index]
             ytrain, ytest = y.iloc[train_index], y.iloc[test_index]
 
-            knn.fit(xtrain, ytrain.values.ravel())
-            ypred=knn.predict(xtest)
+            knnClassifier.fit(xtrain, ytrain.values.ravel())
+            ypred=knnClassifier.predict(xtest)
             pred_label.append(ypred)
             real_label.append(ytest.values)
             
@@ -228,13 +228,9 @@ class KnnClassifiers:
         ytrain = train["label"]
         xdata = data[DataColumns.getSelectedCols2()]
 
-        knn = KNeighborsClassifier(n_neighbors=k, weights="uniform", metric="euclidean")
-        knn.fit(xtrain, ytrain.values.ravel())
-        ypred=knn.predict(xdata)
-        
-        #print("knn ypred ", ypred)
-
-        #data["label"] = ypred
+        knnClassifier = KNeighborsClassifier(n_neighbors=k, weights="uniform", metric="euclidean")
+        knnClassifier.fit(xtrain, ytrain.values.ravel())
+        ypred=knnClassifier.predict(xdata)
 
         return(ypred)
 

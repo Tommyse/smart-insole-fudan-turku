@@ -22,17 +22,6 @@ Various python files in **"classifier/jupyter notebooks"** are jupyter notebooks
 
 	- Seems to be a small change towards worse accuracy. Might be bigger problem when using data from multiple different persons.
 
-
-	- https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html
-
-	- https://towardsdatascience.com/fine-tuning-a-classifier-in-scikit-learn-66e048c21e65
-
-	- https://scikit-learn.org/stable/modules/ensemble.html
-
-	- https://scikit-learn.org/stable/modules/decomposition.html
-
-	- https://scikit-learn.org/stable/modules/feature_selection.html
-
 ### To-Do
 
 - Test leave-three-out as CV?
@@ -55,15 +44,35 @@ Various python files in **"classifier/jupyter notebooks"** are jupyter notebooks
 
 	- https://sebastianraschka.com/Articles/2014_about_feature_scaling.html
 
+	- https://scikit-learn.org/stable/auto_examples/model_selection/plot_confusion_matrix.html#sphx-glr-auto-examples-model-selection-plot-confusion-matrix-py
+
 - Testing more different feature sets. Which is the best?
+
+- Balance classes in dataset(s) before training
+
+	- Currently varied dataset has too many Normal steps compared to fall steps
+
+	- genRandomDatasets with dropping some normal data
+
+	- Up-sampling fall data? https://elitedatascience.com/imbalanced-classes
+
+	- Or just use all/most normal data and rely mostly on AUC
 
 - Building different classifiers
 
 	- Deep learning things
 
+		- https://machinelearningmastery.com/multi-class-classification-tutorial-keras-deep-learning-library/
+
+	- Multi-layer Perceptron?
+
+		- https://scikit-learn.org/stable/auto_examples/neural_networks/plot_mlp_alpha.html
+
 	- Custom KNN which is extra sensitive for fall labels?
 
 		- even one fall label in neighbor could cause labeling row as fall?
+
+	- https://scikit-learn.org/stable/auto_examples/ensemble/plot_adaboost_multiclass.html
 
 - Testing semi-supervised learning
 
@@ -73,13 +82,19 @@ Various python files in **"classifier/jupyter notebooks"** are jupyter notebooks
 
 	- Avoiding overfitting and underfitting
 
-- More ensemble learning stuff
+	- https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html
+
+	- https://towardsdatascience.com/fine-tuning-a-classifier-in-scikit-learn-66e048c21e65
+
+	- https://scikit-learn.org/stable/modules/feature_selection.html
+
+- Testing how much the amount of classifiers affect the results
 
 ![Sklearn Flowchart](https://scikit-learn.org/stable/_static/ml_map.png)
 
+---
 
-
-### Speeding up classifying process
+### Speeding up the classifying process (maybe)
 
 - Could use multiprocessing maybe
 
@@ -160,16 +175,44 @@ Support Vector Machine average accuracy:  **0.86**
 
 	- Data labels suffled and test many times + plots + compared to real results
 
-- Ensemble learning
+		- Conclusion from them: Those classifiers don't learn anything from the data (AUC always near 0.5). Meanwhile our real classifiers learn things from the data.
 
-Bagging average accuracy:  **0.9**
+#### Ensemble learning
+
+Bagging average accuracy:  **0.89**
 
               	precision    recall  f1-score   support
-        Fall       	0.83      0.52      0.64        84
-      Normal       	0.90      0.98      0.94       389
-   	micro avg       0.90      0.90      0.90       473
-   	macro avg       0.87      0.75      0.79       473
-	weighted avg    0.89      0.90      0.89       473
+        Fall       	0.74      0.60      0.66        84
+      Normal       	0.92      0.95      0.93       389
+   	micro avg       0.89      0.89      0.89       473
+   	macro avg       0.83      0.77      0.80       473
+	weighted avg    0.88      0.89      0.89       473
+
+AUC score:  0.77
+
+
+Boosting accuracy:  **0.9**
+
+              	precision    recall  f1-score   support
+        Fall       	0.75      0.62      0.68        84
+      Normal       	0.92      0.96      0.94       389
+   	micro avg      	0.90      0.90      0.90       473
+   	macro avg      	0.84      0.79      0.81       473
+	weighted avg   	0.89      0.90      0.89       473
+
+AUC score:  0.79
+
+
+Fall skewed boosting accuracy:  **0.88**
+
+              	precision    recall  f1-score   support
+        Fall       	0.65      0.69      0.67        84
+      Normal       	0.93      0.92      0.93       389
+   micro avg       	0.88      0.88      0.88       473
+   macro avg       	0.79      0.81      0.80       473
+	weighted avg    0.88      0.88      0.88       473
+
+AUC score:  0.81
 
 
 ---

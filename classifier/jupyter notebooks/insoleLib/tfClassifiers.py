@@ -24,9 +24,11 @@ import seaborn as sn
 
 # https://www.tensorflow.org/tutorials/keras/basic_classification
 
+# https://machinelearningmastery.com/multi-class-classification-tutorial-keras-deep-learning-library/
+
 class TfClassifiers:
     """
-    Classifiers that are implemented with tensorflow.
+    Classifiers that are implemented with tensorflow/keras.
 
     """
 
@@ -63,10 +65,18 @@ class TfClassifiers:
         x = data.loc[:, x_cols]
         y = data.loc[:, y_cols]
         
-        y = pd.get_dummies(y) #to binary labels
+        y_dummies = pd.get_dummies(y) #to binary labels
         bin_cols = ["label_Normal","label_Fall"]
         
-        xtrain, xtest, ytrain, ytest = train_test_split(x, y, test_size=0, shuffle=True)
+        ##encode class values as integers
+        #encoder = LabelEncoder()
+        #encoder.fit(y)
+        #y = encoder.transform(Y)
+        #dummy_y = np_utils.to_categorical(y) # convert to dummy one hot encoding
+        
+        y = y_dummies
+        
+        xtrain, xtest, ytrain, ytest = train_test_split(x, y, test_size=0, shuffle=True) #used for suffling for now
         
         #Defining model
         model = Sequential()

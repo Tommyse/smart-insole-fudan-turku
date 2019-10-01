@@ -13,11 +13,6 @@ class DataHandler:
 
     """
 
-    #TODO properly test force difference as a feature
-
-
-    
-
     def calculateStepTime(data):
         """
         Calculating the step time and adding it to the dataframe (max - min time)
@@ -258,9 +253,50 @@ class DataHandler:
         
         return(data)
     
+    #generating random dataset
+    def genRandomDatasets(data, amount, dropAmount):
+        
+        datasets = []
+        
+        for a in range(0,amount):
+            dataset = pd.DataFrame(data)
+            dataset = dataset.sample(frac=1).reset_index(drop=True) #suffling
+            dataset = dataset.drop(dataset.tail(dropAmount).index)
+            
+            counts = dataset["label"].value_counts()
+            
+            normal_dataset = dataset.loc[dataset["label"] == "Normal"]
+            fall_dataset = dataset.loc[dataset["label"] == "Fall"]
+            
+            #Fixing fall and normal data balance, counter indexes might change based on which is larger
+            if(counts[0] > counts[1]): #normal
+                #print(counts.index[0], " exceeds ", counts.index[1], " count. Balancing data...")
+                difference = (counts[0] - counts[1])-130 #need more normal steps to train the classifiers
+                normal_dataset = normal_dataset.sample(frac=1).reset_index(drop=True) #suffling
+                normal_dataset = normal_dataset.drop(normal_dataset.tail(difference).index)
+            elif(counts[1] > counts[0]): #fall
+                #print(counts.index[1], " exceeds ", counts.index[0], " count. Balancing data...")
+                difference = (counts[1] - counts[0])
+                fall_dataset = fall_dataset.sample(frac=1).reset_index(drop=True) #suffling
+                fall_dataset = fall_dataset.drop(fall_dataset.tail(difference).index)
+                
+            #Combining the normal and fall data again
+            results_df = normal_dataset
+            results_df = results_df.append(fall_dataset)
+            results_df = results_df.sample(frac=1).reset_index(drop=True) #suffling again
+            
+            #print("results_df", results_df)
+            res_counts = results_df["label"].value_counts()
+            #print("res_counts", res_counts)
+            
+            datasets.append(results_df)
+            
+        return(datasets)
+    
     #generating random datasets
     #for using same classifier multiple times
-    def genRandomDatasets(data, amount, dropAmount):
+    # lots of "Normal" rows -> unbalanced data
+    def genRandomDatasetsOld(data, amount, dropAmount):
         
         datasets = []
         
@@ -271,3 +307,39 @@ class DataHandler:
             datasets.append(dataset)
             
         return(datasets)
+    
+    #Calculating "Fall" prediction accuracy. Ignoring normal labels
+    def getFallAccuracy(real, pred):
+        counter = 0
+        correct = 0
+        wrong = 0
+        
+        if(len(real) != len(pred)):
+            raise Exception("Real labels and prediction labels length mismatch")
+        
+        for row in range(0, real):
+            if(real[row] == "Fall" and pred[row] == "Fall"):
+                correct = correct + 1
+            else:
+                wrong = wrong + 1
+            counter = counter + 1
+        
+        return(correct/counter)
+    
+    #Calculating "Normal" prediction accuracy
+    def getNormalAccuracy(real, pred):
+        counter = 0
+        correct = 0
+        wrong = 0
+        
+        if(len(real) != len(pred)):
+            raise Exception("Real labels and prediction labels length mismatch")
+        
+        for row in range(0, real):
+            if(real[row] == "Normal" and pred[row] == "Normal"):
+                correct = correct + 1
+            else:
+                wrong = wrong + 1
+            counter = counter + 1
+        
+        return(correct/counter)

@@ -11,10 +11,10 @@ try:
 except:
 	pass
 
-#%%
+
 from IPython import get_ipython
 
-#%%
+
 get_ipython().run_line_magic('matplotlib', 'inline')
 import pandas as pd
 import numpy as np
