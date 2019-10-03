@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'blog.apps.BlogConfig', #in order to Django to find templates and models
+    'steplab.apps.SteplabConfig', #in order to Django to find templates and models
     'users.apps.UsersConfig',
     'crispy_forms',
     'django.contrib.admin', 
@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
+    'django.contrib.staticfiles'
 ]
 
 MIDDLEWARE = [
@@ -130,6 +130,6 @@ MEDIA_URL = '/media/' # how are we going to access the image on the browser
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-LOGIN_REDIRECT_URL = 'blog-home'
+LOGIN_REDIRECT_URL = 'steplab-home'
 
 LOGIN_URL = 'login' # login is the  name that we gave to our URL pattern for the login route

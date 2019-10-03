@@ -1,0 +1,14 @@
+{% block content%}
+    <h1>Home Page</h1>
+    {% for stepSession in stepSessions %}
+        <article class="media content-section">
+            <div class="media-body">
+                <div class="article-metadata">
+                <a class="mr-2" href="#">{{ stepSession.author }}</a>
+                <small class="text-muted">{{ stepSession.upload_date|date:"F d, Y" }}</small>
+                </div>
+                <h2><a class="article-title" href="#">{{ stepSession.name }}</a></h2>
+            </div>
+        </article>
+    {% endfor %}
+{% endblock content %}
