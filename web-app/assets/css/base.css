@@ -2,6 +2,14 @@
     white-space: nowrap;
 }
 
+/* it affects the navbar */
 nav li {
 	font-size: 1.1rem;
+}
+
+/* represents a CSV recording card */
+.file-card {
+	background-color: #d6dee0;
+    margin: 1rem;
+    padding-top: 1rem;
 }

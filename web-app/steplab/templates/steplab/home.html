@@ -1,6 +1,51 @@
 {% extends 'steplab/base.html' %} 
 {% block content%}
-<h1>Home Page</h1>
+<div class="row text-center">
+{% for file in files %}
+        <div class="col-sm-4 col-md-2 col-lg-1 file-card">
+            <h3 class="nowrap">{{ file }}</h3>
+            <h4>Author: <strong class="nowrap">10,12,1996</strong></h4>
+            <h4>Date: <strong class="nowrap">10,12,1996</strong></h4>
+            <h4>Size: <strong class="nowrap">43</strong></h4>
+            <h4>Product Id: <strong class="nowrap">250</strong></h4>
+        </div>
+{% endfor %}
+</div>
+<div class="container">
+
+<div class="overflow-auto">
+    <div class="row">
+        <div class="col-md-10 offset-1">
+            <h1>Home Page</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10 offset-1">
+            <table class="table table-light table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        {% for field in fields %}
+                        <th class="table-success">
+                            <h4 class="text-center">field</h4>
+                        </th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for stepRow in stepRows %}
+                        <tr>
+                            {% for fieldValue in stepRow %}
+                                <td>fieldValue</td>  
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
 {% for stepSession in stepSessions %}
 <article class="media content-section">
     <div class="media-body">

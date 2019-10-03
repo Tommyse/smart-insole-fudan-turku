@@ -6,8 +6,13 @@ from .models import StepSession
 
 @login_required(login_url='login')
 def home(request):
+    n = 10
+    # (5 // 2) + (5%2!=0)
     context = {
-        'stepSessions': StepSession.objects.all(),
+        'stepSessions'      : StepSession.objects.all(),
+        'fields'            : ['field1'] * n,
+        'stepRows'          : [['a'] * n] * n,
+        'files'             : ['filename1'] * 10,
     }
     return render(request, 'steplab/home.html', context) # request, template and context(arguments)
 
