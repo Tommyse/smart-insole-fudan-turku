@@ -7,9 +7,15 @@ nav li {
 	font-size: 1.1rem;
 }
 
+.file-card-wrapper {
+	margin-bottom:1rem;
+	margin-top:1rem;
+	margin-left:0;
+	margin-right:0;
+}
 /* represents a CSV recording card */
 .file-card {
 	background-color: #d6dee0;
-    margin: 1rem;
     padding-top: 1rem;
+	border: 0.1rem black solid;
 }

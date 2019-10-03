@@ -2,12 +2,14 @@
 {% block content%}
 <div class="row text-center">
 {% for file in files %}
-        <div class="col-sm-4 col-md-2 col-lg-1 file-card">
-            <h3 class="nowrap">{{ file }}</h3>
-            <h4>Author: <strong class="nowrap">10,12,1996</strong></h4>
-            <h4>Date: <strong class="nowrap">10,12,1996</strong></h4>
-            <h4>Size: <strong class="nowrap">43</strong></h4>
-            <h4>Product Id: <strong class="nowrap">250</strong></h4>
+        <div class="col-sm-4 col-md-3 col-lg-3 col-xl-2 file-card-wrapper">
+            <div class="file-card">
+                    <h3 class="nowrap">{{ file }}</h3>
+                    <h4>Author: <strong class="nowrap">10,12,1996</strong></h4>
+                    <h4>Date: <strong class="nowrap">10,12,1996</strong></h4>
+                    <h4>Size: <strong class="nowrap">43</strong></h4>
+                    <h4>Product Id: <strong class="nowrap">250</strong></h4>
+            </div>
         </div>
 {% endfor %}
 </div>
