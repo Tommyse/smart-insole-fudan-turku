@@ -8,11 +8,13 @@
 
 <div class="row mt-3" id="demo" class="collapse">
     <div class="col-md-10 offset-1">
-        <form method="post" action="#" id="#">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
             <div class="form-group files">
                 <label>Upload Your File </label>
-                <input type="file" class="form-control" multiple="">
+                <input type="file" class="form-control" name="new-stepfiles" multiple>
             </div>
+            <button type="submit">Submit</button>
         </form>
 
 
