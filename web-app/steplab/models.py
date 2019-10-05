@@ -11,6 +11,18 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+class stepFile:
+    
+    def __init__(self, title, author, footsize, productId, steps, content):
+        self.title = title
+        self.author = author
+        self.footsize = footsize
+        self.productId = productId
+        self.steps = steps
+        self.content = content
+
+    
+
 class StepSession(models.Model):
     name = models.TextField(max_length=512)
 

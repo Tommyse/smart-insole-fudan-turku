@@ -1,62 +1,122 @@
-{% extends 'steplab/base.html' %} 
+{% extends 'steplab/base.html' %}
 {% block content%}
-<div class="row text-center">
-{% for file in files %}
-        <div class="col-sm-4 col-md-3 col-lg-3 col-xl-2 file-card-wrapper">
-            <div class="file-card">
-                    <h3 class="nowrap">{{ file }}</h3>
-                    <h4>Author: <strong class="nowrap">10,12,1996</strong></h4>
-                    <h4>Date: <strong class="nowrap">10,12,1996</strong></h4>
-                    <h4>Size: <strong class="nowrap">43</strong></h4>
-                    <h4>Product Id: <strong class="nowrap">250</strong></h4>
+<div class="row mt-3">
+    <div class="col-md-10 offset-1">
+        <table class="table table-light table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th class="table-success">
+                        <h4 class="text-center">Filename</h4>
+                    </th>
+                    <th class="table-success">
+                        <h4 class="text-center">Author</h4>
+                    </th>
+                    <th class="table-success">
+                        <h4 class="text-center">Footsize</h4>
+                    </th>
+                    <th class="table-success">
+                        <h4 class="text-center">ProductId</h4>
+                    </th>
+                    <th class="table-success">
+                        <h4 class="text-center">Steps</h4>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stepFile in stepFiles %}
+                <tr class="">
+                    <td class="text-center">{{ stepFile.title }} </td>
+                    <td class="text-center">{{ stepFile.author }} </td>
+                    <td class="text-center">{{ stepFile.footsize }} </td>
+                    <td class="text-center">{{ stepFile.productId }} </td>
+                    <td class="text-center">{{ stepFile.steps }} </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <form method="post" action="#" id="#">
+            <div class="form-group files">
+                <label>Upload Your File </label>
+                <input type="file" class="form-control" multiple="">
             </div>
+        </form>
+
+
+    </div>
+    <div class="col-md-6">
+        <form method="post" action="#" id="#">
+            <div class="form-group files color">
+                <label>Upload Your File </label>
+                <input type="file" class="form-control" multiple="">
+            </div>
+
+
+        </form>
+
+
+    </div>
+</div>
+<div class="row text-center">
+    {% for file in files %}
+    <div class="col-sm-4 col-md-3 col-lg-3 col-xl-2 file-card-wrapper">
+        <div class="file-card">
+            <h3 class="nowrap">{{ file }}</h3>
+            <h4>Author: <strong class="nowrap">10,12,1996</strong></h4>
+            <h4>Date: <strong class="nowrap">10,12,1996</strong></h4>
+            <h4>Size: <strong class="nowrap">43</strong></h4>
+            <h4>Product Id: <strong class="nowrap">250</strong></h4>
         </div>
-{% endfor %}
+    </div>
+    {% endfor %}
 </div>
 <div class="container">
 
-<div class="overflow-auto">
-    <div class="row">
-        <div class="col-md-10 offset-1">
-            <h1>Home Page</h1>
+    <div class="overflow-auto">
+        <div class="row">
+            <div class="col-md-10 offset-1">
+                <h1>Home Page</h1>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-10 offset-1">
-            <table class="table table-light table-striped table-bordered table-hover">
-                <thead>
-                    <tr>
-                        {% for field in fields %}
-                        <th class="table-success">
-                            <h4 class="text-center">field</h4>
-                        </th>
-                        {% endfor %}
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for stepRow in stepRows %}
+        <div class="row">
+            <div class="col-md-10 offset-1">
+                <table class="table table-light table-striped table-bordered table-hover">
+                    <thead>
                         <tr>
-                            {% for fieldValue in stepRow %}
-                                <td>fieldValue</td>  
+                            {% for field in fields %}
+                            <th class="table-success">
+                                <h4 class="text-center">{{ field }}</h4>
+                            </th>
                             {% endfor %}
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {% for stepRow in stepRows %}
+                        <tr>
+                            {% for fieldValue in stepRow %}
+                            <td>{{ fieldValue }}</td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
 
 
-{% for stepSession in stepSessions %}
-<article class="media content-section">
-    <div class="media-body">
-        <div class="article-metadata">
-            <a class="mr-2" href="#">{{ stepSession.author }}</a>
-            <small class="text-muted">{{ stepSession.upload_date|date:"F d, Y" }}</small>
+    {% for stepSession in stepSessions %}
+    <article class="media content-section">
+        <div class="media-body">
+            <div class="article-metadata">
+                <a class="mr-2" href="#">{{ stepSession.author }}</a>
+                <small class="text-muted">{{ stepSession.upload_date|date:"F d, Y" }}</small>
+            </div>
+            <h2><a class="article-title" href="#">{{ stepSession.name }}</a></h2>
         </div>
-        <h2><a class="article-title" href="#">{{ stepSession.name }}</a></h2>
-    </div>
-</article>
-{% endfor %} 
-{% endblock content %}
+    </article>
+    {% endfor %}
+    {% endblock content %}

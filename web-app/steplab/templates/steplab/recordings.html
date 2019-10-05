@@ -1,0 +1,57 @@
+{% extends 'steplab/base.html' %}
+{% block content%}
+<div class="row mt-3">
+    <div class="col-md-10 offset-1 lm-auto">
+        <a data-toggle="collapse" data-target="#demo" class="btn btn-primary btn-lg float-right" href="#" role="button">Add a new Step File</a>
+    </div>
+</div>
+
+<div class="row mt-3" id="demo" class="collapse">
+    <div class="col-md-10 offset-1">
+        <form method="post" action="#" id="#">
+            <div class="form-group files">
+                <label>Upload Your File </label>
+                <input type="file" class="form-control" multiple="">
+            </div>
+        </form>
+
+
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col-md-10 offset-1 overflow-auto">
+        <table class="table table-light table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th class="table-success">
+                        <h4 class="text-center">Filename</h4>
+                    </th>
+                    <th class="table-success">
+                        <h4 class="text-center">Author</h4>
+                    </th>
+                    <th class="table-success">
+                        <h4 class="text-center">Footsize</h4>
+                    </th>
+                    <th class="table-success">
+                        <h4 class="text-center">ProductId</h4>
+                    </th>
+                    <th class="table-success">
+                        <h4 class="text-center">Steps</h4>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stepFile in stepFiles %}
+                <tr class="">
+                    <td class="text-center">{{ stepFile.title }} </td>
+                    <td class="text-center">{{ stepFile.author }} </td>
+                    <td class="text-center">{{ stepFile.footsize }} </td>
+                    <td class="text-center">{{ stepFile.productId }} </td>
+                    <td class="text-center">{{ stepFile.steps }} </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content %}
