@@ -2,7 +2,7 @@
 {% load static %}
 {% block addionalDependencies %}
 <link href="{% static 'vendor/fonts/circular-std/style.css' %}" rel="stylesheet">
-<link rel="stylesheet" href="{% static 'libs/css/style.css' %}">
+<!--<link rel="stylesheet" href="{% static 'libs/css/style.css' %}">-->
 <link rel="stylesheet" href="{% static 'vendor/fonts/fontawesome/css/fontawesome-all.css' %}">
 <link rel="stylesheet" href="{% static 'vendor/charts/chartist-bundle/chartist.css' %}">
 <link rel="stylesheet" href="{% static 'vendor/charts/morris-bundle/morris.css' %}">
@@ -46,7 +46,7 @@
 <!-- end navbar -->
 
 <!-- content -->
-<div class="container-fluid">
+<div class="container-fluid p-3">
     {% block content %}
     {% endblock content%}
 </div>

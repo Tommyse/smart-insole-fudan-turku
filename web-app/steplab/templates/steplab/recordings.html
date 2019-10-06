@@ -1,12 +1,12 @@
 {% extends 'steplab/base.html' %}
 {% block content%}
-<div class="row mt-3">
+<div class="row">
     <div class="col-md-10 offset-1 lm-auto">
-        <a data-toggle="collapse" data-target="#demo" class="btn btn-primary btn-lg float-right" href="#" role="button">Add a new Step File</a>
+        <a data-toggle="collapse" data-target="#uploader" class="btn btn-primary btn-lg float-right" href="#" role="button">Add a new Step File</a>
     </div>
 </div>
 
-<div class="row mt-3" id="demo" class="collapse">
+<div class="row mt-3 collapse" id="uploader">
     <div class="col-md-10 offset-1">
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
@@ -22,7 +22,7 @@
 </div>
 <div class="row mt-3">
     <div class="col-md-10 offset-1 overflow-auto">
-        <table class="table table-light table-striped table-bordered table-hover">
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th class="table-success">
