@@ -5,21 +5,23 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from .models import Post
 from .models import StepSession
-from .models import stepFile
+from .models import StepFile
 from django.core.files.storage import default_storage
 
-def _generateStepFiles(n):
+def _generateStepFiles(n, user):
     stepFiles = []
-
+    n = 0
     for i in range(0, n):
-        stepFiles.append(stepFile('University File', 'Diego', '43', '45as5df4', '500', None))
+        stepFiles.append(StepFile(title='____', author=user, footsize=42, productId='KKJFDUD58', steps=150, content=''))
     
     return stepFiles
 
 @login_required(login_url='login')
 def home(request):
+    user = request.user
+
     n = 10
-    stepFiles = _generateStepFiles(n)
+    stepFiles = _generateStepFiles(n, user)
     
 
     context = {
@@ -45,9 +47,12 @@ def recordings(request):
             full_filename = os.path.join(settings.MEDIA_ROOT, usrFolder, stepfile.name)
             # TODO: SAVE THE FILE INTO DB FOR LINDA USERS
             path = default_storage.save(full_filename, stepfile)
-            
+
+            stepFileObj = StepFile(title=path, author=user, footsize=42, productId='KKJFDUD58', steps=150, content='')
+            stepFileObj.save()
+
         print(stepfiles)
-    stepFiles = _generateStepFiles(10)
+    stepFiles = StepFile.objects.filter(author=user)
 
     context = {
         'stepFiles'         : stepFiles,
@@ -63,4 +68,5 @@ def about(request):
 '''
 from django.contrib.auth.models import User
 users = User.objects.all()
+StepFile.objects.filter(footsize=42)
 '''

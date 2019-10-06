@@ -53,6 +53,13 @@
                 </tr>
                 {% endfor %}
             </tbody>
+            {% if not stepFiles %}
+            <tfoot>
+                <tr>
+                  <td colspan="5" class="text-center">There are not any step file!</td>
+                </tr>
+            </tfoot>
+            {% endif %}
         </table>
     </div>
 </div>
