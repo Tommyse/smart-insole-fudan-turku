@@ -20,7 +20,7 @@ class Classifier(ABC):
     This method should return an ClassifierAnalysisResult object.
     '''
     @abstractclassmethod
-    def analyseInvalance(filePaths): pass
+    def analyseImbalance(filePaths): pass
 
 class ClassifierAnalysisResult(object):
 
@@ -35,14 +35,14 @@ class ClassifierAnalysisResult(object):
 class ClassiffierFacade:
 
     @staticmethod
-    def analyseInvalance(filePaths, classifierType = ClassifierType.KNN):
+    def analyseImbalance(filePaths, classifierType = ClassifierType.KNN):
         
         classifierResult = None
         
         if classifierType == ClassifierType.KNN:
-            classifierResult = "" # TODO = KNN.analyseInvalance()
+            classifierResult = "" # TODO = KNN.analyseImbalance()
         elif classifierType == ClassifierType.DNN:
-            classifierResult = "" # TODO = DNN.analyseInvalance()
+            classifierResult = "" # TODO = DNN.analyseImbalance()
         elif classifierType == ClassifierType.MOCKED:
             classifierResult = ClassifierAnalysisResult(True)
         else:
@@ -51,5 +51,5 @@ class ClassiffierFacade:
         return classifierResult
 
 if __name__ == "__main__":
-    classifierResult = ClassiffierFacade.analyseInvalance("", ClassifierType.MOCKED)
+    classifierResult = ClassiffierFacade.analyseImbalance("", ClassifierType.MOCKED)
     print(classifierResult.hasFallingRisk())
