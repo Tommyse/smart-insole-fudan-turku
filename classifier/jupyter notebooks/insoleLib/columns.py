@@ -118,3 +118,47 @@ class DataColumns:
             "S0_press_time","S1_press_time","S2_press_time","S3_press_time","S4_press_time","S5_press_time","S6_press_time",
             "Contact_time","force_total"]
         return(selected_cols)
+    
+    def getSelectedCols2andY():
+        """
+        Features selected for classifiers. No force differences
+        """
+        selected_cols = ["S0_force","S1_force","S2_force","S3_force","S4_force","S5_force","S6_force",
+            "S0_press_time","S1_press_time","S2_press_time","S3_press_time","S4_press_time","S5_press_time","S6_press_time",
+            "Contact_time","force_total","label"]
+        return(selected_cols)
+    
+    def getSelectedCols3():
+
+        selected_cols = ["force_median",
+            "S0_press_time","S1_press_time","S2_press_time","S3_press_time","S4_press_time","S5_press_time","S6_press_time",
+            "Contact_time","force_total"]
+        return(selected_cols)
+    
+    def getSelectedCols4():
+
+        selected_cols = ["force_mean",
+            "S0_press_time","S1_press_time","S2_press_time","S3_press_time","S4_press_time","S5_press_time","S6_press_time",
+            "Contact_time","force_total"]
+        return(selected_cols)
+    
+    def getSelectedCols5():
+
+        selected_cols = ["force_variance",
+            "S0_press_time","S1_press_time","S2_press_time","S3_press_time","S4_press_time","S5_press_time","S6_press_time",
+            "Contact_time","force_total"]
+        return(selected_cols)
+    
+    def getSelectedCols6():
+
+        selected_cols = ["force_median_diff_avg",
+            "S0_press_time","S1_press_time","S2_press_time","S3_press_time","S4_press_time","S5_press_time","S6_press_time",
+            "Contact_time","force_total"]
+        return(selected_cols)
+    
+    def getSelectedCols7():
+
+        selected_cols = ["force_mean_diff_avg",
+            "S0_press_time","S1_press_time","S2_press_time","S3_press_time","S4_press_time","S5_press_time","S6_press_time",
+            "Contact_time","force_total"]
+        return(selected_cols)

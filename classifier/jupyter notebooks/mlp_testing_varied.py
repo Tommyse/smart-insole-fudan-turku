@@ -50,6 +50,11 @@ drop_amount = 40
 datasets = DataHandler.genRandomDatasets(data, dataset_amount, drop_amount)
 data = datasets[0]
 
+#%% quick check on data
+
+xy_cols = DataColumns.getSelectedCols2andY()
+data.loc[:,xy_cols]
+
 
 #%% best alpha test
 

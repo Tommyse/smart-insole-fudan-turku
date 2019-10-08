@@ -29,10 +29,49 @@ class DataHandler:
             data.loc[row,"S5_press_time"] = (data.loc[row,"S5_end_time"] - data.loc[row,"S5_start_time"])
             data.loc[row,"S6_press_time"] = (data.loc[row,"S6_end_time"] - data.loc[row,"S6_start_time"])
         return(data)
+    
+    def calculateTotalStepTime(data):
+        """
+        Calculating total press time and adding the column to dataframe
+        
+        Arguments:
+            data {array} -- data dataframe
+        """
+        for row in range(0,len(data)):
+            totalT = 0
+            totalT = totalT + data.loc[row,"S0_press_time"]
+            totalT = totalT + data.loc[row,"S1_press_time"]
+            totalT = totalT + data.loc[row,"S2_press_time"]
+            totalT = totalT + data.loc[row,"S3_press_time"]
+            totalT = totalT + data.loc[row,"S4_press_time"]
+            totalT = totalT + data.loc[row,"S5_press_time"]
+            totalT = totalT + data.loc[row,"S6_press_time"]
+            data.loc[row,"press_time_total"] = totalT
+        return(data)
+    
+    def calculateAvgStepTime(data):
+        """
+        Calculating average press time and adding the column to dataframe
+        
+        Arguments:
+            data {array} -- data dataframe
+        """
+        for row in range(0,len(data)):
+            totalT = 0
+            totalT = totalT + data.loc[row,"S0_press_time"]
+            totalT = totalT + data.loc[row,"S1_press_time"]
+            totalT = totalT + data.loc[row,"S2_press_time"]
+            totalT = totalT + data.loc[row,"S3_press_time"]
+            totalT = totalT + data.loc[row,"S4_press_time"]
+            totalT = totalT + data.loc[row,"S5_press_time"]
+            totalT = totalT + data.loc[row,"S6_press_time"]
+            avgT = totalT/7
+            data.loc[row,"press_time_avg"] = avgT
+        return(data)
 
     def calculateTotalForce(data):
         """
-        Calculating total forcce and adding the column to dataframe
+        Calculating total force and adding the column to dataframe
         
         Arguments:
             data {array} -- data dataframe
@@ -47,6 +86,26 @@ class DataHandler:
             totalF = totalF + data.loc[row,"S5_force"]
             totalF = totalF + data.loc[row,"S6_force"]
             data.loc[row,"force_total"] = totalF
+        return(data)
+
+    def calculateAverageForce(data):
+        """
+        Calculating average force and adding the column to dataframe
+        
+        Arguments:
+            data {array} -- data dataframe
+        """
+        for row in range(0,len(data)):
+            totalF = 0
+            totalF = totalF + data.loc[row,"S0_force"]
+            totalF = totalF + data.loc[row,"S1_force"]
+            totalF = totalF + data.loc[row,"S2_force"]
+            totalF = totalF + data.loc[row,"S3_force"]
+            totalF = totalF + data.loc[row,"S4_force"]
+            totalF = totalF + data.loc[row,"S5_force"]
+            totalF = totalF + data.loc[row,"S6_force"]
+            avgF = totalF/7
+            data.loc[row,"force_avg"] = avgF
         return(data)
 
     def calculateMedianDifference(data):
@@ -131,6 +190,81 @@ class DataHandler:
                                     "S3_force_diff_x":"S3_force_diff","S4_force_diff_x":"S4_force_diff","S5_force_diff_x":"S5_force_diff","S6_force_diff_x":"S6_force_diff"})
         #print(data.head)
         return(data)
+
+    #step start time variance
+    def calculateStepStartVariance(data):
+        
+        return(data)
+    
+    #time for max force
+    def calculateStepMaxVariance(data):
+        
+        return(data)
+    
+    #step end time variance
+    def calculateStepEndVariance(data):
+        
+        return(data)
+
+
+    #Calculating different things from force values in the data
+    def calculateForceValues(data):
+        
+        for row in range(0,len(data)):
+            #Force values in row
+            f0 = data.loc[row,"S0_force"]
+            f1 = data.loc[row,"S1_force"]
+            f2 = data.loc[row,"S2_force"]
+            f3 = data.loc[row,"S3_force"]
+            f4 = data.loc[row,"S4_force"]
+            f5 = data.loc[row,"S5_force"]
+            f6 = data.loc[row,"S6_force"]
+            
+            f_array = [f0, f1, f2, f3, f4, f5, f6]
+            
+            #Calculating median
+            f_med = np.median(f_array)
+            data.loc[row,"force_median"] = f_med
+            
+            #Calculating mean
+            f_mean = np.mean(f_array)
+            data.loc[row,"force_mean"] = f_mean
+            
+            #Calculating valriance
+            f_var = np.var(f_array)
+            data.loc[row,"force_variance"] = f_var
+            
+            #Calculating average difference to median
+            f_med_diff0 = f0 - f_med
+            f_med_diff1 = f1 - f_med
+            f_med_diff2 = f2 - f_med
+            f_med_diff3 = f3 - f_med
+            f_med_diff4 = f4 - f_med
+            f_med_diff5 = f5 - f_med
+            f_med_diff6 = f6 - f_med
+            
+            f_med_diff_arr = [f_med_diff0, f_med_diff1, f_med_diff2, f_med_diff3, f_med_diff4, f_med_diff5, f_med_diff6]
+            
+            f_med_diff = np.mean(f_med_diff_arr)
+            data.loc[row,"force_median_diff_avg"] = f_med_diff
+            
+            #Calculating average difference to mean
+            f_mean_diff0 = f0 - f_mean
+            f_mean_diff1 = f1 - f_mean
+            f_mean_diff2 = f2 - f_mean
+            f_mean_diff3 = f3 - f_mean
+            f_mean_diff4 = f4 - f_mean
+            f_mean_diff5 = f5 - f_mean
+            f_mean_diff6 = f6 - f_mean
+            
+            f_mean_diff_arr = [f_mean_diff0, f_mean_diff1, f_mean_diff2, f_mean_diff3, f_mean_diff4, f_mean_diff5, f_mean_diff6]
+            
+            f_mean_diff = np.mean(f_mean_diff_arr)
+            data.loc[row,"force_mean_diff_avg"] = f_mean_diff
+        
+        return(data)
+    
+
 
     def getFeatures(data):
         """
