@@ -1,4 +1,36 @@
-{% extends 'steplab/base.html' %}
-{% block content%}
-{{ fileContent }}
-{% endblock content %}
+{% if fileContent %}
+<h1>{{fileName}}</h1>
+<div class="row mt-3">
+    <div class="col-md-12 overflow-auto">
+        <table class="table table-hover table-striped text-center" id="recording-detail-table">
+            <thead>
+                <tr>
+                    {% for field in fileContent.fields %}
+                    <th class="table-success">
+                        {{ field }}
+                    </th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for sampleRow in fileContent.samples %}
+                <tr class="">
+                    {% for sampleColumn in sampleRow %}
+                    <td>{{ sampleColumn }} </td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+            {% if fileContent.samples.count == 0 %}
+            <tfoot>
+                <tr>
+                  <td colspan="5">The recording is empty</td>
+                </tr>
+            </tfoot>
+            {% endif %}
+        </table>
+
+    </div>
+</div>
+
+{% endif %}

@@ -7,6 +7,7 @@ from .models import Post
 from .models import StepSession
 from .models import StepFile
 from django.core.files.storage import default_storage
+from smart_insole_utils.utils import get_data
 
 '''
 url = "http://www.neo4j.com"
@@ -45,7 +46,6 @@ def recordings(request):
     user = request.user
     usrFolder = user.username
     context = {}
-    showAllFiles = True
     if request.method == 'POST':
         #stepfiles = request.POST.getlist('new-stepfiles', None) # request.POST.get and request.POST.getlist
         stepfiles = request.FILES.getlist('new-stepfiles')
@@ -66,14 +66,15 @@ def recordings(request):
             path = os.path.join(settings.MEDIA_ROOT, usrFolder, fileName)
 
             if os.path.exists(path):
-                with open(path, 'r') as f:
-                    content = f.readlines()
-                    context = {
-                        'fileContent'       :  content,
-                        'title'             : 'Recordings/' + fileName
-                    }
+                fields, samples = get_data(path)
+                fileContent = {'fields': fields, 'samples': samples}
+                context = {
+                    'fileName'          :  fileName,
+                    'fileContent'       :  fileContent,
+                    'title'             : 'Recordings/' + fileName
+                }
 
-                    return render(request, 'steplab/recordingDetail.html', context) # request, template and context(arguments)
+                return render(request, 'steplab/recordingDetail.html', context) # request, template and context(arguments)
 
     stepFiles = StepFile.objects.filter(author=user)
 

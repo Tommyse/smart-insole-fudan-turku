@@ -20,41 +20,41 @@
 </div>
 <div class="row mt-3">
     <div class="col-md-10 offset-1 overflow-auto">
-        <table class="table table-hover" id="recordings-table">
+        <table class="table table-hover text-center" id="recordings-table">
             <thead>
                 <tr>
                     <th class="table-success">
-                        <h4 class="text-center">Filename</h4>
+                        <h4>Filename</h4>
                     </th>
                     <th class="table-success">
-                        <h4 class="text-center">Author</h4>
+                        <h4>Author</h4>
                     </th>
                     <th class="table-success">
-                        <h4 class="text-center">Footsize</h4>
+                        <h4>Footsize</h4>
                     </th>
                     <th class="table-success">
-                        <h4 class="text-center">ProductId</h4>
+                        <h4>ProductId</h4>
                     </th>
                     <th class="table-success">
-                        <h4 class="text-center">Steps</h4>
+                        <h4>Steps</h4>
                     </th>
                 </tr>
             </thead>
             <tbody>
                 {% for stepFile in stepFiles %}
                 <tr class="">
-                    <td class="text-center">{{ stepFile.title }} </td>
-                    <td class="text-center">{{ stepFile.author }} </td>
-                    <td class="text-center">{{ stepFile.footsize }} </td>
-                    <td class="text-center">{{ stepFile.productId }} </td>
-                    <td class="text-center">{{ stepFile.steps }} </td>
+                    <td>{{ stepFile.title }} </td>
+                    <td>{{ stepFile.author }} </td>
+                    <td>{{ stepFile.footsize }} </td>
+                    <td>{{ stepFile.productId }} </td>
+                    <td>{{ stepFile.steps }} </td>
                 </tr>
                 {% endfor %}
             </tbody>
             {% if not stepFiles %}
             <tfoot>
                 <tr>
-                  <td colspan="5" class="text-center">There are not any step file!</td>
+                  <td colspan="5">There are not any step file!</td>
                 </tr>
             </tfoot>
             {% endif %}
@@ -80,7 +80,6 @@
             let fileName = this.innerText;
             $.get( "", {filename: fileName}, function( data ) {
                 $( "#main-content" ).html( data );
-                alert("Dona");
             });
         });
     });
