@@ -1,0 +1,71 @@
+{% extends 'steplab/base.html' %}
+{% load static from staticfiles %}
+{% block content%}
+<div class="row" style="margin-left: 0; margin-right: 0;">
+    <!-- Card -->
+    <div class="col-md-4">
+        <!-- Card image -->
+        <img class="card-img-top" src="{% static 'images/diagnosis/doctor-check.jpg' %}" alt="Card image cap">
+        
+        <!-- Card content -->
+        <div class="card-body text-center">
+        
+            <!-- Title -->
+            <h4 class="card-title"><a>Patient History</a></h4>
+            <!-- Text -->
+            <p class="card-text">
+                Information about all the diagnosis. It tracks the current evolution of the patient.
+            </p>
+            <!-- Button -->
+            <a href="#" class="btn btn-primary">Check History</a>
+        
+        </div>
+        
+    </div>
+    <!-- Card -->
+
+    <!-- Card -->
+    <div class="col-md-4">
+        <!-- Card image -->
+        <img class="card-img-top" src="{% static 'images/diagnosis/move-sole.jpg' %}" alt="Card image cap">
+        
+        <!-- Card content -->
+        <div class="card-body text-center">
+        
+            <!-- Title -->
+            <h4 class="card-title"><a>New Diagnose</a></h4>
+            <!-- Text -->
+            <p class="card-text">Analyse move-sole recordings to generate a new diagnosis. They will be added to the history.</p>
+            <!-- Button -->
+            <a href="#" class="btn btn-primary">New Diagnose</a>
+        
+        </div>
+        
+    </div>
+    <!-- Card -->
+
+    <!-- Card -->
+    <div class="col-md-4">
+            <!-- Card image -->
+            <img class="card-img-top" src="{% static 'images/diagnosis/faq.png' %}" alt="Card image cap">
+            
+            <!-- Card content -->
+            <div class="card-body text-center">
+            
+                <!-- Title -->
+                <h4 class="card-title"><a>FAQ</a></h4>
+                <!-- Text -->
+                <p class="card-text">Answers to the most frequently asked question about the application and its use.</p>
+                <!-- Button -->
+                <a href="#" class="btn btn-primary">Check FAQ</a>
+            
+            </div>
+            
+        </div>
+        <!-- Card -->
+</div>
+{% endblock content %}
+
+{% block scripts %}
+
+{% endblock scripts %}

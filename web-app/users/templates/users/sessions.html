@@ -1,13 +1,6 @@
+{% extends "steplab/common.html" %}
 {% load static from staticfiles %}
-
-<!doctype html>
-<html lang="en">
- 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
+{% block addionalDependencies %}
     <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
     <link href="{% static 'vendor/fonts/circular-std/style.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'libs/css/style.css' %}">
@@ -17,11 +10,9 @@
     <link rel="stylesheet" href="{% static 'vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css' %}">
     <link rel="stylesheet" href="{% static 'vendor/charts/c3charts/c3.css' %}">
     <link rel="stylesheet" href="{% static 'vendor/fonts/flag-icon-css/flag-icon.min.css' %}">
-    <title>Smart Insole</title>
-</head>
-
-<body>
-    <!-- ============================================================== -->
+{% endblock addionalDependencies %}
+{% block content %}
+ <!-- ============================================================== -->
     <!-- main wrapper -->
     <!-- ============================================================== -->
     <div class="dashboard-main-wrapper">
@@ -898,5 +889,5 @@
     <script src="{% static 'vendor/charts/c3charts/C3chartjs.js' %}"></script>
     <script src="{% static 'libs/js/dashboard-ecommerce.js' %}"></script>
 </body>
- 
-</html>
+
+{% endblock content %}

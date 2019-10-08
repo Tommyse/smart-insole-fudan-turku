@@ -1,0 +1,111 @@
+{% extends "steplab/common.html" %}
+{% load static %}
+{% block addionalDependencies %}
+<link href="{% static 'vendor/fonts/circular-std/style.css' %}" rel="stylesheet">
+<!--<link rel="stylesheet" href="{% static 'libs/css/style.css' %}">-->
+<link rel="stylesheet" href="{% static 'vendor/fonts/fontawesome/css/fontawesome-all.css' %}">
+<link rel="stylesheet" href="{% static 'vendor/charts/chartist-bundle/chartist.css' %}">
+<link rel="stylesheet" href="{% static 'vendor/charts/morris-bundle/morris.css' %}">
+<link rel="stylesheet" href="{% static 'vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css' %}">
+<link rel="stylesheet" href="{% static 'vendor/charts/c3charts/c3.css' %}">
+<link rel="stylesheet" href="{% static 'vendor/fonts/flag-icon-css/flag-icon.min.css' %}">
+{% endblock addionalDependencies %}
+{% block body %}
+
+<!-- navbar -->
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Smart Insole</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto mr-2">
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'steplab-recordings' %}">Step Recordings</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Diagnoses
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{% url 'steplab-diagnosis' %}">History</a>
+                    
+                    <a class="dropdown-item" href="{% url 'steplab-diagnosis' %}">New Diagonose</a>
+                    <a class="dropdown-item" href="{% url 'steplab-diagnosis' %}">Previous Diagnoses</a>
+                    <!--<div class="dropdown-divider"></div>-->
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'steplab-profile' %}">Profile</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<!-- end navbar -->
+
+<!-- content -->
+<div class="container-fluid p-3" id="main-content">
+    {% block content %}
+    {% endblock content%}
+</div>
+<!-- end content -->
+
+<!-- Footer -->
+<footer class="footer jumbotron font-small blue pt-4">
+    <!-- Footer Links -->
+    <div class="container-fluid text-center text-md-left">
+        <!-- Grid row -->
+        <div class="row text-center">
+            <!-- Grid column -->
+            <div class="col-md-5 mt-md-0 mt-3">
+                <!-- Content -->
+                <h5 class="text-uppercase" id="about">About</h5>
+                <p>
+                    <strong>The smart insole App</strong> is an AI application that analyses the <a
+                        href="http://www.movesole.com/">movesole</a> CSV files predicting the risk of fall of a patient.
+                    This app can be extremely useful for elderly, in which
+                    a fall can cause severe damage and even death.
+                </p>
+            </div>
+            <!-- Grid column -->
+            <hr class="clearfix w-100 d-md-none pb-3">
+            <!-- Grid column -->
+            <div class="col-md-4 mb-md-0 mb-3">
+                <!-- Links -->
+                <h5 class="text-uppercase">Address</h5>
+                <address>
+                    <strong>Smart Insole, Inc.</strong><br>
+                    Yo-kylä 12A 20540 TURKU <br>
+                </address>
+                <h5 class="text-uppercase">Contact</h5>
+                <p>
+                    Contact Info: <strong>dsavil@utu.fi</strong>
+                </p>
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-md-3 mb-md-0 mb-3">
+
+                <!-- Copyright -->
+                <div class="footer-copyright text-center py-3">© 2018 Copyright:
+                    <h2> Smart Insole Team </h2>
+                    <a href="https://www.utu.fi/fi">University of Turku</a>
+                    <br>
+                    <a href="http://www.fudan.edu.cn/en/">Fudan University</a>
+                </div>
+                <!-- Copyright -->
+            </div>
+            <!-- Grid column -->
+
+        </div>
+        <!-- Grid row -->
+
+    </div>
+    <!-- Footer Links -->
+</footer>
+<!-- Footer -->
+{% endblock body %}
