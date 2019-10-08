@@ -8,6 +8,11 @@ from .models import StepSession
 from .models import StepFile
 from django.core.files.storage import default_storage
 
+'''
+url = "http://www.neo4j.com"
+params = {'ref':"mark-blog"}
+req.prepare_url(url, params)
+'''
 def _generateStepFiles(n, user):
     stepFiles = []
     n = 0
@@ -38,25 +43,43 @@ def home(request):
 @login_required(login_url='login')
 def recordings(request):
     user = request.user
+    usrFolder = user.username
+    context = {}
+    showAllFiles = True
     if request.method == 'POST':
         #stepfiles = request.POST.getlist('new-stepfiles', None) # request.POST.get and request.POST.getlist
         stepfiles = request.FILES.getlist('new-stepfiles')
         print(stepfiles)
         for stepfile in stepfiles:
-            usrFolder = user.username # user.email + user.id
             full_filename = os.path.join(settings.MEDIA_ROOT, usrFolder, stepfile.name)
             # TODO: SAVE THE FILE INTO DB FOR LINDA USERS
             path = default_storage.save(full_filename, stepfile)
 
-            stepFileObj = StepFile(title=path, author=user, footsize=42, productId='KKJFDUD58', steps=150, content='')
+            fileName = os.path.basename(path)
+            stepFileObj = StepFile(title=fileName, author=user, footsize=42, productId='KKJFDUD58', steps=150, content='')
             stepFileObj.save()
 
-        print(stepfiles)
+    elif request.method == 'GET':
+        fileName = request.GET.get('filename', '')
+        if fileName.strip():
+            # TODO SECURITY RISK
+            path = os.path.join(settings.MEDIA_ROOT, usrFolder, fileName)
+
+            if os.path.exists(path):
+                with open(path, 'r') as f:
+                    content = f.readlines()
+                    context = {
+                        'fileContent'       :  content,
+                        'title'             : 'Recordings/' + fileName
+                    }
+
+                    return render(request, 'steplab/recordingDetail.html', context) # request, template and context(arguments)
+
     stepFiles = StepFile.objects.filter(author=user)
 
     context = {
-        'stepFiles'         : stepFiles,
-        'title'             : 'Recordings'
+                'stepFiles'         : stepFiles,
+                'title'             : 'Recordings'
     }
 
     return render(request, 'steplab/recordings.html', context) # request, template and context(arguments)
