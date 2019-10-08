@@ -80,6 +80,7 @@
             let fileName = this.innerText;
             $.get( "", {filename: fileName}, function( data ) {
                 $( "#main-content" ).html( data );
+                window.scrollTo(0, 0);
             });
         });
     });

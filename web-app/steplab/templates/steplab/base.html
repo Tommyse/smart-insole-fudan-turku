@@ -31,10 +31,11 @@
                     Diagnoses
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">New Diagonose</a>
-                    <a class="dropdown-item" href="#">Previous Diagnoses</a>
+                    <a class="dropdown-item" href="{% url 'steplab-diagnosis' %}">History</a>
+                    
+                    <a class="dropdown-item" href="{% url 'steplab-diagnosis' %}">New Diagonose</a>
+                    <a class="dropdown-item" href="{% url 'steplab-diagnosis' %}">Previous Diagnoses</a>
                     <!--<div class="dropdown-divider"></div>-->
-                    <a class="dropdown-item" href="#">Summary</a>
                 </div>
             </li>
             <li class="nav-item">
@@ -53,7 +54,7 @@
 <!-- end content -->
 
 <!-- Footer -->
-<footer class="footer font-small blue pt-4">
+<footer class="footer jumbotron font-small blue pt-4">
     <!-- Footer Links -->
     <div class="container-fluid text-center text-md-left">
         <!-- Grid row -->

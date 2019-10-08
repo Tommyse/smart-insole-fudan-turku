@@ -85,6 +85,11 @@ def recordings(request):
 
     return render(request, 'steplab/recordings.html', context) # request, template and context(arguments)
 
+@login_required(login_url='login')
+def diagnosis(request):
+    context = {'title': 'diagnosis'}
+    return render(request, 'steplab/diagnosis.html', context)
+
 def about(request):
     return render(request, 'steplab/about.html', {'title': 'About'})
 
