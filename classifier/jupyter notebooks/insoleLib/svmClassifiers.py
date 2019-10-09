@@ -168,7 +168,7 @@ class SvmClassifiers:
         
         return(accs, aucs)
 
-    def svmGetPredictions(train, data, kern):
+    def svmGetPredictions(train, data, kern, x_cols=DataColumns.getSelectedCols2()):
         """
         Classify input data
         
@@ -177,9 +177,9 @@ class SvmClassifiers:
             data {array} -- unlabeled pandas dataframe
             k {int} -- number of nearest neighbors
         """
-        xtrain = train[DataColumns.getSelectedCols2()]
-        ytrain = train["label"]
-        xdata = data[DataColumns.getSelectedCols2()]
+        xtrain = train.loc[:, x_cols]
+        ytrain = train.loc[:, "label"]
+        xdata = data.loc[:, x_cols]
 
         knn = svm.SVC(kernel=kern, gamma="scale", degree=4)
         knn.fit(xtrain, ytrain.values.ravel())

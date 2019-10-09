@@ -30,6 +30,8 @@ Various python files in **"classifier/jupyter notebooks"** are jupyter notebooks
 
 - More feature selection/generation methods
 
+	- https://docs.scipy.org/doc/numpy/reference/generated/numpy.std.html#numpy.std
+
 - scaling forces could use more testing and observing
 
 	- The data needs to be standardized since every session can have different forces. (different persons probably walk and weigh differently)
@@ -46,7 +48,7 @@ Various python files in **"classifier/jupyter notebooks"** are jupyter notebooks
 
 	- https://scikit-learn.org/stable/auto_examples/model_selection/plot_confusion_matrix.html#sphx-glr-auto-examples-model-selection-plot-confusion-matrix-py
 
-- Testing more different feature sets. Which is the best?
+- Testing more different feature sets
 
 - Balance classes in dataset(s) before training
 
@@ -64,15 +66,9 @@ Various python files in **"classifier/jupyter notebooks"** are jupyter notebooks
 
 		- https://machinelearningmastery.com/multi-class-classification-tutorial-keras-deep-learning-library/
 
-	- Multi-layer Perceptron?
-
-		- https://scikit-learn.org/stable/auto_examples/neural_networks/plot_mlp_alpha.html
-
 	- Custom KNN which is extra sensitive for fall labels?
 
 		- even one fall label in neighbor could cause labeling row as fall?
-
-	- https://scikit-learn.org/stable/auto_examples/ensemble/plot_adaboost_multiclass.html
 
 - Testing semi-supervised learning
 

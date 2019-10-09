@@ -1,6 +1,35 @@
-{% extends "steplab/base.html" %}
-{% block content %}
-    <div class="content-section">
+{% extends "steplab/common.html" %}
+{% load static from staticfiles %}
+{% load crispy_forms_tags %}
+{% block addionalDependencies %}
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css' %}">
+    <style>
+        body, html {
+            height: 100%;
+            font-family: arial, sans-serif;
+        }
+
+        .container-logout {
+            width: 100%;
+            min-height: 100vh;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            background: #ebeeef;
+        }
+    </style>        
+{% endblock addionalDependencies %}
+{% block body %}
+
+        
+<div class="container-fluid container-logout">
+    <div class="card p-5">
         <h2>You have been logged out</h2>
         <div class="border-top pt-3">
             <small class="text-muted">
@@ -8,4 +37,5 @@
             </small>
         </div>
     </div>
-{% endblock content %}
+</div>
+{% endblock body %}

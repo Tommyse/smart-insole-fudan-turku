@@ -252,9 +252,9 @@ class MlpClassifiers:
             data {array} -- unlabeled pandas dataframe
             k {int} -- number of nearest neighbors
         """
-        xtrain = train[DataColumns.getSelectedCols2()]
-        ytrain = train["label"]
-        xdata = data[DataColumns.getSelectedCols2()]
+        xtrain = train.loc[:, DataColumns.getSelectedCols2()]
+        ytrain = train.loc[:, "label"]
+        xdata = data.loc[:, DataColumns.getSelectedCols2()]
 
         mlpClassifier = MLPClassifier(
             hidden_layer_sizes=parameters.hidden_layer_sizes,

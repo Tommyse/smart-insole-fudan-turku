@@ -32,17 +32,30 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="{% url 'steplab-diagnosis' %}">History</a>
-                    
+
                     <a class="dropdown-item" href="{% url 'steplab-diagnosis' %}">New Diagonose</a>
                     <a class="dropdown-item" href="{% url 'steplab-diagnosis' %}">Previous Diagnoses</a>
                     <!--<div class="dropdown-divider"></div>-->
                 </div>
             </li>
-            <li class="nav-item mt-auto">
-                <a class="nav-link" href="{% url 'steplab-profile' %}" style="display:initial;">Profile</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Profile
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{% url 'steplab-profile' %}">
+                        See Profile
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                </div>
+            </li>
+            <li class="nav-item">
                 {% if user.profile.image and  user.profile.image.url %}
-                    <img class="rounded-circle account-img ml-1" src="{{ user.profile.image.url }}" style="height: 2.5rem; width: 2.5rem;">
-                {% endif %} 
+                <img class="rounded-circle account-img ml-1" src="{{ user.profile.image.url }}"
+                    style="height: 2.5rem; width: 2.5rem;">
+                {% endif %}
             </li>
         </ul>
     </div>
