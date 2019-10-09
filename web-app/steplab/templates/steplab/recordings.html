@@ -1,8 +1,9 @@
 {% extends 'steplab/base.html' %}
-{% block content%}
+{% block content %}
 <div class="row">
     <div class="col-md-10 offset-1 lm-auto">
-        <a data-toggle="collapse" data-target="#uploader" class="btn btn-primary btn-lg float-right" href="#" role="button">Add a new Step File</a>
+        <a data-toggle="collapse" data-target="#uploader" class="btn btn-primary btn-lg float-right" href="#"
+            role="button">Add a new Step File</a>
     </div>
 </div>
 
@@ -54,7 +55,7 @@
             {% if not stepFiles %}
             <tfoot>
                 <tr>
-                  <td colspan="5">There are not any step file!</td>
+                    <td colspan="5">There are not any step file!</td>
                 </tr>
             </tfoot>
             {% endif %}
@@ -67,7 +68,7 @@
 
 {% block scripts %}
 <script>
-     function submitForm() {
+    function submitForm() {
         // Get the first form with the name
         var frm = document.getElementsByName('form-name')[0];
         frm.submit(); // Submit
@@ -75,11 +76,11 @@
         return false; // Prevent page refresh
     }
 
-    $(document).ready(function() {
-        $('#recordings-table td').click(function() {
+    $(document).ready(function () {
+        $('#recordings-table td').click(function () {
             let fileName = this.innerText;
-            $.get( "", {filename: fileName}, function( data ) {
-                $( "#main-content" ).html( data );
+            $.get("", { filename: fileName }, function (data) {
+                $("#main-content").html(data);
                 window.scrollTo(0, 0);
             });
         });

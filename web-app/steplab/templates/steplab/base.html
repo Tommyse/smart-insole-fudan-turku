@@ -38,8 +38,11 @@
                     <!--<div class="dropdown-divider"></div>-->
                 </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'steplab-profile' %}">Profile</a>
+            <li class="nav-item mt-auto">
+                <a class="nav-link" href="{% url 'steplab-profile' %}" style="display:initial;">Profile</a>
+                {% if user.profile.image and  user.profile.image.url %}
+                    <img class="rounded-circle account-img ml-1" src="{{ user.profile.image.url }}" style="height: 2.5rem; width: 2.5rem;">
+                {% endif %} 
             </li>
         </ul>
     </div>

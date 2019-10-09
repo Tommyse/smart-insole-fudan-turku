@@ -40,7 +40,6 @@ def home(request):
     }
     return render(request, 'steplab/home.html', context) # request, template and context(arguments)
 
-
 @login_required(login_url='login')
 def recordings(request):
     user = request.user
@@ -89,6 +88,15 @@ def recordings(request):
 def diagnosis(request):
     context = {'title': 'diagnosis'}
     return render(request, 'steplab/diagnosis.html', context)
+
+@login_required(login_url='login')
+def newDiagnose(request):
+    stepFiles = StepFile.objects.filter(author=request.user)
+    context = {
+        'stepFiles'         : stepFiles,
+        'title'             : 'diagnosis',
+    }
+    return render(request, 'steplab/newDiagnose.html', context)
 
 def about(request):
     return render(request, 'steplab/about.html', {'title': 'About'})

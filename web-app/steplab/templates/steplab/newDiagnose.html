@@ -1,0 +1,92 @@
+{% extends 'steplab/base.html' %}
+{% block content %}
+<div class="container-fluid">
+    <!-- Table  -->
+    <form method="post" enctype="multipart/form-data" onsubmit="submitForm()">
+        {% csrf_token %}
+        <div class="row mb-2">
+            <button class="btn btn-primary btn-lg ml-auto" type="submit">Analyse</button>
+        </div>
+        <div class="row overflow-auto">
+            <table id="recordings-table" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                            <!-- Default unchecked -->
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="tableDefaultCheck0">
+                                <label class="custom-control-label" for="tableDefaultCheck0"></label>
+                            </div>
+                        </th>
+                        <th>
+                            <h4>Filename</h4>
+                        </th>
+                        <th>
+                            <h4>Author</h4>
+                        </th>
+                        <th>
+                            <h4>Footsize</h4>
+                        </th>
+                        <th>
+                            <h4>ProductId</h4>
+                        </th>
+                        <th>
+                            <h4>Steps</h4>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for stepFile in stepFiles %}
+                    <tr class="">
+                        <td>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input"
+                                    id="tableDefaultCheck{{ forloop.counter }}">
+                                <label class="custom-control-label"
+                                    for="tableDefaultCheck{{ forloop.counter }}"></label>
+                            </div>
+                        </td>
+                        <td>{{ stepFile.title }} </td>
+                        <td>{{ stepFile.author }} </td>
+                        <td>{{ stepFile.footsize }} </td>
+                        <td>{{ stepFile.productId }} </td>
+                        <td>{{ stepFile.steps }} </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                {% if not stepFiles %}
+                <tfoot>
+                    <tr>
+                        <td colspan="6">There are not any step file!</td>
+                    </tr>
+                </tfoot>
+                {% endif %}
+            </table>
+        </div>
+    </form>
+</div>
+
+
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    function submitForm() {
+        // Get the first form with the name
+        var frm = document.getElementsByName('form-name')[0];
+        frm.submit(); // Submit
+        frm.reset();  // Reset
+        return false; // Prevent page refresh
+    }
+
+    $(document).ready(function () {
+        $('#tableDefaultCheck0').click(function () {
+            let allChecked = $('#tableDefaultCheck0').prop('checked');
+
+            $('#recordings-table td input').each(function() {
+                $( this ).prop('checked', allChecked);
+            });
+        });
+    });
+</script>
+{% endblock scripts %}
