@@ -215,7 +215,7 @@ class KnnClassifiers:
         
         return(accs, aucs)
 
-    def getKnnPredictions(train, data, k):
+    def getKnnPredictions(train, data, k, x_cols=DataColumns.getSelectedCols2()):
         """
         Classify input data
         
@@ -224,9 +224,9 @@ class KnnClassifiers:
             data {array} -- unlabeled pandas dataframe
             k {int} -- number of nearest neighbors
         """
-        xtrain = train[DataColumns.getSelectedCols2()]
+        xtrain = train[x_cols]
         ytrain = train["label"]
-        xdata = data[DataColumns.getSelectedCols2()]
+        xdata = data[x_cols]
 
         knnClassifier = KNeighborsClassifier(n_neighbors=k, weights="uniform", metric="euclidean")
         knnClassifier.fit(xtrain, ytrain.values.ravel())

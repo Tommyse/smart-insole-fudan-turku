@@ -39,14 +39,14 @@ class Ensemble:
     stepL_cols = DataColumns.getStepTimeCols()
 
 
-    def testBagging(data):
+    def testBagging(data, x_cols=DataColumns.getSelectedCols2()):
         """
         Testing bagging results
 
         Arguments:
             data {array} -- Data
         """
-        x_cols = DataColumns.getSelectedCols2()
+        #x_cols = DataColumns.getSelectedCols2()
         y_cols = ["label"]
 
         x = data.loc[:, x_cols]
@@ -82,16 +82,16 @@ class Ensemble:
             
 
             #knn0_pred_label = KnnClassifiers.getKnnPredictions(train, xtest, k)
-            knn1_pred_label = KnnClassifiers.getKnnPredictions(datasets[0], xtest, k)
-            knn2_pred_label = KnnClassifiers.getKnnPredictions(datasets[1], xtest, k)
-            knn3_pred_label = KnnClassifiers.getKnnPredictions(datasets[2], xtest, k)
-            knn4_pred_label = KnnClassifiers.getKnnPredictions(datasets[3], xtest, k)
-            knn5_pred_label = KnnClassifiers.getKnnPredictions(datasets[4], xtest, k)
-            knn6_pred_label = KnnClassifiers.getKnnPredictions(datasets[5], xtest, k)
-            knn7_pred_label = KnnClassifiers.getKnnPredictions(datasets[6], xtest, k)
-            knn8_pred_label = KnnClassifiers.getKnnPredictions(datasets[7], xtest, k)
-            knn9_pred_label = KnnClassifiers.getKnnPredictions(datasets[8], xtest, k)
-            knn10_pred_label = KnnClassifiers.getKnnPredictions(datasets[9], xtest, k)
+            knn1_pred_label = KnnClassifiers.getKnnPredictions(datasets[0], xtest, k, x_cols)
+            knn2_pred_label = KnnClassifiers.getKnnPredictions(datasets[1], xtest, k, x_cols)
+            knn3_pred_label = KnnClassifiers.getKnnPredictions(datasets[2], xtest, k, x_cols)
+            knn4_pred_label = KnnClassifiers.getKnnPredictions(datasets[3], xtest, k, x_cols)
+            knn5_pred_label = KnnClassifiers.getKnnPredictions(datasets[4], xtest, k, x_cols)
+            knn6_pred_label = KnnClassifiers.getKnnPredictions(datasets[5], xtest, k, x_cols)
+            knn7_pred_label = KnnClassifiers.getKnnPredictions(datasets[6], xtest, k, x_cols)
+            knn8_pred_label = KnnClassifiers.getKnnPredictions(datasets[7], xtest, k, x_cols)
+            knn9_pred_label = KnnClassifiers.getKnnPredictions(datasets[8], xtest, k, x_cols)
+            knn10_pred_label = KnnClassifiers.getKnnPredictions(datasets[9], xtest, k, x_cols)
 
             #Tree1 parameters
             params1 = parameters(class_weight=None, criterion='gini', max_depth=5, max_features=None,
@@ -143,16 +143,16 @@ class Ensemble:
             kern = "rbf"
 
             #svm0_pred_label = SvmClassifiers.svmGetPredictions(train, xtest, kern)
-            svm1_pred_label = SvmClassifiers.svmGetPredictions(datasets[0], xtest, kern)
-            svm2_pred_label = SvmClassifiers.svmGetPredictions(datasets[1], xtest, kern)
-            svm3_pred_label = SvmClassifiers.svmGetPredictions(datasets[2], xtest, kern)
-            svm4_pred_label = SvmClassifiers.svmGetPredictions(datasets[3], xtest, kern)
-            svm5_pred_label = SvmClassifiers.svmGetPredictions(datasets[4], xtest, kern)
-            svm6_pred_label = SvmClassifiers.svmGetPredictions(datasets[5], xtest, kern)
-            svm7_pred_label = SvmClassifiers.svmGetPredictions(datasets[6], xtest, kern)
-            svm8_pred_label = SvmClassifiers.svmGetPredictions(datasets[7], xtest, kern)
-            svm9_pred_label = SvmClassifiers.svmGetPredictions(datasets[8], xtest, kern)
-            svm10_pred_label = SvmClassifiers.svmGetPredictions(datasets[9], xtest, kern)
+            svm1_pred_label = SvmClassifiers.svmGetPredictions(datasets[0], xtest, kern, x_cols)
+            svm2_pred_label = SvmClassifiers.svmGetPredictions(datasets[1], xtest, kern, x_cols)
+            svm3_pred_label = SvmClassifiers.svmGetPredictions(datasets[2], xtest, kern, x_cols)
+            svm4_pred_label = SvmClassifiers.svmGetPredictions(datasets[3], xtest, kern, x_cols)
+            svm5_pred_label = SvmClassifiers.svmGetPredictions(datasets[4], xtest, kern, x_cols)
+            svm6_pred_label = SvmClassifiers.svmGetPredictions(datasets[5], xtest, kern, x_cols)
+            svm7_pred_label = SvmClassifiers.svmGetPredictions(datasets[6], xtest, kern, x_cols)
+            svm8_pred_label = SvmClassifiers.svmGetPredictions(datasets[7], xtest, kern, x_cols)
+            svm9_pred_label = SvmClassifiers.svmGetPredictions(datasets[8], xtest, kern, x_cols)
+            svm10_pred_label = SvmClassifiers.svmGetPredictions(datasets[9], xtest, kern, x_cols)
 
             #tensorflow
 
