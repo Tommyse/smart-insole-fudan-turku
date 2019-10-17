@@ -2,10 +2,10 @@
 {% block content %}
 <div class="container-fluid">
     <!-- Table  -->
-    <form method="post" enctype="multipart/form-data" onsubmit="submitForm()">
+    <form method="post" enctype="multipart/form-data" onsubmit="submitForm()" id="analyse-file-form">
         {% csrf_token %}
         <div class="row mb-2">
-            <button class="btn btn-primary btn-lg ml-auto" type="submit">Analyse</button>
+            <button class="btn btn-primary btn-lg ml-auto" type="submit" name="analyse">Analyse</button>
         </div>
         <div class="row overflow-auto">
             <table id="recordings-table" class="table table-bordered">
@@ -46,7 +46,7 @@
                                     for="tableDefaultCheck{{ forloop.counter }}"></label>
                             </div>
                         </td>
-                        <td>{{ stepFile.title }} </td>
+                        <td class="file-name" value="{{ stepFile.title }}">{{ stepFile.title }} </td>
                         <td>{{ stepFile.author }} </td>
                         <td>{{ stepFile.footsize }} </td>
                         <td>{{ stepFile.productId }} </td>
@@ -72,8 +72,26 @@
 {% block scripts %}
 <script>
     function submitForm() {
+        let files = []; // $('#analyse').val
+
+        $('#recordings-table tr').each(function() {
+            let checkBox = $( this ).find('td input');
+            selected = checkBox.prop('checked');
+			if (selected) {
+                fileNameItem = $( this ).find('.file-name');
+                if (fileNameItem != null) {
+                    fileName = fileNameItem.text();
+                    if (fileName) {
+                        files.push(fileName);
+                    }
+                }
+            }
+        });
+
+        $('button[name="analyse"]').val(JSON.stringify(files));
+        
         // Get the first form with the name
-        var frm = document.getElementsByName('form-name')[0];
+        var frm = document.getElementById('analyse-file-form');
         frm.submit(); // Submit
         frm.reset();  // Reset
         return false; // Prevent page refresh

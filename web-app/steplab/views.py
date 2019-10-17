@@ -1,4 +1,5 @@
 import os
+import json
 
 from django.shortcuts import render
 from django.conf import settings
@@ -96,6 +97,13 @@ def newDiagnose(request):
         'stepFiles'         : stepFiles,
         'title'             : 'diagnosis',
     }
+
+    if request.method == 'POST':
+        stepfilesJSON = request.POST.get("analyse", "")
+        stepfiles = json.loads(stepfilesJSON)
+        for stepfile in stepfiles:
+            print(stepfile)
+
     return render(request, 'steplab/newDiagnose.html', context)
 
 def about(request):
