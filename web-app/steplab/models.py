@@ -24,8 +24,26 @@ class StepFile(models.Model):
         return '{} {} {} {} {}'.format(self.title, self.author, self.footsize, self.productId, self.steps)
 
 
+class StepPrediction(models.Model):
+    user =  models.ForeignKey(User, on_delete=models.CASCADE)
+    files = models.TextField()
+    creationDate = models.DateField(default=timezone.now)
 
-    
+
+class StepGroup(models.Model):
+    '''
+        https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.Field.primary_key
+    '''
+    stepPrediction =  models.ForeignKey(StepPrediction, on_delete=models.CASCADE)
+    index = models.IntegerField()
+    origin = models.IntegerField()
+    end = models.IntegerField()
+    size = models.IntegerField()
+
+class StepGroupClassiffier(models.Model):
+    stepGroup = models.ForeignKey(StepGroup, on_delete=models.CASCADE)
+    riskFalling = models.BooleanField()
+
 
 class StepSession(models.Model):
     name = models.TextField(max_length=512)

@@ -35,7 +35,21 @@ def get_data_from_files(filePaths, delimiter=';'):
     fieldsList = []
     samplesList = []
     for filePath in filePaths:
-        fields, samples = get_data(filePath, delimiter)
-        fieldsList.append(fields)
-        samplesList.append(samples)
+        if os.path.isfile(filePath) and filePath.endswith('.csv'):
+            fields, samples = get_data(filePath, delimiter)
+            fieldsList.append(fields)
+            samplesList.append(samples)
     return (fieldsList, samplesList)
+
+# Create a function called 'chunks' with two arguments, l and n:
+def chunks(l, n):
+    # For item i in a range that is a length of l,
+    for i in range(0, len(l), n):
+        # Create an index range for l of n items:
+        yield l[i:i+n]
+
+def combine(ls):
+    combineList = []
+    for l in ls:
+        combineList += l
+    return combineList

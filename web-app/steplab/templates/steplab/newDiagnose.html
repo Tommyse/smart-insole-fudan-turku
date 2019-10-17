@@ -1,8 +1,27 @@
 {% extends 'steplab/base.html' %}
+{% load static from staticfiles %}
+{% block addionalDependencies %}
+<link rel="stylesheet" href="{% static 'css/spinner.css' %}">
+{% endblock addionalDependencies %}
+
 {% block content %}
 <div class="container-fluid">
+    <div class="sk-circle wait-tool d-none">
+            <div class="sk-circle1 sk-child"></div>
+            <div class="sk-circle2 sk-child"></div>
+            <div class="sk-circle3 sk-child"></div>
+            <div class="sk-circle4 sk-child"></div>
+            <div class="sk-circle5 sk-child"></div>
+            <div class="sk-circle6 sk-child"></div>
+            <div class="sk-circle7 sk-child"></div>
+            <div class="sk-circle8 sk-child"></div>
+            <div class="sk-circle9 sk-child"></div>
+            <div class="sk-circle10 sk-child"></div>
+            <div class="sk-circle11 sk-child"></div>
+            <div class="sk-circle12 sk-child"></div>
+          </div>
     <!-- Table  -->
-    <form method="post" enctype="multipart/form-data" onsubmit="submitForm()" id="analyse-file-form">
+    <div id="analyse-file-form">
         {% csrf_token %}
         <div class="row mb-2">
             <button class="btn btn-primary btn-lg ml-auto" type="submit" name="analyse">Analyse</button>
@@ -63,14 +82,31 @@
                 {% endif %}
             </table>
         </div>
-    </form>
+    </div>
 </div>
 
 
 {% endblock content %}
 
 {% block scripts %}
+
 <script>
+    function getCookie(c_name)
+    {
+        if (document.cookie.length > 0)
+        {
+            c_start = document.cookie.indexOf(c_name + "=");
+            if (c_start != -1)
+            {
+                c_start = c_start + c_name.length + 1;
+                c_end = document.cookie.indexOf(";", c_start);
+                if (c_end == -1) c_end = document.cookie.length;
+                return unescape(document.cookie.substring(c_start,c_end));
+            }
+        }
+        return "";
+    }
+
     function submitForm() {
         let files = []; // $('#analyse').val
 
@@ -90,19 +126,67 @@
 
         $('button[name="analyse"]').val(JSON.stringify(files));
         
-        // Get the first form with the name
-        var frm = document.getElementById('analyse-file-form');
-        frm.submit(); // Submit
-        frm.reset();  // Reset
-        return false; // Prevent page refresh
+        $('#recordings-table td').click(function () {
+            let fileName = this.innerText;
+            $.get("", { filename: fileName }, function (data) {
+                $("#main-content").html(data);
+                window.scrollTo(0, 0);
+            });
+        });
     }
 
+    
     $(document).ready(function () {
         $('#tableDefaultCheck0').click(function () {
             let allChecked = $('#tableDefaultCheck0').prop('checked');
 
             $('#recordings-table td input').each(function() {
                 $( this ).prop('checked', allChecked);
+            });
+
+            $('button[name="analyse"]').click(function () {
+
+
+                let files = []; // $('#analyse').val
+
+                $('#recordings-table tr').each(function() {
+                    let checkBox = $( this ).find('td input');
+                    selected = checkBox.prop('checked');
+                    if (selected) {
+                        fileNameItem = $( this ).find('.file-name');
+                        if (fileNameItem != null) {
+                            fileName = fileNameItem.text();
+                            if (fileName) {
+                                files.push(fileName);
+                            }
+                        }
+                    }
+                });
+                
+                if (files && files.length > 0) {
+                    fileNames = JSON.stringify(files);
+                    if (fileNames) {
+                        let csrftokenValue = getCookie('csrftoken');
+                        let hideClass = 'd-none';
+                        $("#analyse-file-form").addClass(hideClass)
+                        $(".wait-tool").each(function() {
+                            $(this).removeClass(hideClass);
+                        });
+                        $.post("", { 
+                            analyse: fileNames,
+                            csrfmiddlewaretoken: csrftokenValue
+                        }, function (data) {
+                            window.scrollTo(0, 0);
+                        }).fail(function() {
+                            alert( "error" );
+                        }).always(function() {
+                            $(".wait-tool").each(function() {
+                                $(this).addClass(hideClass);
+                            });
+                            $("#analyse-file-form").removeClass(hideClass);
+                        });
+                    }
+                }
             });
         });
     });

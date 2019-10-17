@@ -4,11 +4,16 @@ import json
 from django.shortcuts import render
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_protect
+
 from .models import Post
 from .models import StepSession
 from .models import StepFile
 from django.core.files.storage import default_storage
 from smart_insole_utils.utils import get_data
+from smart_insole_utils.classifiers import ClassiffierFacade, ClassifierType
+
+from collections import Iterable
 
 '''
 url = "http://www.neo4j.com"
@@ -91,6 +96,7 @@ def diagnosis(request):
     return render(request, 'steplab/diagnosis.html', context)
 
 @login_required(login_url='login')
+@csrf_protect
 def newDiagnose(request):
     stepFiles = StepFile.objects.filter(author=request.user)
     context = {
@@ -99,10 +105,13 @@ def newDiagnose(request):
     }
 
     if request.method == 'POST':
-        stepfilesJSON = request.POST.get("analyse", "")
-        stepfiles = json.loads(stepfilesJSON)
-        for stepfile in stepfiles:
-            print(stepfile)
+        postFilesJSON = request.POST.get("analyse", "")
+        postFiles = json.loads(postFilesJSON)
+        for postFile in postFiles:
+            print(postFiles)
+        classificationMethods = [ClassifierType.MOCKED]
+        if postFiles is not None and isinstance(postFiles, Iterable) and len(postFiles) > 0:
+            ClassiffierFacade.analyseImbalances(request.user, postFiles, classificationMethods, 100)
 
     return render(request, 'steplab/newDiagnose.html', context)
 

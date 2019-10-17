@@ -1,5 +1,12 @@
 from enum import Enum
 from abc import ABC, abstractclassmethod
+from .utils import get_data_from_files, chunks, combine
+from steplab.models import StepPrediction, StepGroup, StepGroupClassiffier
+import json
+
+import numpy as np
+import pandas as pd
+
 
 class ClassifierType(Enum):
     '''
@@ -20,7 +27,7 @@ class Classifier(ABC):
     This method should return an ClassifierAnalysisResult object.
     '''
     @abstractclassmethod
-    def analyseImbalance(filePaths): pass
+    def analyseImbalance(testData): pass
 
 class ClassifierAnalysisResult(object):
 
@@ -35,14 +42,14 @@ class ClassifierAnalysisResult(object):
 class ClassiffierFacade:
 
     @staticmethod
-    def analyseImbalance(filePaths, classifierType = ClassifierType.KNN):
+    def analyseImbalance(testData, classifierType = ClassifierType.KNN):
         
         classifierResult = None
         
         if classifierType == ClassifierType.KNN:
-            classifierResult = "" # TODO = KNN.analyseImbalance()
+            classifierResult = "" # TODO = KNN.analyseImbalance(predictSamples)
         elif classifierType == ClassifierType.DNN:
-            classifierResult = "" # TODO = DNN.analyseImbalance()
+            classifierResult = "" # TODO = DNN.analyseImbalance(predictSamples)
         elif classifierType == ClassifierType.MOCKED:
             classifierResult = ClassifierAnalysisResult(True)
         else:
@@ -50,6 +57,38 @@ class ClassiffierFacade:
 
         return classifierResult
 
-if __name__ == "__main__":
-    classifierResult = ClassiffierFacade.analyseImbalance("", ClassifierType.MOCKED)
-    print(classifierResult.hasFallingRisk())
+    @staticmethod
+    def analyseImbalances(currentUser, filePaths, classifierTypes, groupSize):
+        
+        if len(classifierTypes) <= 0:
+            return ValueError(f'No classification mehtod was given!')
+        if groupSize <= 0:
+            raise ValueError(f'A step group should have more than {groupSize}!')
+
+        # Get Data from files
+        fieldsList, samplesList = get_data_from_files(filePaths)
+        samples = combine(samplesList)
+
+        # Create a prediction
+        stepPrediction = StepPrediction(user=currentUser, files=json.dumps(filePaths))
+        stepPrediction.save()
+
+        stepGroupIndex = 0
+        origin = 0
+        for stepGroupSamples in chunks(samples, groupSize):
+            size = len(stepGroupSamples)
+            end = origin + size
+            # print(f'{origin} {end} {size} {stepGroupIndex}')
+            
+            # Create the Stepgroups of that predictions
+            stepGroup = StepGroup(stepPrediction=stepPrediction, index=stepGroupIndex, origin=origin, end=end, size=size)
+            stepGroup.save()
+            
+            # For every group analyse using the selected classifier types.
+            for classifierType in classifierTypes:
+                classifierResult = ClassiffierFacade.analyseImbalance(stepGroupSamples, classifierType)
+                stepGroupClassiffier = StepGroupClassiffier(stepGroup=stepGroup, riskFalling=classifierResult.hasFallingRisk())
+                stepGroupClassiffier.save()
+
+            origin += size
+            stepGroupIndex += 1
