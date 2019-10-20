@@ -201,3 +201,178 @@ permutation_count = 500 #how many times the suffled data is tested
 permutation_accs, permutation_aucs = TreeClassifiers.testXGBoostLearning(standardized_data, params, x_cols, y_cols, permutation_count, True, avg_acc, avg_auc, "xgboost2")
 
 
+
+
+
+
+
+#####################################################################
+###		New Dataset! With Diego's and Tommi's data combined
+#####################################################################
+
+#%% errors out from data
+data = pd.read_csv('../tommi+diego_test_data.csv', sep=";", header=0) #harder data with various stepping styles
+data = data.loc[data["Warning_code"] == 0]
+data = data.reset_index(drop=True)
+basedf = data
+
+tforce_DF = DataHandler.calculateTotalForce(data)
+step_t_DF = DataHandler.calculateStepTime(data)
+#force_diff_DF = DataHandler.calculateForceDiff(data) #doesn't work currently
+
+standardized_data = DataHandler.minmaxStandardizeForces(step_t_DF)
+
+
+#%% gini tree
+x_cols = DataColumns.getSelectedCols2()
+y_cols = ["label"]
+plots = True
+
+parameters = namedtuple("parameters", ["class_weight", "criterion", "max_depth", "max_features",
+    "max_leaf_nodes", "min_samples_leaf", "min_samples_split", "min_weight_fraction_leaf", "presort", "random_state", "splitter"])
+
+#Parameters
+params = parameters(
+    	class_weight=None,
+		criterion='gini',
+		max_depth=5,
+		max_features=None,
+		max_leaf_nodes=None,
+		min_samples_leaf=5,
+		min_samples_split=2,
+		min_weight_fraction_leaf=0.0,
+		presort=False,
+		random_state=123,
+		splitter='best'
+	)
+
+avg_acc, real_label, pred_label = TreeClassifiers.testTreePredictions(standardized_data, params, x_cols, y_cols, plots)
+
+pred_label_df = pred_label
+real_label_df = real_label
+    
+pred_label_df = pred_label_df.replace("Normal", 0)
+pred_label_df = pred_label_df.replace("Fall", 1)
+
+real_label_df = real_label_df.replace("Normal", 0)
+real_label_df = real_label_df.replace("Fall", 1)
+
+avg_auc = roc_auc_score(real_label_df, pred_label_df)
+print("AUC score: ", round(avg_auc, 2))
+
+#%% Permutation tests
+
+# This test should give lower average accuracy than the proper implementation
+permutation_count = 20 #how many times the suffled data is tested
+
+permutation_accs, permutation_aucs = TreeClassifiers.testTreeLearning(standardized_data, params, x_cols, y_cols, permutation_count, True, avg_acc, avg_auc, "ds2_tree2_gini_perm")
+
+
+#%% errors out from data
+data = pd.read_csv('../tommi+diego_test_data.csv', sep=";", header=0) #harder data with various stepping styles
+data = data.loc[data["Warning_code"] == 0]
+data = data.reset_index(drop=True)
+basedf = data
+
+tforce_DF = DataHandler.calculateTotalForce(data)
+step_t_DF = DataHandler.calculateStepTime(data)
+#force_diff_DF = DataHandler.calculateForceDiff(data) #doesn't work currently
+
+standardized_data = DataHandler.minmaxStandardizeForces(step_t_DF)
+
+
+
+#%% entropy tree
+x_cols = DataColumns.getSelectedCols2()
+y_cols = ["label"]
+plots = True
+
+parameters = namedtuple("parameters", ["class_weight", "criterion", "max_depth", "max_features",
+    "max_leaf_nodes", "min_samples_leaf", "min_samples_split", "min_weight_fraction_leaf", "presort", "random_state", "splitter"])
+
+#Parameters
+params = parameters(
+    	class_weight=None,
+		criterion='entropy',
+		max_depth=5,
+		max_features=None,
+		max_leaf_nodes=None,
+		min_samples_leaf=5,
+		min_samples_split=2,
+		min_weight_fraction_leaf=0.0,
+		presort=False,
+		random_state=123,
+		splitter='best'
+	)
+
+avg_acc, real_label, pred_label = TreeClassifiers.testTreePredictions(standardized_data, params, x_cols, y_cols, plots)
+
+pred_label_df = pred_label
+real_label_df = real_label
+    
+pred_label_df = pred_label_df.replace("Normal", 0)
+pred_label_df = pred_label_df.replace("Fall", 1)
+
+real_label_df = real_label_df.replace("Normal", 0)
+real_label_df = real_label_df.replace("Fall", 1)
+
+avg_auc = roc_auc_score(real_label_df, pred_label_df)
+print("AUC score: ", round(avg_auc, 2))
+
+#%% Permutation tests
+
+# This test should give lower average accuracy than the proper implementation
+permutation_count = 20 #how many times the suffled data is tested
+
+permutation_accs, permutation_aucs = TreeClassifiers.testTreeLearning(standardized_data, params, x_cols, y_cols, permutation_count, True, avg_acc, avg_auc, "ds2_tree2_entropy_perm")
+
+
+#%% errors out from data
+data = pd.read_csv('../tommi+diego_test_data.csv', sep=";", header=0) #harder data with various stepping styles
+data = data.loc[data["Warning_code"] == 0]
+data = data.reset_index(drop=True)
+basedf = data
+
+tforce_DF = DataHandler.calculateTotalForce(data)
+step_t_DF = DataHandler.calculateStepTime(data)
+#force_diff_DF = DataHandler.calculateForceDiff(data) #doesn't work currently
+
+standardized_data = DataHandler.minmaxStandardizeForces(step_t_DF)
+
+
+
+
+#%%  XGBoost (Extreme Gradient Boost trees)
+
+x_cols = DataColumns.getSelectedCols2()
+y_cols = ["label"]
+plots = True
+
+parameters = namedtuple("parameters", ["class_weight", "criterion", "max_depth", "max_features",
+    "max_leaf_nodes", "min_samples_leaf", "min_samples_split", "min_weight_fraction_leaf", "presort", "random_state", "splitter"])
+
+#Parameters (unused currently)
+params = []
+
+
+avg_acc, real_label, pred_label = TreeClassifiers.testXGBoostPredictions(standardized_data, params, x_cols, y_cols, plots)
+
+pred_label_df = pred_label
+real_label_df = real_label
+    
+pred_label_df = pred_label_df.replace("Normal", 0)
+pred_label_df = pred_label_df.replace("Fall", 1)
+
+real_label_df = real_label_df.replace("Normal", 0)
+real_label_df = real_label_df.replace("Fall", 1)
+
+avg_auc = roc_auc_score(real_label_df, pred_label_df)
+print("AUC score: ", round(avg_auc, 2))
+
+
+#%% Permutation tests
+
+# This test should give lower average accuracy than the proper implementation
+permutation_count = 10 #how many times the suffled data is tested
+
+permutation_accs, permutation_aucs = TreeClassifiers.testXGBoostLearning(standardized_data, params, x_cols, y_cols, permutation_count, True, avg_acc, avg_auc, "ds2_xgboost2")

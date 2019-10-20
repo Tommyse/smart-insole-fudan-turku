@@ -27,7 +27,7 @@ class TreeClassifiers:
     #http://dataaspirant.com/2017/02/01/decision-tree-algorithm-python-with-scikit-learn/
     #https://docs.python.org/dev/library/collections.html#collections.namedtuple
     
-    
+    @staticmethod
     def testTreePredictions(data, parameters, x_cols, y_cols, plots=False):
         """
         Testing tree prediction accuracies.
@@ -124,7 +124,7 @@ class TreeClassifiers:
     
         return(avg_acc, real_label_df, pred_label_df)
 
-
+    @staticmethod
     def testTreeLearning(data, parameters, x_cols, y_cols, times, plots=False, orig_acc=0, orig_auc=0, file_name_prefix="Tree"):
         """
         Suffling labels and fitting data many times.
@@ -139,6 +139,9 @@ class TreeClassifiers:
 
         Keyword Arguments:
             plots {bool} -- Used for plotting (default: {False})
+            orig_acc {double} -- accuracy reference (default: {0})
+            orig_auc {double} -- AUC reference (default: {0})
+            file_name_prefix {str} -- file name prefix (default: {"Tree"})
         """
         
         accs = []
@@ -204,6 +207,7 @@ class TreeClassifiers:
     
         return(accs, aucs)
     
+    @staticmethod
     def getTreePredictions(train, data, parameters, x_cols, y_cols, debug = False):
         """
         Using sklearn's decision tree classifier to classify the input data.
@@ -256,7 +260,7 @@ class TreeClassifiers:
     
         return(ypred)
     
-    
+    @staticmethod
     def testXGBoostPredictions(data, parameters, x_cols, y_cols, plots=False):
         """
         Testing XGBoost prediction accuracies.
@@ -330,11 +334,12 @@ class TreeClassifiers:
     
         return(avg_acc, real_label_df, pred_label_df)
 
-    
+    @staticmethod
     def testXGBoostLearning(data, parameters, x_cols, y_cols, times, plots=False, orig_acc=0, orig_auc=0, file_name_prefix="XGBoost"):
         """
         Suffling labels and fitting data many times.
         Verifying that classifier learns something from the data
+        
         Arguments:
             data {array} -- Data
             x_cols {array} -- x columns
@@ -342,6 +347,9 @@ class TreeClassifiers:
             times {int} -- how many times random accuracy is tested
         Keyword Arguments:
             plots {bool} -- Used for plotting (default: {False})
+            orig_acc {double} -- accuracy reference (default: {0})
+            orig_auc {double} -- AUC reference (default: {0})
+            file_name_prefix {str} -- file name prefix (default: {"XGBoost"})
         """
         
         accs = []
@@ -408,7 +416,7 @@ class TreeClassifiers:
     
         return(accs, aucs)
             
-    
+    @staticmethod
     def getXGBoostPredictions(train, data, x_cols, y_cols):
         """
         XGBoost prediction for input data.
@@ -430,12 +438,10 @@ class TreeClassifiers:
         xgbClassifier = xgbClassifier.fit(xtrain, ytrain.values.ravel())
         #Predictions
         ypred=xgbClassifier.predict(xdata)
-        
-        #data["label"] = ypred
 
         return(ypred)
         
-    
+    @staticmethod
     def testFigLayout(prefix="test_"):
         """
         Testing plot layout
@@ -445,7 +451,7 @@ class TreeClassifiers:
         """
         
         save_path = "../figs/"+prefix+"_plot.png"
-        #print("save_path ", save_path)
+        print("save_path: ", save_path)
         
         plt.hist([1,2,6,7,8,7,5,6,8,6,7,7,7,9,0,2], edgecolor='white', bins=14)
         plt.title("Permutations accuracy histogram")

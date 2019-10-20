@@ -49,6 +49,7 @@ dataset_amount = 1
 drop_amount = 40
 datasets = DataHandler.genRandomDatasets(data, dataset_amount, drop_amount)
 data = datasets[0]
+basedf
 
 #%% quick check on data
 

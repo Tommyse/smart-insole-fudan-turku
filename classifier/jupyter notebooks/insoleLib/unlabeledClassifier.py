@@ -8,13 +8,24 @@ from sklearn.metrics import accuracy_score
 
 class UnlabeledClassifier:
     """
-    Classifiers that labels unknown data.
-    For semi-supervised learning.
+    Testing.
+    Classifiers that labels unknown data for semi-supervised learning.
     
     """
 
-    #Picking the best k for KNN, non-nested approach
+    @staticmethod
     def findBestK(x, y, min_k, max_k, xcols, ycols):
+        """
+        Picking the best k for KNN, non-nested approach
+        
+        Arguments:
+            x {array} -- x data
+            y {array} -- y data
+            min_k {int} -- min k to test
+            max_k {int} -- max k to test
+            xcols {array} -- x columns
+            ycols {array} -- y columns
+        """
         k_range = range(min_k,max_k) #k values to test
         best_k = 0
         best_acc = 0 #best accuracy value
@@ -41,21 +52,10 @@ class UnlabeledClassifier:
             ypred_df = pd.DataFrame(columns=ycols) #Predicted labels df
     
             for i in range(0, len(ypred_a)): #Forming a dataframe from the list
-                #print(ypred_a[i][0])
                 ypred_df.loc[i] = ypred_a[i][0]
     
             for i in range(0, len(rlabel_a)): #Forming a dataframe from the list
-                #print(rlabel_a[i][0][0])
                 rlabel_df.loc[i] = rlabel_a[i][0][0]
-            
-            #print(ypred_df)
-            #print(rlabel_df)
-    
-            #ypred_np = np.array(ypred_df.values)
-            #rlabel_np = np.array(rlabel_df.values)
-
-            #print(ypred_np[0])
-            #print(rlabel_np[0])
     
             acc = accuracy_score(rlabel_df.values.ravel(), ypred_df.values.ravel())
             if(acc > best_acc):
@@ -64,8 +64,18 @@ class UnlabeledClassifier:
             
         return(best_k)
     
-    #Labeling the unlabeled data with KNN
+    @staticmethod
     def knnLabel(labeled, unlabeled, xcols, ycols, k):
+        """
+        Labeling the unlabeled data with KNN
+        
+        Arguments:
+            labeled {array} -- labeled data
+            unlabeled {array} -- unlabeled data
+            xcols {array} -- x columns
+            ycols {array} -- y columns
+            k {int} -- amount of neighbors
+        """
         labeled = pd.DataFrame(labeled)
         unlabeled = pd.DataFrame(unlabeled)
         cols = xcols + ycols
@@ -73,9 +83,6 @@ class UnlabeledClassifier:
         for row in range(0, len(unlabeled)): #Going through all rows in unlabeled dataframe
             xtrain = labeled.loc[:, xcols]
             ytrain = labeled.loc[:, ycols]
-    
-            #print(xtrain.shape, " xtrain tail:")
-            #print(xtrain.tail())
             
             knn = KNeighborsClassifier(n_neighbors=k, metric="euclidean") #resetting knn for every run, just in case
             knn.fit(xtrain, ytrain.values.ravel()) #Fitting currently labeled data
@@ -96,7 +103,20 @@ class UnlabeledClassifier:
     
         return(labeled)
     
+    @staticmethod
     def labelSpreading(labeled, unlabeled, xcols, ycols, alpha_v=0.8):
+        """
+        KNN label spreading testing
+        
+        Arguments:
+            labeled {array} -- labeled data
+            unlabeled {array} -- unlabeled data
+            xcols {array} -- x columns
+            ycols {array} -- y columns
+        
+        Keyword Arguments:
+            alpha_v {double} -- alpha parameter (default: {0.8})
+        """
     
         x = labeled.loc[:, xcols]
         y = labeled.loc[:, ycols]
@@ -107,12 +127,8 @@ class UnlabeledClassifier:
     
         #output labels
         preds = label_spread.predict(unlabeled)
-        #proba = label_spread.predict_proba(unlabeled)
-        #score = label_spread.score(unlabeled)
     
         unlabeled.loc[:, "label"] = preds
-        #unlabeled.loc[:, "probability"] = proba
-        #unlabeled.loc[:, "score"] = score
     
         labeled = pd.concat([labeled, unlabeled], sort=False).reset_index(drop=True) #Combining
     

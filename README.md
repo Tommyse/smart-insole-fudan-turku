@@ -1,5 +1,9 @@
 # smart-insole-fudan-turku
 
+# Classifier integration
+
+One of the ensemble methods should be used for predictions. Like bagging.
+
 ## Code
 
 - Pydoc documentation
@@ -7,8 +11,6 @@
 ## Data
 
 - Data labeled as "Normal" and "Fall" based on collected sets
-
-	- "Normal", "Risk" and "Fall" could be another option
 
 ## Classifier
 
@@ -24,15 +26,15 @@ Various python files in **"classifier/jupyter notebooks"** are jupyter notebooks
 
 ### To-Do
 
-- Test leave-three-out as CV?
+- Cleaning up code
 
-	- Leave-one-out might give too optimistic results
+- Fixing some old code
 
-- More feature selection/generation methods
-
-	- https://docs.scipy.org/doc/numpy/reference/generated/numpy.std.html#numpy.std
+- Documenting code properly
 
 - scaling forces could use more testing and observing
+
+	- min max for forces?
 
 	- The data needs to be standardized since every session can have different forces. (different persons probably walk and weigh differently)
 
@@ -48,29 +50,13 @@ Various python files in **"classifier/jupyter notebooks"** are jupyter notebooks
 
 	- https://scikit-learn.org/stable/auto_examples/model_selection/plot_confusion_matrix.html#sphx-glr-auto-examples-model-selection-plot-confusion-matrix-py
 
-- Testing more different feature sets
-
-- Balance classes in dataset(s) before training
-
-	- Currently varied dataset has too many Normal steps compared to fall steps
-
-	- genRandomDatasets with dropping some normal data
-
-	- Up-sampling fall data? https://elitedatascience.com/imbalanced-classes
-
-	- Or just use all/most normal data and rely mostly on AUC
-
 - Building different classifiers
 
 	- Deep learning things
 
 		- https://machinelearningmastery.com/multi-class-classification-tutorial-keras-deep-learning-library/
 
-	- Custom KNN which is extra sensitive for fall labels?
-
-		- even one fall label in neighbor could cause labeling row as fall?
-
-- Testing semi-supervised learning
+- Test semi-supervised learning?
 
 - Classifier parameter tuning
 
@@ -86,18 +72,15 @@ Various python files in **"classifier/jupyter notebooks"** are jupyter notebooks
 
 - Testing how much the amount of classifiers affect the results
 
+	- Test combining ensembles
+
+	- Test removing SVM from ensembles (due to poor results from its tests)
+
+- Do insole sizes have to match for accurate preditions?
+
+- Use error rate as quality measurement?
+
 ![Sklearn Flowchart](https://scikit-learn.org/stable/_static/ml_map.png)
-
----
-
-### Speeding up the classifying process (maybe)
-
-- Could use multiprocessing maybe
-
-- https://stackoverflow.com/questions/20548628/how-to-do-parallel-programming-in-python
-
-- https://docs.python.org/release/3.6.8/library/multiprocessing.html
-
 
 ---
 
@@ -112,9 +95,6 @@ KNN average accuracy:  **0.88**
             	precision    recall  f1-score   support
         Fall		0.81      0.42      0.55        84
       Normal		0.89      0.98      0.93       389
-   	micro avg       0.88      0.88      0.88       473
-  	macro avg       0.85      0.70      0.74       473
-	weighted avg    0.87      0.88      0.86       473
 
 
 ---
@@ -124,9 +104,6 @@ Gini decision tree average accuracy:  **0.84**
             	precision    recall  f1-score   support
         Fall       	0.55      0.46      0.50        84
       Normal       	0.89      0.92      0.90       389
-   	micro avg       0.84      0.84      0.84       473
-   	macro avg       0.72      0.69      0.70       473
-	weighted avg    0.83      0.84      0.83       473
 
 
 ---
@@ -136,9 +113,6 @@ Entropy decision tree average accuracy:  **0.85**
               	precision    recall  f1-score   support
         Fall       	0.60      0.51      0.55        84
       Normal       	0.90      0.93      0.91       389
-   	micro avg       0.85      0.85      0.85       473
-   	macro avg       0.75      0.72      0.73       473
-	weighted avg    0.84      0.85      0.85       473
 
 
 ---
@@ -148,9 +122,6 @@ Extreme gradient boosted tree average accuracy:  **0.89**
               	precision    recall  f1-score   support
         Fall       	0.78      0.56      0.65        84
       Normal       	0.91      0.97      0.94       389
-   	micro avg       0.89      0.89      0.89       473
-   	macro avg       0.85      0.76      0.80       473
-	weighted avg    0.89      0.89      0.89       473
 
 
 ---	
@@ -160,9 +131,6 @@ Support Vector Machine average accuracy:  **0.86**
               	precision    recall  f1-score   support
         Fall       	0.70      0.39      0.50        84
       Normal       	0.88      0.96      0.92       389
-   	micro avg       0.86      0.86      0.86       473
-   	macro avg       0.79      0.68      0.71       473
-	weighted avg    0.85      0.86      0.85       473
 
 
 ---
@@ -171,7 +139,7 @@ Support Vector Machine average accuracy:  **0.86**
 
 	- Data labels suffled and test many times + plots + compared to real results
 
-		- Conclusion from them: Those classifiers don't learn anything from the data (AUC always near 0.5). Meanwhile our real classifiers learn things from the data.
+		- Those classifiers don't learn anything from the data (AUC always near 0.5). Meanwhile our real classifiers learn things from the data.
 
 #### Ensemble learning
 
@@ -180,9 +148,6 @@ Bagging average accuracy:  **0.89**
               	precision    recall  f1-score   support
         Fall       	0.74      0.60      0.66        84
       Normal       	0.92      0.95      0.93       389
-   	micro avg       0.89      0.89      0.89       473
-   	macro avg       0.83      0.77      0.80       473
-	weighted avg    0.88      0.89      0.89       473
 
 AUC score:  0.77
 
@@ -192,9 +157,6 @@ Boosting accuracy:  **0.9**
               	precision    recall  f1-score   support
         Fall       	0.75      0.62      0.68        84
       Normal       	0.92      0.96      0.94       389
-   	micro avg      	0.90      0.90      0.90       473
-   	macro avg      	0.84      0.79      0.81       473
-	weighted avg   	0.89      0.90      0.89       473
 
 AUC score:  0.79
 
@@ -204,9 +166,6 @@ Fall skewed boosting accuracy:  **0.88**
               	precision    recall  f1-score   support
         Fall       	0.65      0.69      0.67        84
       Normal       	0.93      0.92      0.93       389
-   micro avg       	0.88      0.88      0.88       473
-   macro avg       	0.79      0.81      0.80       473
-	weighted avg    0.88      0.88      0.88       473
 
 AUC score:  0.81
 
@@ -308,6 +267,7 @@ There is already a template with charts and layout that we could use in our appl
 ## Other things
 
 - Project page text etc (Tommi)
+
 	- Needs a new illustration (with small fixes)
 
 ---

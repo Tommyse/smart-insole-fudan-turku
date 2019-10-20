@@ -21,6 +21,7 @@ class SvmClassifiers:
     SVM classifier stuff
     """
 
+    @staticmethod
     def testSvm(data, kern, x_cols, y_cols, plots=False):
         """
         Non-nested approach to knn. Also for quick accuracy testing
@@ -89,6 +90,7 @@ class SvmClassifiers:
 
         return(avg_acc, real_label_df, pred_label_df)
     
+    @staticmethod
     def testSvmLearning(data, kern, x_cols, y_cols, times, plots=False, orig_acc=0, orig_auc=0, file_name_prefix="KNN"):
         """
         Suffling labels and fitting data many times.
@@ -102,6 +104,9 @@ class SvmClassifiers:
 
         Keyword Arguments:
             plots {bool} -- Used for plotting (default: {False})
+            orig_acc {double} -- accuracy reference for plots (default: {0})
+            orig_auc {double} -- AUC reference for plots (default: {0})
+            file_name_prefix {str} -- filename prefix (default: {"KNN"})
         """
         
         accs = []
@@ -168,6 +173,7 @@ class SvmClassifiers:
         
         return(accs, aucs)
 
+    @staticmethod
     def svmGetPredictions(train, data, kern, x_cols=DataColumns.getSelectedCols2()):
         """
         Classify input data
@@ -175,7 +181,10 @@ class SvmClassifiers:
         Arguments:
             train {array} -- labeled pandas dataframe
             data {array} -- unlabeled pandas dataframe
-            k {int} -- number of nearest neighbors
+            kern {str} -- kernel for classifier
+        
+        Keyword Arguments:
+            x_cols {array} -- x columns (default: {DataColumns.getSelectedCols2()})
         """
         xtrain = train.loc[:, x_cols]
         ytrain = train.loc[:, "label"]
