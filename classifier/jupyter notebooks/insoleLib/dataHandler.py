@@ -13,6 +13,7 @@ class DataHandler:
 
     """
 
+    @staticmethod
     def calculateStepTime(data):
         """
         Calculating the step time and adding it to the dataframe (max - min time)
@@ -30,6 +31,7 @@ class DataHandler:
             data.loc[row,"S6_press_time"] = (data.loc[row,"S6_end_time"] - data.loc[row,"S6_start_time"])
         return(data)
     
+    @staticmethod
     def calculateTotalStepTime(data):
         """
         Calculating total press time and adding the column to dataframe
@@ -49,6 +51,7 @@ class DataHandler:
             data.loc[row,"press_time_total"] = totalT
         return(data)
     
+    @staticmethod
     def calculateAvgStepTime(data):
         """
         Calculating average press time and adding the column to dataframe
@@ -69,6 +72,7 @@ class DataHandler:
             data.loc[row,"press_time_avg"] = avgT
         return(data)
 
+    @staticmethod
     def calculateTotalForce(data):
         """
         Calculating total force and adding the column to dataframe
@@ -88,6 +92,7 @@ class DataHandler:
             data.loc[row,"force_total"] = totalF
         return(data)
 
+    @staticmethod
     def calculateAverageForce(data):
         """
         Calculating average force and adding the column to dataframe
@@ -108,6 +113,7 @@ class DataHandler:
             data.loc[row,"force_avg"] = avgF
         return(data)
 
+    @staticmethod
     def calculateMedianDifference(data):
         """
         Trying to normalize the forces in input data. Calculating the difference to median
@@ -126,7 +132,7 @@ class DataHandler:
     #step force differences
     stepFD_cols = DataColumns.getForceDiffCols()
 
-    #
+    @staticmethod
     def calculateForceDiff(data):
         """
         Comparing forces between steps.
@@ -191,24 +197,202 @@ class DataHandler:
         #print(data.head)
         return(data)
 
-    #step start time variance
-    def calculateStepStartVariance(data):
+    @staticmethod
+    def calculateStepStartValues(data):
+        """
+        Calculating different values from step start time values.
+        
+        Arguments:
+            data {array} -- dataset with 7 start time columns
+        """
+        
+        for row in range(0,len(data)):
+            #Press start time values in row
+            pt0 = data.loc[row,"S0_start_time"]
+            pt1 = data.loc[row,"S1_start_time"]
+            pt2 = data.loc[row,"S2_start_time"]
+            pt3 = data.loc[row,"S3_start_time"]
+            pt4 = data.loc[row,"S4_start_time"]
+            pt5 = data.loc[row,"S5_start_time"]
+            pt6 = data.loc[row,"S6_start_time"]
+            
+            pt_array = [pt0, pt1, pt2, pt3, pt4, pt5, pt6]
+            
+            #Calculating median
+            pt_med = np.median(pt_array)
+            data.loc[row,"press_start_time_median"] = pt_med
+            
+            #Calculating mean
+            pt_mean = np.mean(pt_array)
+            data.loc[row,"press_start_time_mean"] = pt_mean
+            
+            #Calculating valriance
+            pt_var = np.var(pt_array)
+            data.loc[row,"press_start_time_variance"] = pt_var
+            
+            #Calculating average difference to median
+            pt_med_diff0 = pt0 - pt_med
+            pt_med_diff1 = pt1 - pt_med
+            pt_med_diff2 = pt2 - pt_med
+            pt_med_diff3 = pt3 - pt_med
+            pt_med_diff4 = pt4 - pt_med
+            pt_med_diff5 = pt5 - pt_med
+            pt_med_diff6 = pt6 - pt_med
+            
+            pt_med_diff_arr = [pt_med_diff0, pt_med_diff1, pt_med_diff2, pt_med_diff3, pt_med_diff4, pt_med_diff5, pt_med_diff6]
+            
+            pt_med_diff = np.mean(pt_med_diff_arr)
+            data.loc[row,"press_start_time_median_diff_avg"] = pt_med_diff
+            
+            #Calculating average difference to mean
+            pt_mean_diff0 = pt0 - pt_mean
+            pt_mean_diff1 = pt1 - pt_mean
+            pt_mean_diff2 = pt2 - pt_mean
+            pt_mean_diff3 = pt3 - pt_mean
+            pt_mean_diff4 = pt4 - pt_mean
+            pt_mean_diff5 = pt5 - pt_mean
+            pt_mean_diff6 = pt6 - pt_mean
+            
+            pt_mean_diff_arr = [pt_mean_diff0, pt_mean_diff1, pt_mean_diff2, pt_mean_diff3, pt_mean_diff4, pt_mean_diff5, pt_mean_diff6]
+            
+            pt_mean_diff = np.mean(pt_mean_diff_arr)
+            data.loc[row,"press_start_time_mean_diff_avg"] = pt_mean_diff
         
         return(data)
     
-    #time for max force
-    def calculateStepMaxVariance(data):
+    @staticmethod
+    def calculateStepEndTimeValues(data):
+        """
+        Calculating different values from step end time values.
+        
+        Arguments:
+            data {array} -- dataset with 7 end time columns
+        """
+        for row in range(0,len(data)):
+            #Press end time values in row
+            pt0 = data.loc[row,"S0_end_time"]
+            pt1 = data.loc[row,"S1_end_time"]
+            pt2 = data.loc[row,"S2_end_time"]
+            pt3 = data.loc[row,"S3_end_time"]
+            pt4 = data.loc[row,"S4_end_time"]
+            pt5 = data.loc[row,"S5_end_time"]
+            pt6 = data.loc[row,"S6_end_time"]
+            
+            pt_array = [pt0, pt1, pt2, pt3, pt4, pt5, pt6]
+            
+            #Calculating median
+            pt_med = np.median(pt_array)
+            data.loc[row,"press_end_time_median"] = pt_med
+            
+            #Calculating mean
+            pt_mean = np.mean(pt_array)
+            data.loc[row,"press_end_time_mean"] = pt_mean
+            
+            #Calculating valriance
+            pt_var = np.var(pt_array)
+            data.loc[row,"press_end_time_variance"] = pt_var
+            
+            #Calculating average difference to median
+            pt_med_diff0 = pt0 - pt_med
+            pt_med_diff1 = pt1 - pt_med
+            pt_med_diff2 = pt2 - pt_med
+            pt_med_diff3 = pt3 - pt_med
+            pt_med_diff4 = pt4 - pt_med
+            pt_med_diff5 = pt5 - pt_med
+            pt_med_diff6 = pt6 - pt_med
+            
+            pt_med_diff_arr = [pt_med_diff0, pt_med_diff1, pt_med_diff2, pt_med_diff3, pt_med_diff4, pt_med_diff5, pt_med_diff6]
+            
+            pt_med_diff = np.mean(pt_med_diff_arr)
+            data.loc[row,"press_end_time_median_diff_avg"] = pt_med_diff
+            
+            #Calculating average difference to mean
+            pt_mean_diff0 = pt0 - pt_mean
+            pt_mean_diff1 = pt1 - pt_mean
+            pt_mean_diff2 = pt2 - pt_mean
+            pt_mean_diff3 = pt3 - pt_mean
+            pt_mean_diff4 = pt4 - pt_mean
+            pt_mean_diff5 = pt5 - pt_mean
+            pt_mean_diff6 = pt6 - pt_mean
+            
+            pt_mean_diff_arr = [pt_mean_diff0, pt_mean_diff1, pt_mean_diff2, pt_mean_diff3, pt_mean_diff4, pt_mean_diff5, pt_mean_diff6]
+            
+            pt_mean_diff = np.mean(pt_mean_diff_arr)
+            data.loc[row,"press_end_time_mean_diff_avg"] = pt_mean_diff
         
         return(data)
     
-    #step end time variance
-    def calculateStepEndVariance(data):
+    @staticmethod
+    def calculateStepMaxTimeValues(data):
+        """
+        Calculating different values from step max time values.
+        
+        Arguments:
+            data {array} -- dataset with 7 max time columns
+        """
+        
+        for row in range(0,len(data)):
+            #Press max time values in row
+            pt0 = data.loc[row,"S0_max_time"]
+            pt1 = data.loc[row,"S1_max_time"]
+            pt2 = data.loc[row,"S2_max_time"]
+            pt3 = data.loc[row,"S3_max_time"]
+            pt4 = data.loc[row,"S4_max_time"]
+            pt5 = data.loc[row,"S5_max_time"]
+            pt6 = data.loc[row,"S6_max_time"]
+            
+            pt_array = [pt0, pt1, pt2, pt3, pt4, pt5, pt6]
+            
+            #Calculating median
+            pt_med = np.median(pt_array)
+            data.loc[row,"press_max_time_median"] = pt_med
+            
+            #Calculating mean
+            pt_mean = np.mean(pt_array)
+            data.loc[row,"press_max_time_mean"] = pt_mean
+            
+            #Calculating valriance
+            pt_var = np.var(pt_array)
+            data.loc[row,"press_max_time_variance"] = pt_var
+            
+            #Calculating average difference to median
+            pt_med_diff0 = pt0 - pt_med
+            pt_med_diff1 = pt1 - pt_med
+            pt_med_diff2 = pt2 - pt_med
+            pt_med_diff3 = pt3 - pt_med
+            pt_med_diff4 = pt4 - pt_med
+            pt_med_diff5 = pt5 - pt_med
+            pt_med_diff6 = pt6 - pt_med
+            
+            pt_med_diff_arr = [pt_med_diff0, pt_med_diff1, pt_med_diff2, pt_med_diff3, pt_med_diff4, pt_med_diff5, pt_med_diff6]
+            
+            pt_med_diff = np.mean(pt_med_diff_arr)
+            data.loc[row,"press_max_time_median_diff_avg"] = pt_med_diff
+            
+            #Calculating average difference to mean
+            pt_mean_diff0 = pt0 - pt_mean
+            pt_mean_diff1 = pt1 - pt_mean
+            pt_mean_diff2 = pt2 - pt_mean
+            pt_mean_diff3 = pt3 - pt_mean
+            pt_mean_diff4 = pt4 - pt_mean
+            pt_mean_diff5 = pt5 - pt_mean
+            pt_mean_diff6 = pt6 - pt_mean
+            
+            pt_mean_diff_arr = [pt_mean_diff0, pt_mean_diff1, pt_mean_diff2, pt_mean_diff3, pt_mean_diff4, pt_mean_diff5, pt_mean_diff6]
+            
+            pt_mean_diff = np.mean(pt_mean_diff_arr)
+            data.loc[row,"press_max_time_mean_diff_avg"] = pt_mean_diff
         
         return(data)
 
-
-    #Calculating different things from force values in the data
+    @staticmethod
     def calculateForceValues(data):
+        """
+        Calculating different values from step force values.
+        
+        Arguments:
+            data {array} -- dataset with 7 force columns
+        """
         
         for row in range(0,len(data)):
             #Force values in row
@@ -263,9 +447,122 @@ class DataHandler:
             data.loc[row,"force_mean_diff_avg"] = f_mean_diff
         
         return(data)
-    
 
+    @staticmethod
+    def calculatePhaseForceValues(data):
+        """
+        Calculating different values from step phase force values.
+        
+        Arguments:
+            data {array} -- dataset with 3 step phase force columns
+        """
+        
+        for row in range(0,len(data)):
+            #Step phase force values in row
+            f0 = data.loc[row,"F1_force"]
+            f1 = data.loc[row,"F2_force"]
+            f2 = data.loc[row,"F3_force"]
+            
+            f_array = [f0, f1, f2]
+            
+            #Calculating median
+            f_med = np.median(f_array)
+            data.loc[row,"phase_force_median"] = f_med
+            
+            #Calculating mean
+            f_mean = np.mean(f_array)
+            data.loc[row,"phase_force_mean"] = f_mean
+            
+            #Calculating valriance
+            f_var = np.var(f_array)
+            data.loc[row,"phase_force_variance"] = f_var
+            
+            #Calculating average difference to median
+            f_med_diff0 = f0 - f_med
+            f_med_diff1 = f1 - f_med
+            f_med_diff2 = f2 - f_med
+            
+            f_med_diff_arr = [f_med_diff0, f_med_diff1, f_med_diff2]
+            
+            f_med_diff = np.mean(f_med_diff_arr)
+            data.loc[row,"phase_force_median_diff_avg"] = f_med_diff
+            
+            #Calculating average difference to mean
+            f_mean_diff0 = f0 - f_mean
+            f_mean_diff1 = f1 - f_mean
+            f_mean_diff2 = f2 - f_mean
+            
+            f_mean_diff_arr = [f_mean_diff0, f_mean_diff1, f_mean_diff2]
+            
+            f_mean_diff = np.mean(f_mean_diff_arr)
+            data.loc[row,"phase_force_mean_diff_avg"] = f_mean_diff
+        
+        return(data)
 
+    @staticmethod
+    def calculatePressTimeValues(data):
+        """
+        Calculating different values from step press time values.
+        
+        Arguments:
+            data {array} -- dataset with 3 step press time columns
+        """
+        
+        for row in range(0,len(data)):
+            #Press time values in row
+            pt0 = data.loc[row,"S0_press_time"]
+            pt1 = data.loc[row,"S1_press_time"]
+            pt2 = data.loc[row,"S2_press_time"]
+            pt3 = data.loc[row,"S3_press_time"]
+            pt4 = data.loc[row,"S4_press_time"]
+            pt5 = data.loc[row,"S5_press_time"]
+            pt6 = data.loc[row,"S6_press_time"]
+            
+            pt_array = [pt0, pt1, pt2, pt3, pt4, pt5, pt6]
+            
+            #Calculating median
+            pt_med = np.median(pt_array)
+            data.loc[row,"press_time_median"] = pt_med
+            
+            #Calculating mean
+            pt_mean = np.mean(pt_array)
+            data.loc[row,"press_time_mean"] = pt_mean
+            
+            #Calculating valriance
+            pt_var = np.var(pt_array)
+            data.loc[row,"press_time_variance"] = pt_var
+            
+            #Calculating average difference to median
+            pt_med_diff0 = pt0 - pt_med
+            pt_med_diff1 = pt1 - pt_med
+            pt_med_diff2 = pt2 - pt_med
+            pt_med_diff3 = pt3 - pt_med
+            pt_med_diff4 = pt4 - pt_med
+            pt_med_diff5 = pt5 - pt_med
+            pt_med_diff6 = pt6 - pt_med
+            
+            pt_med_diff_arr = [pt_med_diff0, pt_med_diff1, pt_med_diff2, pt_med_diff3, pt_med_diff4, pt_med_diff5, pt_med_diff6]
+            
+            pt_med_diff = np.mean(pt_med_diff_arr)
+            data.loc[row,"press_time_median_diff_avg"] = pt_med_diff
+            
+            #Calculating average difference to mean
+            pt_mean_diff0 = pt0 - pt_mean
+            pt_mean_diff1 = pt1 - pt_mean
+            pt_mean_diff2 = pt2 - pt_mean
+            pt_mean_diff3 = pt3 - pt_mean
+            pt_mean_diff4 = pt4 - pt_mean
+            pt_mean_diff5 = pt5 - pt_mean
+            pt_mean_diff6 = pt6 - pt_mean
+            
+            pt_mean_diff_arr = [pt_mean_diff0, pt_mean_diff1, pt_mean_diff2, pt_mean_diff3, pt_mean_diff4, pt_mean_diff5, pt_mean_diff6]
+            
+            pt_mean_diff = np.mean(pt_mean_diff_arr)
+            data.loc[row,"press_time_mean_diff_avg"] = pt_mean_diff
+        
+        return(data)
+
+    @staticmethod
     def getFeatures(data):
         """
         Getting all wanted fetures from the raw dataset
@@ -279,6 +576,7 @@ class DataHandler:
         featDF = data.loc[:,selected_cols]
         return(featDF)
 
+    @staticmethod
     def getAllFeatures(data):
         """
         Features for left, right and both separately, separate feet might be a better option
@@ -300,7 +598,7 @@ class DataHandler:
 
         return(dataL, dataR, dataBoth)
 
-    #
+    @staticmethod
     def getSplitData(data, x_cols, y_cols):
         """
         Splitting data to x and y
@@ -314,9 +612,10 @@ class DataHandler:
         y = data.loc[:,y_cols]
         return(x,y)
 
+    @staticmethod
     def zscoreStandardize(data):
         """
-        Needs some fourther thinking and changes. Which columns need z-score normalization?
+        Applies z-score to whole dataset
         
         Arguments:
             data {array} -- data dataframe
@@ -324,6 +623,7 @@ class DataHandler:
         
         return(data.apply(zscore))
     
+    @staticmethod
     def minmaxStandardizeForces(data):
         """
         Normalizing forces from data. Very sensitive to outliers though.
@@ -344,6 +644,7 @@ class DataHandler:
         
         return(other_data)
     
+    @staticmethod
     def quantilesStandardizeForcesTest(data):
         """
         Needs proper testing
@@ -363,6 +664,7 @@ class DataHandler:
         
         return(result)
     
+    @staticmethod
     def quantilesGaussianStandardizeForcesTest(data):
         """
         Needs proper testing
@@ -382,14 +684,26 @@ class DataHandler:
         
         return(result)
     
-    #scaling new data forces to same scale as the training data
+    @staticmethod
     def scaleData(train, data):
+        """
+        TODO?
+        scaling new data forces to same scale as the training data
+        """
         
         return(data)
     
-    #generating random dataset
+    @staticmethod
     def genRandomDatasets(data, amount, dropAmount):
+        """
+        New generating datasets method.
+        With some data balancing.
         
+        Arguments:
+            data {array} -- dataset
+            amount {int} -- amount of generated sets
+            dropAmount {int} -- rows to drop randomly
+        """
         datasets = []
         
         for a in range(0,amount):
@@ -427,23 +741,41 @@ class DataHandler:
             
         return(datasets)
     
-    #generating random datasets
-    #for using same classifier multiple times
-    # lots of "Normal" rows -> unbalanced data
+    @staticmethod
     def genRandomDatasetsOld(data, amount, dropAmount):
+        """
+        Old generating datasets method.
+        No data balancing.
+        
+        Arguments:
+            data {array} -- dataset
+            amount {int} -- amount of generated sets
+            dropAmount {int} -- rows to drop randomly
+        """
         
         datasets = []
         
         for a in range(0,amount):
             dataset = pd.DataFrame(data)
             dataset = dataset.sample(frac=1).reset_index(drop=True) #suffling
-            dataset.drop(dataset.tail(dropAmount).index,inplace=True)
+            dataset.drop(dataset.tail(dropAmount).index,inplace=True) #dropping some rows
             datasets.append(dataset)
             
         return(datasets)
     
-    #Calculating "Fall" prediction accuracy. Ignoring normal labels
+    @staticmethod
     def getFallAccuracy(real, pred):
+        """
+        Calculating fall label prediction accuracy
+        
+        Arguments:
+            real {array} -- real labels
+            pred {array} -- prediction labels
+        
+        Raises:
+            Exception: Array length match check
+        """
+        
         counter = 0
         correct = 0
         wrong = 0
@@ -460,8 +792,19 @@ class DataHandler:
         
         return(correct/counter)
     
-    #Calculating "Normal" prediction accuracy
+    @staticmethod
     def getNormalAccuracy(real, pred):
+        """
+        Calculating normal label prediction accuracy
+        
+        Arguments:
+            real {array} -- real labels
+            pred {array} -- prediction labels
+        
+        Raises:
+            Exception: Array length match check
+        """
+        
         counter = 0
         correct = 0
         wrong = 0

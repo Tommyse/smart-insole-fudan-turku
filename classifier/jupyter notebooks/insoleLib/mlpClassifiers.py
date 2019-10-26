@@ -22,12 +22,17 @@ class MlpClassifiers:
     Multi-layer perceptron classifier stuff
     """
     
+    @staticmethod
     def findBestAlpha(data, x_cols, y_cols, parameters, alphas):
         """
         Best alpha value for MLP
 
         Arguments:
             data {array} -- Data
+            x_cols {arrray} -- x columns
+            y_cols {array} -- y columns
+            parameters {namedTuple} -- parameters for the classifier
+            alphas {array} -- array of alphas to test
         """
 
         best_alpha=0
@@ -65,12 +70,14 @@ class MlpClassifiers:
                 ytrain, ytest = y.iloc[train_index], y.iloc[test_index]
 
                 mlpClassifier.fit(xtrain, ytrain.values.ravel())
+                
                 ypred=mlpClassifier.predict(xtest)
                 pred_label.append(ypred)
                 real_label.append(ytest)
                 
                 acc = accuracy_score(ytest, ypred)
                 accuracy_a.append(acc)
+                
             avg_acc = np.mean(accuracy_a)
             print(a,": average accuracy ", avg_acc)
 
@@ -83,6 +90,7 @@ class MlpClassifiers:
 
         return(best_alpha)
 
+    @staticmethod
     def testMlp(data, parameters, x_cols, y_cols, plots=False):
         """
         testing MLP classifier
@@ -126,6 +134,7 @@ class MlpClassifiers:
             ytrain, ytest = y.iloc[train_index], y.iloc[test_index]
 
             mlpClassifier.fit(xtrain, ytrain.values.ravel())
+            
             ypred=mlpClassifier.predict(xtest)
             pred_label.append(ypred)
             real_label.append(ytest.values)
@@ -164,6 +173,7 @@ class MlpClassifiers:
 
         return(avg_acc, real_label_df, pred_label_df)
     
+    @staticmethod
     def testMlpLearning(data, parameters, x_cols, y_cols, times, plots=False, orig_acc=0, orig_auc=0, file_name_prefix="MLP"):
         """
         Suffling labels and fitting data many times.
@@ -177,6 +187,9 @@ class MlpClassifiers:
 
         Keyword Arguments:
             plots {bool} -- Used for plotting (default: {False})
+            orig_acc {double} -- accuracy reference for plots (default: {0})
+            orig_auc {double} -- AUC reference for plots (default: {0})
+            file_name_prefix {str} -- file name prefix (default: {"MLP"})
         """
         
         accs = []
@@ -243,6 +256,7 @@ class MlpClassifiers:
         
         return(accs, aucs)
 
+    @staticmethod
     def mlpGetPredictions(train, data, parameters):
         """
         Classify input data
@@ -250,7 +264,7 @@ class MlpClassifiers:
         Arguments:
             train {array} -- labeled pandas dataframe
             data {array} -- unlabeled pandas dataframe
-            k {int} -- number of nearest neighbors
+            parameters {namedTuple} -- parameters for classifier
         """
         xtrain = train.loc[:, DataColumns.getSelectedCols2()]
         ytrain = train.loc[:, "label"]
@@ -271,9 +285,8 @@ class MlpClassifiers:
         )
         
         mlpClassifier.fit(xtrain, ytrain.values.ravel())
+        
         ypred=mlpClassifier.predict(xdata)
-
-        #data["label"] = ypred
 
         return(ypred)
 

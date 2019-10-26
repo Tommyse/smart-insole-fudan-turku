@@ -32,8 +32,7 @@ plt.rcParams["figure.figsize"] = (14,12)
 plt.ticklabel_format(style='plain', useOffset=False)
 
 #%%
-#data = pd.read_csv('../tommi_test_data.csv', sep=";", header=0)
-data = pd.read_csv('../tommi_test_data_more_diff_steps.csv', sep=";", header=0)
+data = pd.read_csv('../tommi+diego_test_data.csv', sep=";", header=0)
 
 data = data.loc[data["Warning_code"] == 0]
 data = data.reset_index(drop=True)
@@ -83,15 +82,6 @@ T=pca.transform(data_df)
 #Dataframe from T
 Tdf=pd.DataFrame(T)
 Tdf.columns=["c1","c2"]
-
-#not working for some reason... using alternative
-#real_label_c = real_label
-#real_label_c = real_label_c.replace("Normal", "y")
-#real_label_c = real_label_c.replace("Fall", "r")
-
-#pred_label_c = pred_label
-#pred_label_c = pred_label_c.replace("Normal", "y")
-#pred_label_c = pred_label_c.replace("Fall", "r")
 
 #Colors
 real_label_rgb = []
@@ -150,15 +140,6 @@ T=pca.transform(data_df)
 #Dataframe from T
 Tdf=pd.DataFrame(T)
 Tdf.columns=["c1","c2","c3"]
-
-#not working for some reason... using alternative
-#real_label_c = real_label
-#real_label_c = real_label_c.replace("Normal", "y")
-#real_label_c = real_label_c.replace("Fall", "r")
-
-#pred_label_c = pred_label
-#pred_label_c = pred_label_c.replace("Normal", "y")
-#pred_label_c = pred_label_c.replace("Fall", "r")
 
 #Colors
 real_label_rgb = []
@@ -239,8 +220,7 @@ plt.show()
 
 
 #%%
-#data = pd.read_csv('../tommi_test_data.csv', sep=";", header=0)
-data = pd.read_csv('../tommi_test_data_more_diff_steps.csv', sep=";", header=0)
+data = pd.read_csv('../tommi+diego_test_data.csv', sep=";", header=0)
 
 data = data.loc[data["Warning_code"] == 0]
 data = data.reset_index(drop=True)
@@ -271,8 +251,7 @@ print("AUC score: ", round(avg_auc, 2))
 
 
 #%%
-#data = pd.read_csv('../tommi_test_data.csv', sep=";", header=0)
-data = pd.read_csv('../tommi_test_data_more_diff_steps.csv', sep=";", header=0)
+data = pd.read_csv('../tommi+diego_test_data.csv', sep=";", header=0)
 
 data = data.loc[data["Warning_code"] == 0]
 data = data.reset_index(drop=True)
@@ -320,15 +299,6 @@ T=pca.transform(data_df)
 #Dataframe from T
 Tdf=pd.DataFrame(T)
 Tdf.columns=["c1","c2"]
-
-#not working for some reason... using alternative
-#real_label_c = real_label
-#real_label_c = real_label_c.replace("Normal", "y")
-#real_label_c = real_label_c.replace("Fall", "r")
-
-#pred_label_c = pred_label
-#pred_label_c = pred_label_c.replace("Normal", "y")
-#pred_label_c = pred_label_c.replace("Fall", "r")
 
 #Colors
 real_label_rgb = []
@@ -387,15 +357,6 @@ T=pca.transform(data_df)
 #Dataframe from T
 Tdf=pd.DataFrame(T)
 Tdf.columns=["c1","c2","c3"]
-
-#not working for some reason... using alternative
-#real_label_c = real_label
-#real_label_c = real_label_c.replace("Normal", "y")
-#real_label_c = real_label_c.replace("Fall", "r")
-
-#pred_label_c = pred_label
-#pred_label_c = pred_label_c.replace("Normal", "y")
-#pred_label_c = pred_label_c.replace("Fall", "r")
 
 #Colors
 real_label_rgb = []
@@ -485,8 +446,7 @@ predictions = Ensemble.getBaggingPredictions(train, unlabeled)
 print(classification_report(train["label"].values, predictions))
 
 #%%
-#data = pd.read_csv('../tommi_test_data.csv', sep=";", header=0)
-data = pd.read_csv('../tommi_test_data_more_diff_steps.csv', sep=";", header=0)
+data = pd.read_csv('../tommi+diego_test_data.csv', sep=";", header=0)
 
 data = data.loc[data["Warning_code"] == 0]
 data = data.reset_index(drop=True)
@@ -545,15 +505,6 @@ T=pca.transform(data_df)
 Tdf=pd.DataFrame(T)
 Tdf.columns=["c1","c2"]
 
-#not working for some reason... using alternative
-#real_label_c = real_label
-#real_label_c = real_label_c.replace("Normal", "y")
-#real_label_c = real_label_c.replace("Fall", "r")
-
-#pred_label_c = pred_label
-#pred_label_c = pred_label_c.replace("Normal", "y")
-#pred_label_c = pred_label_c.replace("Fall", "r")
-
 #Colors
 real_label_rgb = []
 for entry in real_label.values:
@@ -611,15 +562,6 @@ T=pca.transform(data_df)
 #Dataframe from T
 Tdf=pd.DataFrame(T)
 Tdf.columns=["c1","c2","c3"]
-
-#not working for some reason... using alternative
-#real_label_c = real_label
-#real_label_c = real_label_c.replace("Normal", "y")
-#real_label_c = real_label_c.replace("Fall", "r")
-
-#pred_label_c = pred_label
-#pred_label_c = pred_label_c.replace("Normal", "y")
-#pred_label_c = pred_label_c.replace("Fall", "r")
 
 #Colors
 real_label_rgb = []
@@ -699,8 +641,7 @@ plt.savefig("../figs/bagging_PCA_3d_pred_labels_angle2.png", facecolor="w", bbox
 plt.show()
 
 #%%
-#data = pd.read_csv('../tommi_test_data.csv', sep=";", header=0)
-data = pd.read_csv('../tommi_test_data_more_diff_steps.csv', sep=";", header=0)
+data = pd.read_csv('../tommi+diego_test_data.csv', sep=";", header=0)
 
 data = data.loc[data["Warning_code"] == 0]
 data = data.reset_index(drop=True)
@@ -759,15 +700,6 @@ T=pca.transform(data_df)
 Tdf=pd.DataFrame(T)
 Tdf.columns=["c1","c2"]
 
-#not working for some reason... using alternative
-#real_label_c = real_label
-#real_label_c = real_label_c.replace("Normal", "y")
-#real_label_c = real_label_c.replace("Fall", "r")
-
-#pred_label_c = pred_label
-#pred_label_c = pred_label_c.replace("Normal", "y")
-#pred_label_c = pred_label_c.replace("Fall", "r")
-
 #Colors
 real_label_rgb = []
 for entry in real_label.values:
@@ -825,15 +757,6 @@ T=pca.transform(data_df)
 #Dataframe from T
 Tdf=pd.DataFrame(T)
 Tdf.columns=["c1","c2","c3"]
-
-#not working for some reason... using alternative
-#real_label_c = real_label
-#real_label_c = real_label_c.replace("Normal", "y")
-#real_label_c = real_label_c.replace("Fall", "r")
-
-#pred_label_c = pred_label
-#pred_label_c = pred_label_c.replace("Normal", "y")
-#pred_label_c = pred_label_c.replace("Fall", "r")
 
 #Colors
 real_label_rgb = []
@@ -913,8 +836,7 @@ plt.savefig("../figs/bagging_PCA_3d_pred_labels_angle2.png", facecolor="w", bbox
 plt.show()
 
 #%%
-#data = pd.read_csv('../tommi_test_data.csv', sep=";", header=0)
-data = pd.read_csv('../tommi_test_data_more_diff_steps.csv', sep=";", header=0)
+data = pd.read_csv('../tommi+diego_test_data.csv', sep=";", header=0)
 
 data = data.loc[data["Warning_code"] == 0]
 data = data.reset_index(drop=True)
@@ -973,15 +895,6 @@ T=pca.transform(data_df)
 Tdf=pd.DataFrame(T)
 Tdf.columns=["c1","c2"]
 
-#not working for some reason... using alternative
-#real_label_c = real_label
-#real_label_c = real_label_c.replace("Normal", "y")
-#real_label_c = real_label_c.replace("Fall", "r")
-
-#pred_label_c = pred_label
-#pred_label_c = pred_label_c.replace("Normal", "y")
-#pred_label_c = pred_label_c.replace("Fall", "r")
-
 #Colors
 real_label_rgb = []
 for entry in real_label.values:
@@ -1039,15 +952,6 @@ T=pca.transform(data_df)
 #Dataframe from T
 Tdf=pd.DataFrame(T)
 Tdf.columns=["c1","c2","c3"]
-
-#not working for some reason... using alternative
-#real_label_c = real_label
-#real_label_c = real_label_c.replace("Normal", "y")
-#real_label_c = real_label_c.replace("Fall", "r")
-
-#pred_label_c = pred_label
-#pred_label_c = pred_label_c.replace("Normal", "y")
-#pred_label_c = pred_label_c.replace("Fall", "r")
 
 #Colors
 real_label_rgb = []
@@ -1127,8 +1031,7 @@ plt.savefig("../figs/bagging_PCA_3d_pred_labels_angle2.png", facecolor="w", bbox
 plt.show()
 
 #%%
-#data = pd.read_csv('../tommi_test_data.csv', sep=";", header=0)
-data = pd.read_csv('../tommi_test_data_more_diff_steps.csv', sep=";", header=0)
+data = pd.read_csv('../tommi+diego_test_data.csv', sep=";", header=0)
 
 data = data.loc[data["Warning_code"] == 0]
 data = data.reset_index(drop=True)
@@ -1187,15 +1090,6 @@ T=pca.transform(data_df)
 Tdf=pd.DataFrame(T)
 Tdf.columns=["c1","c2"]
 
-#not working for some reason... using alternative
-#real_label_c = real_label
-#real_label_c = real_label_c.replace("Normal", "y")
-#real_label_c = real_label_c.replace("Fall", "r")
-
-#pred_label_c = pred_label
-#pred_label_c = pred_label_c.replace("Normal", "y")
-#pred_label_c = pred_label_c.replace("Fall", "r")
-
 #Colors
 real_label_rgb = []
 for entry in real_label.values:
@@ -1253,15 +1147,6 @@ T=pca.transform(data_df)
 #Dataframe from T
 Tdf=pd.DataFrame(T)
 Tdf.columns=["c1","c2","c3"]
-
-#not working for some reason... using alternative
-#real_label_c = real_label
-#real_label_c = real_label_c.replace("Normal", "y")
-#real_label_c = real_label_c.replace("Fall", "r")
-
-#pred_label_c = pred_label
-#pred_label_c = pred_label_c.replace("Normal", "y")
-#pred_label_c = pred_label_c.replace("Fall", "r")
 
 #Colors
 real_label_rgb = []
@@ -1341,8 +1226,7 @@ plt.savefig("../figs/bagging_PCA_3d_pred_labels_angle2.png", facecolor="w", bbox
 plt.show()
 
 #%%
-#data = pd.read_csv('../tommi_test_data.csv', sep=";", header=0)
-data = pd.read_csv('../tommi_test_data_more_diff_steps.csv', sep=";", header=0)
+data = pd.read_csv('../tommi+diego_test_data.csv', sep=";", header=0)
 
 data = data.loc[data["Warning_code"] == 0]
 data = data.reset_index(drop=True)
@@ -1401,15 +1285,6 @@ T=pca.transform(data_df)
 Tdf=pd.DataFrame(T)
 Tdf.columns=["c1","c2"]
 
-#not working for some reason... using alternative
-#real_label_c = real_label
-#real_label_c = real_label_c.replace("Normal", "y")
-#real_label_c = real_label_c.replace("Fall", "r")
-
-#pred_label_c = pred_label
-#pred_label_c = pred_label_c.replace("Normal", "y")
-#pred_label_c = pred_label_c.replace("Fall", "r")
-
 #Colors
 real_label_rgb = []
 for entry in real_label.values:
@@ -1467,15 +1342,6 @@ T=pca.transform(data_df)
 #Dataframe from T
 Tdf=pd.DataFrame(T)
 Tdf.columns=["c1","c2","c3"]
-
-#not working for some reason... using alternative
-#real_label_c = real_label
-#real_label_c = real_label_c.replace("Normal", "y")
-#real_label_c = real_label_c.replace("Fall", "r")
-
-#pred_label_c = pred_label
-#pred_label_c = pred_label_c.replace("Normal", "y")
-#pred_label_c = pred_label_c.replace("Fall", "r")
 
 #Colors
 real_label_rgb = []

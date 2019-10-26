@@ -18,13 +18,15 @@ class KnnClassifiers:
     KNN classifier stuff
     """
 
-
+    @staticmethod
     def findBestK(data, x_cols, y_cols):
         """
         Non-nested approach to knn. Also for quick accuracy testing
 
         Arguments:
             data {array} -- Data
+            x_cols {array} -- x columns
+            y_cols {array} -- y columns
         """
 
         best_k=0
@@ -67,6 +69,7 @@ class KnnClassifiers:
 
         return(best_k)
 
+    @staticmethod
     def testKnn(data, k, x_cols, y_cols, plots=False):
         """
         Non-nested approach to knn. Also for quick accuracy testing
@@ -136,6 +139,7 @@ class KnnClassifiers:
 
         return(avg_acc, real_label_df, pred_label_df)
     
+    @staticmethod
     def testKnnLearning(data, k, x_cols, y_cols, times, plots=False, orig_acc=0, orig_auc=0, file_name_prefix="KNN"):
         """
         Suffling labels and fitting data many times.
@@ -149,6 +153,9 @@ class KnnClassifiers:
 
         Keyword Arguments:
             plots {bool} -- Used for plotting (default: {False})
+            orig_acc {double} -- reference for plots (default: {0})
+            orig_auc {double} -- reference for plots (default: {0})
+            file_name_prefix {str} -- prefix for file name (default: {"KNN"})
         """
         
         accs = []
@@ -215,6 +222,7 @@ class KnnClassifiers:
         
         return(accs, aucs)
 
+    @staticmethod
     def getKnnPredictions(train, data, k, x_cols=DataColumns.getSelectedCols2()):
         """
         Classify input data
@@ -223,10 +231,13 @@ class KnnClassifiers:
             train {array} -- labeled pandas dataframe
             data {array} -- unlabeled pandas dataframe
             k {int} -- number of nearest neighbors
+        
+        Keyword Arguments:
+            x_cols {array} -- x column names (default: {DataColumns.getSelectedCols2()})
         """
-        xtrain = train[x_cols]
-        ytrain = train["label"]
-        xdata = data[x_cols]
+        xtrain = train.loc[:,x_cols]
+        ytrain = train.loc[:,"label"]
+        xdata = data.loc[:,x_cols]
 
         knnClassifier = KNeighborsClassifier(n_neighbors=k, weights="uniform", metric="euclidean")
         knnClassifier.fit(xtrain, ytrain.values.ravel())

@@ -51,3 +51,6 @@ plots = True
 
 
 avg_acc, real_label, pred_label = TfClassifiers.testNn(standardized_data, x_cols, y_cols, plots)
+
+
+#%%

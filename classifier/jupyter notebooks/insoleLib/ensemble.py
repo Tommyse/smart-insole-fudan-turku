@@ -26,19 +26,7 @@ class Ensemble:
 
     """
 
-    #some column combinations, can be used for filtering
-    values_cols = DataColumns.getValuesCols()
-    features_cols = DataColumns.getBasicFeaturesCols()
-    force_cols = DataColumns.getForceCols()
-    startT_cols = DataColumns.getStartTimeCols()
-    maxT_cols = DataColumns.getMaxTimeCols()
-    endT_cols = DataColumns.getEndTimeCols()
-    phases_cols = DataColumns.getPhaseCols()
-    phasesT_cols = DataColumns.getPhaseTimeCols()
-    phasesF_cols = DataColumns.getPhaseForceCols()
-    stepL_cols = DataColumns.getStepTimeCols()
-
-
+    @staticmethod
     def testBagging(data, x_cols=DataColumns.getSelectedCols2()):
         """
         Testing bagging results
@@ -229,6 +217,7 @@ class Ensemble:
 
         return(avg_acc, real_label_df, pred_label_df)
     
+    @staticmethod
     def testBaggingLearning(data, x_cols, y_cols, times, plots=False, orig_acc=0, orig_auc=0, file_name_prefix="Bagging"):
         """
         Suffling labels and fitting data many times.
@@ -308,7 +297,7 @@ class Ensemble:
         
         return(accs, aucs)
 
-
+    @staticmethod
     def getBaggingPredictions(train, unlabeled):
         """
         Most popular label from multiple different classifiers wins. All votes are equal.
@@ -449,6 +438,7 @@ class Ensemble:
         return(results)
 
     #majority vote dataframe version
+    @staticmethod
     def majorityVoteDF(labels):
         print("majorityVote input", labels)
 
@@ -479,7 +469,7 @@ class Ensemble:
 
         return(vote_df)
 
-
+    @staticmethod
     def testBoosting(data):
         """
         Testing boosting results
@@ -705,6 +695,7 @@ class Ensemble:
 
         return(results)
     
+    @staticmethod
     def testBoostingLearning(data, x_cols, y_cols, times, plots=False, orig_acc=0, orig_auc=0, file_name_prefix="Boosting"):
         """
         Suffling labels and fitting data many times.
@@ -784,6 +775,7 @@ class Ensemble:
         
         return(accs, aucs)
     
+    @staticmethod
     def testSkewedBoostingFall(data):
         """
         Testing boosting results (skewed towards falls)
@@ -1010,6 +1002,7 @@ class Ensemble:
 
         return(results)
     
+    @staticmethod
     def testFallBoostingLearning(data, x_cols, y_cols, times, plots=False, orig_acc=0, orig_auc=0, file_name_prefix="Fall_Boosting"):
         """
         Suffling labels and fitting data many times.
@@ -1089,7 +1082,7 @@ class Ensemble:
         
         return(accs, aucs)
     
-    
+    @staticmethod
     def getBoostPredictions(train, unlabeled):
         """
         Different classifiers have different weights.
