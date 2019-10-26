@@ -143,51 +143,54 @@
             $('#recordings-table td input').each(function() {
                 $( this ).prop('checked', allChecked);
             });
+        });
 
-            $('button[name="analyse"]').click(function () {
+        $('button[name="analyse"]').click(function () {
 
+        let files = []; // $('#analyse').val
 
-                let files = []; // $('#analyse').val
-
-                $('#recordings-table tr').each(function() {
-                    let checkBox = $( this ).find('td input');
-                    selected = checkBox.prop('checked');
-                    if (selected) {
-                        fileNameItem = $( this ).find('.file-name');
-                        if (fileNameItem != null) {
-                            fileName = fileNameItem.text();
-                            if (fileName) {
-                                files.push(fileName);
-                            }
-                        }
-                    }
-                });
-                
-                if (files && files.length > 0) {
-                    fileNames = JSON.stringify(files);
-                    if (fileNames) {
-                        let csrftokenValue = getCookie('csrftoken');
-                        let hideClass = 'd-none';
-                        $("#analyse-file-form").addClass(hideClass)
-                        $(".wait-tool").each(function() {
-                            $(this).removeClass(hideClass);
-                        });
-                        $.post("", { 
-                            analyse: fileNames,
-                            csrfmiddlewaretoken: csrftokenValue
-                        }, function (data) {
-                            window.scrollTo(0, 0);
-                        }).fail(function() {
-                            alert( "error" );
-                        }).always(function() {
-                            $(".wait-tool").each(function() {
-                                $(this).addClass(hideClass);
-                            });
-                            $("#analyse-file-form").removeClass(hideClass);
-                        });
+        $('#recordings-table tr').each(function() {
+            let checkBox = $( this ).find('td input');
+            selected = checkBox.prop('checked');
+            if (selected) {
+                fileNameItem = $( this ).find('.file-name');
+                if (fileNameItem != null) {
+                    fileName = fileNameItem.text();
+                    if (fileName) {
+                        files.push(fileName);
                     }
                 }
-            });
+            }
+        });
+
+        if (files && files.length > 0) {
+            fileNames = JSON.stringify(files);
+            if (fileNames) {
+                let csrftokenValue = getCookie('csrftoken');
+                let hideClass = 'd-none';
+                $("#analyse-file-form").addClass(hideClass)
+                $(".wait-tool").each(function() {
+                    $(this).removeClass(hideClass);
+                });
+                $.post("", { 
+                    analyse: fileNames,
+                    csrfmiddlewaretoken: csrftokenValue
+                }, function (data) {
+                    document.open();
+                    document.write(data);
+                    document.close();
+                    window.location = "/diagnosis/result";
+                    window.scrollTo(0, 0);
+                }).fail(function() {
+                    alert( "error" );
+                }).always(function() {
+                    $(".wait-tool").each(function() {
+                        $(this).addClass(hideClass);
+                    });
+                    $("#analyse-file-form").removeClass(hideClass);
+                });
+            }
+        }
         });
     });
 </script>
