@@ -1262,16 +1262,3 @@ class Ensemble:
 
 
         return(results)
-    
-    @staticmethod
-    def testCombinedEnsemble(todo):
-        """
-        Testing combining implemented ensemble results.
-        Might be exessive.
-        Still worth trying.
-        
-        Bagging has most accurate "normal" labels
-        and boosting seems to have most accurate "fall" labels
-        """
-        
-        pass

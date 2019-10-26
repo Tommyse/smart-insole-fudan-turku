@@ -30,7 +30,9 @@ Various python files in **"classifier/jupyter notebooks"** are jupyter notebooks
 
 - Fixing some old code
 
-- Documenting code properly
+- Documenting code
+
+- Apply normalization to all features
 
 - scaling forces could use more testing and observing
 
@@ -48,37 +50,19 @@ Various python files in **"classifier/jupyter notebooks"** are jupyter notebooks
 
 	- https://sebastianraschka.com/Articles/2014_about_feature_scaling.html
 
-	- https://scikit-learn.org/stable/auto_examples/model_selection/plot_confusion_matrix.html#sphx-glr-auto-examples-model-selection-plot-confusion-matrix-py
-
 - Building different classifiers
 
 	- Deep learning things
 
 		- https://machinelearningmastery.com/multi-class-classification-tutorial-keras-deep-learning-library/
 
-- Test semi-supervised learning?
-
 - Classifier parameter tuning
-
-	- Better accuracy
-
-	- Avoiding overfitting and underfitting
-
-	- https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html
 
 	- https://towardsdatascience.com/fine-tuning-a-classifier-in-scikit-learn-66e048c21e65
 
-	- https://scikit-learn.org/stable/modules/feature_selection.html
-
 - Testing how much the amount of classifiers affect the results
 
-	- Test combining ensembles
-
-	- Test removing SVM from ensembles (due to poor results from its tests)
-
-- Do insole sizes have to match for accurate preditions?
-
-- Use error rate as quality measurement?
+	- Test removing some classifiers from ensembles (SVM due to poor results from tests?)
 
 ![Sklearn Flowchart](https://scikit-learn.org/stable/_static/ml_map.png)
 
@@ -89,49 +73,6 @@ Various python files in **"classifier/jupyter notebooks"** are jupyter notebooks
 - Some features
 
 - Classifiers
-
-KNN average accuracy:  **0.88**
-
-            	precision    recall  f1-score   support
-        Fall		0.81      0.42      0.55        84
-      Normal		0.89      0.98      0.93       389
-
-
----
-
-Gini decision tree average accuracy:  **0.84**
-
-            	precision    recall  f1-score   support
-        Fall       	0.55      0.46      0.50        84
-      Normal       	0.89      0.92      0.90       389
-
-
----
-
-Entropy decision tree average accuracy:  **0.85**
-
-              	precision    recall  f1-score   support
-        Fall       	0.60      0.51      0.55        84
-      Normal       	0.90      0.93      0.91       389
-
-
----
-
-Extreme gradient boosted tree average accuracy:  **0.89**
-
-              	precision    recall  f1-score   support
-        Fall       	0.78      0.56      0.65        84
-      Normal       	0.91      0.97      0.94       389
-
-
----	
-
-Support Vector Machine average accuracy:  **0.86**
-
-              	precision    recall  f1-score   support
-        Fall       	0.70      0.39      0.50        84
-      Normal       	0.88      0.96      0.92       389
-
 
 ---
 
@@ -168,7 +109,6 @@ Fall skewed boosting accuracy:  **0.88**
       Normal       	0.93      0.92      0.93       389
 
 AUC score:  0.81
-
 
 ---
 
