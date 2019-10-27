@@ -5,9 +5,26 @@
 
 {% block content %}
 <div class="container-fluid">
-    <h1>Analysis 1</h1>
-    {% if stepPrediction %}
-        <h2>{{stepPrediction.creationDate}}</h2>
+    {% if prediction %}
+        {% for stepPrediction, groups in prediction.items %}
+            <div class="row">
+                <h1>
+                    Analysis # {{stepPrediction.id}}
+                    <span class="badge badge-secondary">{{stepPrediction.creationDate}}</span>
+                </h1>
+            </div>
+            <div class="row">
+                <p>{{stepPrediction.files}}</p>
+            </div>
+            <div class="row">
+                {% for stepGroup, stepGroupClassiffiers in groups.items %}
+                    <p>{{stepGroup.groupIndex}} {{stepGroup.originIndex}} {{stepGroup.endIndex}} {{stepGroup.size}} </p>
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+    {% else %}
+        <h2>There is no prediction to show you!</h2>
     {% endif %}
 </div>
 

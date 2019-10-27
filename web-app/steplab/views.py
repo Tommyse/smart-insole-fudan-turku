@@ -6,7 +6,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_protect
 
-from .models import Post, StepSession, StepFile, StepPrediction
+from .models import Post, StepSession, StepFile, StepPrediction, StepGroup, StepGroupClassiffier
 from django.core.files.storage import default_storage
 from smart_insole_utils.utils import get_data
 from smart_insole_utils.classifiers import ClassiffierFacade, ClassifierType
@@ -14,6 +14,9 @@ from smart_insole_utils.classifiers import ClassiffierFacade, ClassifierType
 from collections import Iterable
 from django.shortcuts import redirect
 
+
+def getUserFile(user, fileName):
+    return os.path.join(settings.MEDIA_ROOT, user.username, fileName).strip()
 '''
 url = "http://www.neo4j.com"
 params = {'ref':"mark-blog"}
@@ -48,14 +51,14 @@ def home(request):
 @login_required(login_url='login')
 def recordings(request):
     user = request.user
-    usrFolder = user.username
     context = {}
     if request.method == 'POST':
         #stepfiles = request.POST.getlist('new-stepfiles', None) # request.POST.get and request.POST.getlist
         stepfiles = request.FILES.getlist('new-stepfiles')
         print(stepfiles)
         for stepfile in stepfiles:
-            full_filename = os.path.join(settings.MEDIA_ROOT, usrFolder, stepfile.name)
+            #full_filename = os.path.join(settings.MEDIA_ROOT, usrFolder, stepfile.name)
+            full_filename = getUserFile(user, stepfile.name)
             # TODO: SAVE THE FILE INTO DB FOR LINDA USERS
             path = default_storage.save(full_filename, stepfile)
 
@@ -107,16 +110,18 @@ def newDiagnose(request):
     if request.method == 'POST':
         postFilesJSON = request.POST.get("analyse", "")
         postFiles = json.loads(postFilesJSON)
-        for postFile in postFiles:
-            print(postFile)
         classificationMethods = [ClassifierType.MOCKED]
         if postFiles and isinstance(postFiles, Iterable) and len(postFiles) > 0:
-            stepPrediction = ClassiffierFacade.analyseImbalances(request.user, postFiles, classificationMethods, 100)
-            predictionId = 0
+            filePaths = []
+            for fileName in postFiles:
+                filePaths.append(getUserFile(request.user, fileName))
+
+            stepPrediction = ClassiffierFacade.analyseImbalances(request.user, postFiles, filePaths, classificationMethods, 100)
             if (stepPrediction):
                 return redirect(f'/diagnosis/result?stepPrediction={stepPrediction.id}')
 
     return render(request, url, context)
+
 
 @login_required(login_url='login')
 @csrf_protect
@@ -126,13 +131,29 @@ def diagnosisResult(request):
 
     stepPredictionID = request.GET.get("stepPrediction", "")
 
-    if stepPredictionID and stepPredictionID.isdigit():
-        stepPredictionID = int(stepPredictionID)
-        stepPrediction = StepPrediction.objects.get(id=stepPredictionID, user=request.user)
     context = {
         'title'             : 'result',
-        'stepPrediction'    :  stepPrediction,
+        'prediction'       :  {},
     }
+
+    if stepPredictionID and stepPredictionID.isdigit():
+        #  StepPrediction
+        stepPredictionID = int(stepPredictionID)
+        stepPrediction = StepPrediction.objects.filter(id=stepPredictionID, user=request.user).first()
+
+        # StepGroups
+        stepGroups = []
+        if (stepPrediction):
+            stepGroups = StepGroup.objects.filter(stepPrediction=stepPrediction)
+
+        # StepGroupClassiffiers
+        groups = {}
+        for stepGroup in stepGroups:
+            stepGroupClassiffiers = StepGroupClassiffier.objects.filter(stepGroup=stepGroup)
+            groups[stepGroup] = stepGroupClassiffiers
+
+        prediction = {stepPrediction : groups}
+        context ['prediction'] = prediction
 
     return render(request, url, context)
     
@@ -145,4 +166,6 @@ def about(request):
 from django.contrib.auth.models import User
 users = User.objects.all()
 StepFile.objects.filter(footsize=42)
+
+from steplab.models import Post, StepSession, StepFile, StepPrediction, StepGroup, StepGroupClassiffier
 '''

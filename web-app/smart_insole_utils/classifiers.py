@@ -58,7 +58,7 @@ class ClassiffierFacade:
         return classifierResult
 
     @staticmethod
-    def analyseImbalances(currentUser, filePaths, classifierTypes, groupSize):
+    def analyseImbalances(currentUser, fileNames, filePaths, classifierTypes, groupSize):
         
         if len(classifierTypes) <= 0:
             return ValueError(f'No classification mehtod was given!')
@@ -70,7 +70,7 @@ class ClassiffierFacade:
         samples = combine(samplesList)
 
         # Create a prediction
-        stepPrediction = StepPrediction(user=currentUser, files=json.dumps(filePaths))
+        stepPrediction = StepPrediction(user=currentUser, files=json.dumps(fileNames))
         stepPrediction.save()
 
         stepGroupIndex = 0
