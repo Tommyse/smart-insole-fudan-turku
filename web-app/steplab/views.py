@@ -146,14 +146,21 @@ def diagnosisResult(request):
         if (stepPrediction):
             stepGroups = StepGroup.objects.filter(stepPrediction=stepPrediction)
 
+        classifiers = set()
         # StepGroupClassiffiers
         groups = {}
         for stepGroup in stepGroups:
             stepGroupClassiffiers = StepGroupClassiffier.objects.filter(stepGroup=stepGroup)
             groups[stepGroup] = stepGroupClassiffiers
+            
 
-        prediction = {stepPrediction : groups}
-        context ['prediction'] = prediction
+            # labels for the classification methods
+            for stepGroupClassiffiers in stepGroupClassiffiers:
+                classifiers.add(stepGroupClassiffier.classifierTypeStr)
+                
+        predictions = {stepPrediction : groups}
+        context ['predictions'] = predictions
+        context ['classifiers'] = classifiers
 
     return render(request, url, context)
     

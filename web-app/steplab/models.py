@@ -45,6 +45,7 @@ class StepGroupClassiffier(models.Model):
     goodSteps = models.IntegerField(default=0)
     badSteps = models.IntegerField(default=0)
     riskFalling = models.BooleanField()
+    classifierTypeStr = models.CharField(max_length=512, default="UNKOWN")
 
 
 class StepSession(models.Model):
