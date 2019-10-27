@@ -6,14 +6,13 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_protect
 
-from .models import Post
-from .models import StepSession
-from .models import StepFile
+from .models import Post, StepSession, StepFile, StepPrediction
 from django.core.files.storage import default_storage
 from smart_insole_utils.utils import get_data
 from smart_insole_utils.classifiers import ClassiffierFacade, ClassifierType
 
 from collections import Iterable
+from django.shortcuts import redirect
 
 '''
 url = "http://www.neo4j.com"
@@ -98,6 +97,7 @@ def diagnosis(request):
 @login_required(login_url='login')
 @csrf_protect
 def newDiagnose(request):
+    url = "steplab/newDiagnose.html"
     stepFiles = StepFile.objects.filter(author=request.user)
     context = {
         'stepFiles'         : stepFiles,
@@ -108,12 +108,34 @@ def newDiagnose(request):
         postFilesJSON = request.POST.get("analyse", "")
         postFiles = json.loads(postFilesJSON)
         for postFile in postFiles:
-            print(postFiles)
+            print(postFile)
         classificationMethods = [ClassifierType.MOCKED]
-        if postFiles is not None and isinstance(postFiles, Iterable) and len(postFiles) > 0:
-            ClassiffierFacade.analyseImbalances(request.user, postFiles, classificationMethods, 100)
+        if postFiles and isinstance(postFiles, Iterable) and len(postFiles) > 0:
+            stepPrediction = ClassiffierFacade.analyseImbalances(request.user, postFiles, classificationMethods, 100)
+            predictionId = 0
+            if (stepPrediction):
+                return redirect(f'/diagnosis/result?stepPrediction={stepPrediction.id}')
 
-    return render(request, 'steplab/newDiagnose.html', context)
+    return render(request, url, context)
+
+@login_required(login_url='login')
+@csrf_protect
+def diagnosisResult(request):
+    
+    url = "steplab/result.html"
+
+    stepPredictionID = request.GET.get("stepPrediction", "")
+
+    if stepPredictionID and stepPredictionID.isdigit():
+        stepPredictionID = int(stepPredictionID)
+        stepPrediction = StepPrediction.objects.get(id=stepPredictionID, user=request.user)
+    context = {
+        'title'             : 'result',
+        'stepPrediction'    :  stepPrediction,
+    }
+
+    return render(request, url, context)
+    
 
 def about(request):
     return render(request, 'steplab/about.html', {'title': 'About'})

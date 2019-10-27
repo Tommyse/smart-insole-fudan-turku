@@ -24,10 +24,10 @@ class ClassifierType(Enum):
 class Classifier(ABC):
 
     '''
-    This method should return an ClassifierAnalysisResult object.
+    Recives the input data and returns the predictions for each step.
     '''
     @abstractclassmethod
-    def analyseImbalance(testData): pass
+    def analyseImbalance(inputData): pass
 
 class ClassifierAnalysisResult(object):
 
@@ -81,14 +81,16 @@ class ClassiffierFacade:
             # print(f'{origin} {end} {size} {stepGroupIndex}')
             
             # Create the Stepgroups of that predictions
-            stepGroup = StepGroup(stepPrediction=stepPrediction, index=stepGroupIndex, origin=origin, end=end, size=size)
+            stepGroup = StepGroup(stepPrediction=stepPrediction, groupIndex=stepGroupIndex, originIndex=origin, endIndex=end, size=size)
             stepGroup.save()
             
             # For every group analyse using the selected classifier types.
             for classifierType in classifierTypes:
                 classifierResult = ClassiffierFacade.analyseImbalance(stepGroupSamples, classifierType)
-                stepGroupClassiffier = StepGroupClassiffier(stepGroup=stepGroup, riskFalling=classifierResult.hasFallingRisk())
+                stepGroupClassiffier = StepGroupClassiffier(stepGroup=stepGroup, goodSteps=0, badSteps= 0, riskFalling=classifierResult.hasFallingRisk())
                 stepGroupClassiffier.save()
 
             origin += size
             stepGroupIndex += 1
+        
+        return stepPrediction

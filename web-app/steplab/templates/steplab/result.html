@@ -1,0 +1,17 @@
+{% extends 'steplab/base.html' %}
+{% load static from staticfiles %}
+{% block addionalDependencies %}
+{% endblock addionalDependencies %}
+
+{% block content %}
+<div class="container-fluid">
+    <h1>Analysis 1</h1>
+    {% if stepPrediction %}
+        <h2>{{stepPrediction.creationDate}}</h2>
+    {% endif %}
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+{% endblock scripts %}

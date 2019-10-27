@@ -27,7 +27,7 @@ class StepFile(models.Model):
 class StepPrediction(models.Model):
     user =  models.ForeignKey(User, on_delete=models.CASCADE)
     files = models.TextField()
-    creationDate = models.DateField(default=timezone.now)
+    creationDate = models.DateTimeField(auto_now_add=True)
 
 
 class StepGroup(models.Model):
@@ -35,20 +35,22 @@ class StepGroup(models.Model):
         https://docs.djangoproject.com/en/2.2/ref/models/fields/#django.db.models.Field.primary_key
     '''
     stepPrediction =  models.ForeignKey(StepPrediction, on_delete=models.CASCADE)
-    index = models.IntegerField()
-    origin = models.IntegerField()
-    end = models.IntegerField()
+    groupIndex = models.IntegerField()
+    originIndex = models.IntegerField()
+    endIndex = models.IntegerField()
     size = models.IntegerField()
 
 class StepGroupClassiffier(models.Model):
     stepGroup = models.ForeignKey(StepGroup, on_delete=models.CASCADE)
+    goodSteps = models.IntegerField(default=0)
+    badSteps = models.IntegerField(default=0)
     riskFalling = models.BooleanField()
 
 
 class StepSession(models.Model):
     name = models.TextField(max_length=512)
 
-    date_uploaded = models.DateField(default=timezone.now)
+    date_uploaded = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
 '''
