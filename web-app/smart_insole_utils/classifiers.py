@@ -6,7 +6,7 @@ import json
 
 import numpy as np
 import pandas as pd
-
+import random
 
 class ClassifierType(Enum):
     '''
@@ -29,20 +29,41 @@ class Classifier(ABC):
     @abstractclassmethod
     def analyseImbalance(inputData): pass
 
+
+class RandomClassifier(Classifier):
+
+    @staticmethod
+    def analyseImbalance(inputData):
+        goodSteps = 0
+        badSteps = 0
+        for i in range(len(inputData)):
+            r = random.choice([True, False])
+            if r:
+                goodSteps += 1
+            else:
+                badSteps += 1
+
+        riskFalling = RandomClassifier.riskFalling(goodSteps, badSteps)
+
+        return ClassifierAnalysisResult(goodSteps, badSteps, riskFalling)
+    
+    @staticmethod
+    def riskFalling(goodSteps, badSteps):
+        return random.choice([True, False])
+       
+
 class ClassifierAnalysisResult(object):
 
     @classmethod
-    def __init__(self, fallingRisk):
-        self._fallingRisk = fallingRisk
-
-    @classmethod
-    def hasFallingRisk(self):
-        return self._fallingRisk
+    def __init__(self, goodSteps, badSteps, riskFalling):
+        self.goodSteps = goodSteps
+        self.badSteps = badSteps
+        self.riskFalling = riskFalling
 
 class ClassiffierFacade:
 
     @staticmethod
-    def analyseImbalance(testData, classifierType = ClassifierType.KNN):
+    def analyseImbalance(inputData, classifierType = ClassifierType.KNN):
         
         classifierResult = None
         
@@ -51,7 +72,7 @@ class ClassiffierFacade:
         elif classifierType == ClassifierType.DNN:
             classifierResult = "" # TODO = DNN.analyseImbalance(predictSamples)
         elif classifierType == ClassifierType.MOCKED:
-            classifierResult = ClassifierAnalysisResult(True)
+            classifierResult = RandomClassifier.analyseImbalance(inputData)
         else:
             raise ValueError('{} is UNKNOW!'.format(classifierType.name))
 
@@ -87,7 +108,12 @@ class ClassiffierFacade:
             # For every group analyse using the selected classifier types.
             for classifierType in classifierTypes:
                 classifierResult = ClassiffierFacade.analyseImbalance(stepGroupSamples, classifierType)
-                stepGroupClassiffier = StepGroupClassiffier(stepGroup=stepGroup, goodSteps=0, badSteps= 0, riskFalling=classifierResult.hasFallingRisk())
+                stepGroupClassiffier = StepGroupClassiffier(
+                    stepGroup= stepGroup, 
+                    goodSteps= classifierResult.goodSteps, 
+                    badSteps= classifierResult.badSteps, 
+                    riskFalling= classifierResult.riskFalling,
+                    classifierTypeStr= classifierType.name)
                 stepGroupClassiffier.save()
 
             origin += size

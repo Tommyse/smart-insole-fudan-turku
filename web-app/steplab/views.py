@@ -155,7 +155,7 @@ def diagnosisResult(request):
             
 
             # labels for the classification methods
-            for stepGroupClassiffiers in stepGroupClassiffiers:
+            for stepGroupClassiffier in stepGroupClassiffiers:
                 classifiers.add(stepGroupClassiffier.classifierTypeStr)
                 
         predictions = {stepPrediction : groups}
