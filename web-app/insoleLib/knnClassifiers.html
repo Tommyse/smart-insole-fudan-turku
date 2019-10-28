@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module knnClassifiers</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>knnClassifiers</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:c%3A%5Cusers%5Ctommi%5Csmart-insole%5Csmart-insole-fudan-turku%5Cclassifier%5Cjupyter%20notebooks%5Cinsolelib%5Cknnclassifiers.py">c:\users\tommi\smart-insole\smart-insole-fudan-turku\classifier\jupyter notebooks\insolelib\knnclassifiers.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="sklearn.metrics.html">sklearn.metrics</a><br>
+<a href="numpy.html">numpy</a><br>
+</td><td width="25%" valign=top><a href="os.html">os</a><br>
+<a href="pandas.html">pandas</a><br>
+</td><td width="25%" valign=top><a href="matplotlib.pyplot.html">matplotlib.pyplot</a><br>
+<a href="seaborn.html">seaborn</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="builtins.html#object">builtins.object</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="knnClassifiers.html#KnnClassifiers">KnnClassifiers</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="KnnClassifiers">class <strong>KnnClassifiers</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>KNN&nbsp;classifier&nbsp;stuff<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="KnnClassifiers-findBestK"><strong>findBestK</strong></a>(data, x_cols, y_cols)</dt><dd><tt>Non-nested&nbsp;approach&nbsp;to&nbsp;knn.&nbsp;Also&nbsp;for&nbsp;quick&nbsp;accuracy&nbsp;testing<br>
+&nbsp;<br>
+Arguments:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;{array}&nbsp;--&nbsp;Data</tt></dd></dl>
+
+<dl><dt><a name="KnnClassifiers-getKnnPredictions"><strong>getKnnPredictions</strong></a>(train, data, k)</dt><dd><tt>Classify&nbsp;input&nbsp;data<br>
+&nbsp;<br>
+Arguments:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;train&nbsp;{array}&nbsp;--&nbsp;labeled&nbsp;pandas&nbsp;dataframe<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;{array}&nbsp;--&nbsp;unlabeled&nbsp;pandas&nbsp;dataframe<br>
+&nbsp;&nbsp;&nbsp;&nbsp;k&nbsp;{int}&nbsp;--&nbsp;number&nbsp;of&nbsp;nearest&nbsp;neighbors</tt></dd></dl>
+
+<dl><dt><a name="KnnClassifiers-testKnn"><strong>testKnn</strong></a>(data, k, x_cols, y_cols, plots=False)</dt><dd><tt>Non-nested&nbsp;approach&nbsp;to&nbsp;knn.&nbsp;Also&nbsp;for&nbsp;quick&nbsp;accuracy&nbsp;testing<br>
+&nbsp;<br>
+Arguments:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;{array}&nbsp;--&nbsp;Data<br>
+&nbsp;&nbsp;&nbsp;&nbsp;x_cols&nbsp;{array}&nbsp;--&nbsp;x&nbsp;columns<br>
+&nbsp;&nbsp;&nbsp;&nbsp;y_cols&nbsp;{array}&nbsp;--&nbsp;y&nbsp;columns<br>
+&nbsp;<br>
+Keyword&nbsp;Arguments:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;plots&nbsp;{bool}&nbsp;--&nbsp;Used&nbsp;for&nbsp;plotting&nbsp;(default:&nbsp;{False})</tt></dd></dl>
+
+<dl><dt><a name="KnnClassifiers-testKnnLearning"><strong>testKnnLearning</strong></a>(data, k, x_cols, y_cols, times, plots=False, orig_acc=0, orig_auc=0, file_name_prefix='KNN')</dt><dd><tt>Suffling&nbsp;labels&nbsp;and&nbsp;fitting&nbsp;data&nbsp;many&nbsp;times.<br>
+Verifying&nbsp;that&nbsp;classifier&nbsp;learns&nbsp;something&nbsp;from&nbsp;the&nbsp;data<br>
+&nbsp;<br>
+Arguments:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;{array}&nbsp;--&nbsp;Data<br>
+&nbsp;&nbsp;&nbsp;&nbsp;x_cols&nbsp;{array}&nbsp;--&nbsp;x&nbsp;columns<br>
+&nbsp;&nbsp;&nbsp;&nbsp;y_cols&nbsp;{array}&nbsp;--&nbsp;y&nbsp;columns<br>
+&nbsp;&nbsp;&nbsp;&nbsp;times&nbsp;{int}&nbsp;--&nbsp;how&nbsp;many&nbsp;times&nbsp;random&nbsp;accuracy&nbsp;is&nbsp;tested<br>
+&nbsp;<br>
+Keyword&nbsp;Arguments:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;plots&nbsp;{bool}&nbsp;--&nbsp;Used&nbsp;for&nbsp;plotting&nbsp;(default:&nbsp;{False})</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table>
+</body></html>

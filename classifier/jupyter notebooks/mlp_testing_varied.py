@@ -81,10 +81,9 @@ params = mlp_parameters(
 	)
 
 alphas = np.logspace(-6, 1, 8) #alpha values to test
-print("alphas: ", alphas)
 
 best_a = MlpClassifiers.findBestAlpha(data, x_cols, y_cols, params, alphas)
-
+print(best_a)
 
 #%% testing MLP
 

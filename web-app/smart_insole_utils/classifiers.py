@@ -8,6 +8,8 @@ import numpy as np
 import pandas as pd
 import random
 
+from insoleLib.ensemble import Ensemble
+
 class ClassifierType(Enum):
     '''
     http://www.blog.pythonlibrary.org/2018/03/20/python-3-an-intro-to-enumerations/
@@ -16,6 +18,7 @@ class ClassifierType(Enum):
     UNKNOWN = 0
     KNN = 1 # K-nearest neighbor
     DNN = 2 # Deep Neural Network
+    BOOSTING = 3 #This should be used only because it has many classifiers in it already with label voting
     
     '''
     TODO Add other classifiers.
@@ -63,9 +66,11 @@ class ClassifierAnalysisResult(object):
 class ClassiffierFacade:
 
     @staticmethod
-    def analyseImbalance(inputData, classifierType = ClassifierType.KNN):
+    def analyseImbalance(inputData, classifierType = ClassifierType.Boosting):
         
         classifierResult = None
+        
+        train_data = pd.read_csv('data/tommi+diego_test_data.csv', sep=";", header=0)
         
         if classifierType == ClassifierType.KNN:
             classifierResult = "" # TODO = KNN.analyseImbalance(predictSamples)
@@ -73,10 +78,12 @@ class ClassiffierFacade:
             classifierResult = "" # TODO = DNN.analyseImbalance(predictSamples)
         elif classifierType == ClassifierType.MOCKED:
             classifierResult = RandomClassifier.analyseImbalance(inputData)
+        elif classifierType == ClassifierType.BOOSTING:
+            classifierResult, normal_count, fall_count = Ensemble.getBoostingPredictions(train_data, inputData)
         else:
             raise ValueError('{} is UNKNOW!'.format(classifierType.name))
 
-        return classifierResult
+        return(classifierResult, normal_count, fall_count)
 
     @staticmethod
     def analyseImbalances(currentUser, fileNames, filePaths, classifierTypes, groupSize):

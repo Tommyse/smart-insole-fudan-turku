@@ -7,7 +7,7 @@
 	
 
 ### Future development
-	- Extending the platform to mobile for real time classifications or running the classifiers locally on mobile
 	- Support for other smart insoles
+	- Extending the platform to mobile for real time classifications or running the classifiers locally on mobile
 	- Possibly calling for help automatically if user falls
 	- Extension to medical usage

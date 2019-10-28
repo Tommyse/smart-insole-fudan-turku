@@ -489,14 +489,3 @@ ax.w_zaxis.set_ticklabels([])
 ax.legend(["Fall"], fontsize=26, markerscale=2.5)
 plt.savefig("../figs/boosting_PCA_3d_pred_labels_angle2.png", facecolor="w", bbox_inches="tight")
 plt.show()
-
-
-#%%
-train = step_t_DF
-unlabeled = step_t_DF #Shouldn't test with train data (previous tests are more accurate)
-
-predictions = Ensemble.getBaggingPredictions(train, unlabeled)
-
-
-print(classification_report(train["label"].values, predictions))
-

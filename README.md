@@ -2,7 +2,7 @@
 
 # Classifier integration
 
-One of the ensemble methods should be used for predictions. Like bagging.
+Boosting selected as integrated classifier.
 
 ## Code
 
@@ -30,39 +30,17 @@ Various python files in **"classifier/jupyter notebooks"** are jupyter notebooks
 
 - Fixing some old code
 
+	- Check concats. Might be faulty
+
 - Documenting code
 
 - Apply normalization to all features
-
-- scaling forces could use more testing and observing
-
-	- min max for forces?
-
-	- The data needs to be standardized since every session can have different forces. (different persons probably walk and weigh differently)
-
-	- Needs further testing things
-
-	- https://scikit-learn.org/stable/auto_examples/preprocessing/plot_all_scaling.html
 
 	- https://medium.com/@urvashilluniya/why-data-normalization-is-necessary-for-machine-learning-models-681b65a05029
 
 	- http://www.grroups.com/blog/about-feature-scaling-and-normalization-and-the-effect-of-standardization-for-machine-learning-algorithms
 
 	- https://sebastianraschka.com/Articles/2014_about_feature_scaling.html
-
-- Building different classifiers
-
-	- Deep learning things
-
-		- https://machinelearningmastery.com/multi-class-classification-tutorial-keras-deep-learning-library/
-
-- Classifier parameter tuning
-
-	- https://towardsdatascience.com/fine-tuning-a-classifier-in-scikit-learn-66e048c21e65
-
-- Testing how much the amount of classifiers affect the results
-
-	- Test removing some classifiers from ensembles (SVM due to poor results from tests?)
 
 ![Sklearn Flowchart](https://scikit-learn.org/stable/_static/ml_map.png)
 

@@ -648,7 +648,6 @@ data = data.reset_index(drop=True)
 
 data = DataHandler.calculateTotalForce(data)
 data = DataHandler.calculateStepTime(data)
-#data = DataHandler.calculateForceDiff(data)
 data = DataHandler.calculateForceValues(data)
 data = DataHandler.calculateStepStartValues(data)
 data = DataHandler.calculateStepMaxTimeValues(data)
