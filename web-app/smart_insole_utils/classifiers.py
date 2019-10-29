@@ -66,7 +66,7 @@ class ClassifierAnalysisResult(object):
 class ClassiffierFacade:
 
     @staticmethod
-    def analyseImbalance(inputData, classifierType = ClassifierType.Boosting):
+    def analyseImbalance(inputData, classifierType = ClassifierType.BOOSTING):
         
         classifierResult = None
         
