@@ -1073,15 +1073,16 @@ class Ensemble(ClassifierInterface):
     @staticmethod
     def analyseImbalance(inputData):
         # print("LeN: ", len(inputData), len(inputData[0]))
-        inputData = pd.DataFrame(data=np.array(inputData), columns=DataColumns.getAllCols())
-        results, normal_count, fall_count = Ensemble.getBoostingPredictions(train_data, inputData)
+        inputDataFrame = pd.DataFrame(data=np.array(inputData), columns=DataColumns.getAllCols())
+        inputDataFrame = inputDataFrame.astype(DataColumns.getColTypes())
+        results, normal_count, fall_count = Ensemble.getBoostingPredictions(train_data, inputDataFrame)
 
         riskFalling = False
         totalCount = (normal_count + fall_count)
         if totalCount > 0:
             riskFalling = (normal_count / totalCount) < 0.9
 
-        ClassifierAnalysisResult(goodSteps=normal_count, badSteps=fall_count, riskFalling=riskFalling)
+        return ClassifierAnalysisResult(goodSteps=normal_count, badSteps=fall_count, riskFalling=riskFalling)
 
 
     @staticmethod
