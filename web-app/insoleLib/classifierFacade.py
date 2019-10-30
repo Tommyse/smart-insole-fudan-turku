@@ -1,76 +1,21 @@
-from enum import Enum
-from abc import ABC, abstractclassmethod
-from .utils import get_data_from_files, chunks, combine
-from steplab.models import StepPrediction, StepGroup, StepGroupClassiffier
 import json
+from abc import ABC, abstractclassmethod
 
-import numpy as np
-import pandas as pd
-import random
-
-from insoleLib.ensemble import Ensemble
-
-class ClassifierType(Enum):
-    '''
-    http://www.blog.pythonlibrary.org/2018/03/20/python-3-an-intro-to-enumerations/
-    '''
-    MOCKED = -1 # for testing
-    UNKNOWN = 0
-    KNN = 1 # K-nearest neighbor
-    DNN = 2 # Deep Neural Network
-    BOOSTING = 3 #This should be used only because it has many classifiers in it already with label voting
-    
-    '''
-    TODO Add other classifiers.
-    '''
-
-class Classifier(ABC):
-
-    '''
-    Recives the input data and returns the predictions for each step.
-    '''
-    @abstractclassmethod
-    def analyseImbalance(inputData): pass
+from .utils import get_data_from_files, chunks, combine
+from .classifiers import ClassifierType
+from steplab.models import StepPrediction, StepGroup, StepGroupClassiffier
 
 
-class RandomClassifier(Classifier):
+# implementation of several classifiers
+from .ensemble import Ensemble
+from .classifiers import RandomClassifier
 
-    @staticmethod
-    def analyseImbalance(inputData):
-        goodSteps = 0
-        badSteps = 0
-        for i in range(len(inputData)):
-            r = random.choice([True, False])
-            if r:
-                goodSteps += 1
-            else:
-                badSteps += 1
-
-        riskFalling = RandomClassifier.riskFalling(goodSteps, badSteps)
-
-        return ClassifierAnalysisResult(goodSteps, badSteps, riskFalling)
-    
-    @staticmethod
-    def riskFalling(goodSteps, badSteps):
-        return random.choice([True, False])
-       
-
-class ClassifierAnalysisResult(object):
-
-    @classmethod
-    def __init__(self, goodSteps, badSteps, riskFalling):
-        self.goodSteps = goodSteps
-        self.badSteps = badSteps
-        self.riskFalling = riskFalling
-
-class ClassiffierFacade:
+class ClassifierFacade:
 
     @staticmethod
     def analyseImbalance(inputData, classifierType = ClassifierType.BOOSTING):
         
         classifierResult = None
-        
-        train_data = pd.read_csv('data/tommi+diego_test_data.csv', sep=";", header=0)
         
         if classifierType == ClassifierType.KNN:
             classifierResult = "" # TODO = KNN.analyseImbalance(predictSamples)
@@ -79,11 +24,11 @@ class ClassiffierFacade:
         elif classifierType == ClassifierType.MOCKED:
             classifierResult = RandomClassifier.analyseImbalance(inputData)
         elif classifierType == ClassifierType.BOOSTING:
-            classifierResult, normal_count, fall_count = Ensemble.getBoostingPredictions(train_data, inputData)
+            classifierResult = Ensemble.analyseImbalance(inputData)
         else:
             raise ValueError('{} is UNKNOW!'.format(classifierType.name))
 
-        return(classifierResult, normal_count, fall_count)
+        return classifierResult
 
     @staticmethod
     def analyseImbalances(currentUser, fileNames, filePaths, classifierTypes, groupSize):
@@ -114,7 +59,7 @@ class ClassiffierFacade:
             
             # For every group analyse using the selected classifier types.
             for classifierType in classifierTypes:
-                classifierResult = ClassiffierFacade.analyseImbalance(stepGroupSamples, classifierType)
+                classifierResult = ClassifierFacade.analyseImbalance(stepGroupSamples, classifierType)
                 stepGroupClassiffier = StepGroupClassiffier(
                     stepGroup= stepGroup, 
                     goodSteps= classifierResult.goodSteps, 

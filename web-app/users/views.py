@@ -58,3 +58,4 @@ def sessions(request):
     }
 
     return render(request, 'users/sessions.html', context)
+

@@ -7,6 +7,22 @@ class DataColumns:
     """
     
     @staticmethod
+    def getAllCols():
+        all_columns = [
+            "App_time","Step_number","Insole_timer","Contact_time",
+            "S0_force","S0_start_time","S0_max_time","S0_end_time",
+            "S1_force","S1_start_time","S1_max_time","S1_end_time",
+            "S2_force","S2_start_time","S2_max_time","S2_end_time",
+            "S3_force","S3_start_time","S3_max_time","S3_end_time",
+            "S4_force","S4_start_time","S4_max_time","S4_end_time",
+            "S5_force","S5_start_time","S5_max_time","S5_end_time",
+            "S6_force","S6_start_time","S6_max_time","S6_end_time",
+            "F1_force","F1_time","F2_force","F2_time","F3_force",
+            "F3_time","Warning_code","Left/Right","Size","Insole_id","label"
+        ]
+
+        return all_columns
+    @staticmethod
     def getValuesCols():
         """
         All data columns with numeric values

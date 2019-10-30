@@ -13,14 +13,21 @@ from .mlpClassifiers import MlpClassifiers
 
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix
-from sklearn.model_selection import LeaveOneOut
+from sklearn.model_selection import LeaveOneOut 
 from sklearn.metrics import classification_report
 from sklearn.metrics import roc_auc_score
 
 import matplotlib.pyplot as plt
 import seaborn as sn
 
-class Ensemble:
+from .classifiers import ClassifierInterface, ClassifierAnalysisResult
+# import common-training data
+train_data = pd.read_csv('data/tommi+diego_test_data.csv', sep=";", header=0)
+
+        
+class Ensemble(ClassifierInterface):
+
+    
     """
     Ensemble learning class.
     Uses multiple different classifiers and randomized datasets to classify the input data.
@@ -1063,6 +1070,20 @@ class Ensemble:
         
         return(accs, aucs)
     
+    @staticmethod
+    def analyseImbalance(inputData):
+        # print("LeN: ", len(inputData), len(inputData[0]))
+        inputData = pd.DataFrame(data=np.array(inputData), columns=DataColumns.getAllCols())
+        results, normal_count, fall_count = Ensemble.getBoostingPredictions(train_data, inputData)
+
+        riskFalling = False
+        totalCount = (normal_count + fall_count)
+        if totalCount > 0:
+            riskFalling = (normal_count / totalCount) < 0.9
+
+        ClassifierAnalysisResult(goodSteps=normal_count, badSteps=fall_count, riskFalling=riskFalling)
+
+
     @staticmethod
     def getBoostingPredictions(train, unlabeled):
         """

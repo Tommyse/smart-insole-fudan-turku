@@ -8,8 +8,9 @@ from django.views.decorators.csrf import csrf_protect
 
 from .models import Post, StepSession, StepFile, StepPrediction, StepGroup, StepGroupClassiffier
 from django.core.files.storage import default_storage
-from smart_insole_utils.utils import get_data
-from smart_insole_utils.classifiers import ClassiffierFacade, ClassifierType
+from insoleLib.utils import get_data
+from insoleLib.classifiers import ClassifierType
+from insoleLib.classifierFacade import ClassifierFacade
 
 from collections import Iterable
 from django.shortcuts import redirect
@@ -125,13 +126,13 @@ def newDiagnose(request):
     if request.method == 'POST':
         postFilesJSON = request.POST.get("analyse", "")
         postFiles = json.loads(postFilesJSON)
-        classificationMethods = [ClassifierType.MOCKED]
+        classificationMethods = [ClassifierType.MOCKED, ClassifierType.BOOSTING]
         if postFiles and isinstance(postFiles, Iterable) and len(postFiles) > 0:
             filePaths = []
             for fileName in postFiles:
                 filePaths.append(getUserFile(request.user, fileName.strip()))
 
-            stepPrediction = ClassiffierFacade.analyseImbalances(request.user, postFiles, filePaths, classificationMethods, 100)
+            stepPrediction = ClassifierFacade.analyseImbalances(request.user, postFiles, filePaths, classificationMethods, 100)
             if (stepPrediction):
                 return redirect(f'/diagnosis/result?stepPrediction={stepPrediction.id}')
 
