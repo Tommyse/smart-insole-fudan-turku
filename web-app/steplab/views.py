@@ -67,10 +67,9 @@ def recordings(request):
             stepFileObj.save()
 
     elif request.method == 'GET':
-        fileName = request.GET.get('filename', '')
-        if fileName.strip():
-            # TODO SECURITY RISK
-            path = os.path.join(settings.MEDIA_ROOT, usrFolder, fileName)
+        fileName = request.GET.get('filename', '').strip()
+        if fileName:
+            path = getUserFile(user, fileName)
 
             if os.path.exists(path):
                 fields, samples = get_data(path)
@@ -106,6 +105,22 @@ def newDiagnose(request):
         'stepFiles'         : stepFiles,
         'title'             : 'diagnosis',
     }
+    
+    if request.method == 'GET':
+        fileName = request.GET.get('filename', '').strip()
+        if fileName:
+            path = getUserFile(request.user, fileName)
+
+            if os.path.exists(path):
+                fields, samples = get_data(path)
+                fileContent = {'fields': fields, 'samples': samples}
+                context = {
+                    'fileName'          :  fileName,
+                    'fileContent'       :  fileContent,
+                    'title'             : 'Recordings/' + fileName
+                }
+
+                return render(request, 'steplab/recordingDetail.html', context) # request, template and context(arguments)
 
     if request.method == 'POST':
         postFilesJSON = request.POST.get("analyse", "")
@@ -114,7 +129,7 @@ def newDiagnose(request):
         if postFiles and isinstance(postFiles, Iterable) and len(postFiles) > 0:
             filePaths = []
             for fileName in postFiles:
-                filePaths.append(getUserFile(request.user, fileName))
+                filePaths.append(getUserFile(request.user, fileName.strip()))
 
             stepPrediction = ClassiffierFacade.analyseImbalances(request.user, postFiles, filePaths, classificationMethods, 100)
             if (stepPrediction):

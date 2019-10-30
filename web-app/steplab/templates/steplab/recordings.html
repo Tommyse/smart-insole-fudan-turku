@@ -1,4 +1,8 @@
 {% extends 'steplab/base.html' %}
+{% load static from staticfiles %}
+{% block addionalDependencies %}
+<link rel="stylesheet" href="{% static 'css/spinner.css' %}">
+{% endblock addionalDependencies %}
 {% block content %}
 <div class="row">
     <div class="col-md-10 offset-1 lm-auto">
@@ -67,6 +71,8 @@
 
 
 {% block scripts %}
+<script src="{% static 'js/wait-tool.js' %}"></script>
+
 <script>
     function submitForm() {
         // Get the first form with the name
@@ -78,11 +84,18 @@
 
     $(document).ready(function () {
         $('#recordings-table td').click(function () {
+            let contentSelector = "#main-content";
+            content = showWaitTool(contentSelector);
+
             let fileName = this.innerText;
-            $.get("", { filename: fileName }, function (data) {
-                $("#main-content").html(data);
-                window.scrollTo(0, 0);
-            });
+            if (fileName) {
+                $.get("", { filename: fileName }, function (data) {
+                    content = data; /* new page */
+                }).always(function() {
+                    /* it loads the new page or restores the old one. */
+                    hideWaitTool(contentSelector, content);
+                });
+            }
         });
     });
 </script>

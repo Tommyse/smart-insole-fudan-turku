@@ -73,3 +73,46 @@ nav li {
 }
 
 /* end uploader */
+
+/* tables */
+.table thead th,
+table thead th
+{
+    background: white;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.table-container {
+    max-height: 800px;
+}
+
+/* When the browser's height is 600px wide or less: */
+@media screen and (max-width: 1500px) {
+    .table-container {
+        max-height: 700px;
+    }
+}
+
+/* When the browser's height is 600px wide or less: */
+@media screen and (max-width: 1024px) {
+    .table-container {
+        max-height: 500px;
+    }
+}
+
+/* When the browser's height is 600px wide or less: */
+@media screen and (max-width: 700px) {
+    .table-container {
+        max-height: 400px;
+    }
+}
+
+
+
+@media screen and (max-width: 900px) {
+    .table-container {
+        max-height: 500px;
+    }
+}

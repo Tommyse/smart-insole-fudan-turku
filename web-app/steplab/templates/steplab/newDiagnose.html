@@ -6,20 +6,6 @@
 
 {% block content %}
 <div class="container-fluid">
-    <div class="sk-circle wait-tool d-none">
-            <div class="sk-circle1 sk-child"></div>
-            <div class="sk-circle2 sk-child"></div>
-            <div class="sk-circle3 sk-child"></div>
-            <div class="sk-circle4 sk-child"></div>
-            <div class="sk-circle5 sk-child"></div>
-            <div class="sk-circle6 sk-child"></div>
-            <div class="sk-circle7 sk-child"></div>
-            <div class="sk-circle8 sk-child"></div>
-            <div class="sk-circle9 sk-child"></div>
-            <div class="sk-circle10 sk-child"></div>
-            <div class="sk-circle11 sk-child"></div>
-            <div class="sk-circle12 sk-child"></div>
-          </div>
     <!-- Table  -->
     <div id="analyse-file-form">
         <form method="POST">
@@ -28,10 +14,10 @@
                 <button class="btn btn-primary btn-lg ml-auto" type="submit" name="analyse">Analyse</button>
             </div>
         </form>
-        <div class="row overflow-auto">
+        <div class="row overflow-auto table-container">
             <table id="recordings-table" class="table table-bordered">
                 <thead>
-                    <tr>
+                    <tr class="text-center">
                         <th>
                             <!-- Default unchecked -->
                             <div class="custom-control custom-checkbox">
@@ -58,14 +44,17 @@
                 </thead>
                 <tbody>
                     {% for stepFile in stepFiles %}
-                    <tr class="">
+                    <tr class="text-center">
                         <td>
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" class="custom-control-input"
                                     id="tableDefaultCheck{{ forloop.counter }}">
                                 <label class="custom-control-label"
                                     for="tableDefaultCheck{{ forloop.counter }}"></label>
-                            </div>
+
+                                </div>
+                                <button type="button" class="btn btn-dark see">See</button>
+
                         </td>
                         <td class="file-name" value="{{ stepFile.title }}">{{ stepFile.title }} </td>
                         <td>{{ stepFile.author }} </td>
@@ -91,6 +80,7 @@
 {% endblock content %}
 
 {% block scripts %}
+<script src="{% static 'js/wait-tool.js' %}"></script>
 
 <script>
     function getCookie(c_name)
@@ -110,21 +100,6 @@
     }
 
     function submitForm() {
-        let files = []; // $('#analyse').val
-
-        $('#recordings-table tr').each(function() {
-            let checkBox = $( this ).find('td input');
-            selected = checkBox.prop('checked');
-			if (selected) {
-                fileNameItem = $( this ).find('.file-name');
-                if (fileNameItem != null) {
-                    fileName = fileNameItem.text();
-                    if (fileName) {
-                        files.push(fileName);
-                    }
-                }
-            }
-        });
 
         $('button[name="analyse"]').val(JSON.stringify(files));
         
@@ -139,12 +114,31 @@
 
     
     $(document).ready(function () {
+        
         $('#tableDefaultCheck0').click(function () {
             let allChecked = $('#tableDefaultCheck0').prop('checked');
 
-            $('#recordings-table td input').each(function() {
+            $('#recordings-table td input[type="checkbox"]').each(function() {
                 $( this ).prop('checked', allChecked);
             });
+        });
+
+        $('#recordings-table tr td .see').click(function() {
+            tdParent = $( this ).parent().parent();
+            fileNameItem = $( tdParent ).find('.file-name');
+            if (fileNameItem != null) {
+                fileName = fileNameItem.text();
+                if (fileName) {
+                    let contentSelector = "#main-content";
+                    content = showWaitTool(contentSelector);
+                    $.get("", { filename: fileName }, function (data) {
+                        content = data; /* new page */
+                    }).always(function() {
+                        /* it loads the new page or restores the old one. */
+                        hideWaitTool(contentSelector, content);
+                    });
+                }
+            }
         });
 
         $('button[name="analyse"]').click(function () {
@@ -152,7 +146,7 @@
             let files = []; // $('#analyse').val
 
             $('#recordings-table tr').each(function() {
-                let checkBox = $( this ).find('td input');
+                let checkBox = $( this ).find('td input[type="checkbox"]');
                 selected = checkBox.prop('checked');
                 if (selected) {
                     fileNameItem = $( this ).find('.file-name');
@@ -168,10 +162,7 @@
             if (files && files.length > 0) {
                 fileNames = JSON.stringify(files);
                 if (fileNames) {
-
                     $(this).val(fileNames);
-
-                    
                 }
             }
         });
