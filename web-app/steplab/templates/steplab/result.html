@@ -1,53 +1,83 @@
 {% extends 'steplab/base.html' %}
 {% load static from staticfiles %}
 {% block addionalDependencies %}
+<link rel="stylesheet" href="{% static 'css/spinner.css' %}">
 {% endblock addionalDependencies %}
 
 {% block content %}
 <div class="container-fluid">
     {% if predictions and classifiers %}
     {% for stepPrediction, groups in predictions.items %}
-        <div class="row">
-            <h2>
-                Analysis # {{stepPrediction.id}}
-                <span class="badge badge-secondary">{{stepPrediction.creationDate}}</span>
-            </h2>
-        </div>
-        <div class="overflow-auto">
-            <table class="table text-center">
+    <div class="row">
+        <h2>
+            Analysis # {{stepPrediction.id}}
+            <span class="badge badge-secondary">{{stepPrediction.creationDate}}</span>
+        </h2>
+    </div>
+    <div class="overflow-auto">
+        <table class="table text-center">
+            <thead>
+                <tr>
+                    <th></th>
+                    {% for classifier in classifiers %}
+                    <th colspan="3">
+                        {{classifier}}
+                    </th>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <th>Step Groups#</th>
+                    {% for classifier in classifiers %}
+                    <th>GoodSteps</th>
+                    <th>BadSteps</th>
+                    <th class="last-group-column">RiskFalling</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for stepGroup, stepGroupClassiffiers in groups.items %}
+                <tr>
+                    <td class="last-group-column"> {{stepGroup.groupIndex}}
+                        [{{stepGroup.originIndex}}-{{stepGroup.endIndex}}] {{stepGroup.size}} </td>
+                    {% for stepGroupClassiffier in stepGroupClassiffiers %}
+                    <td> {{stepGroupClassiffier.goodSteps}} </td>
+                    <td> {{stepGroupClassiffier.badSteps}} </td>
+                    <td class="last-group-column"> {{stepGroupClassiffier.riskFalling}} </td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endfor %}
+
+    {% for stepPrediction, fileNames in files.items %}
+    <div class="row mt-3">
+        <div class="offset-3 col-md-6">
+            <table id="files-table" class="table text-center">
                 <thead>
                     <tr>
-                        <th></th>
-                        {% for classifier in classifiers %}
-                            <th colspan="3">
-                                {{classifier}}
-                            </th>
-                        {% endfor %}
-                    </tr>
-                    <tr>
-                        <th>Step Groups#</th>
-                        {% for classifier in classifiers %}
-                            <th>GoodSteps</th>
-                            <th>BadSteps</th>
-                            <th class="last-group-column">RiskFalling</th>
-                        {% endfor %}
+                        <th>#</th>
+                        <th>Filename</th>
+                        <th>Content</th>
                     </tr>
                 </thead>
                 <tbody>
-                        {% for stepGroup, stepGroupClassiffiers in groups.items %}
-                        <tr>
-                            <td class="last-group-column"> {{stepGroup.groupIndex}} [{{stepGroup.originIndex}}-{{stepGroup.endIndex}}] {{stepGroup.size}} </td>
-                            {% for stepGroupClassiffier in stepGroupClassiffiers %}
-                                <td> {{stepGroupClassiffier.goodSteps}} </td>
-                                <td> {{stepGroupClassiffier.badSteps}}  </td>
-                                <td class="last-group-column"> {{stepGroupClassiffier.riskFalling}}  </td>
-                            {% endfor %}
-                        </tr>
+                    {% for fileName in fileNames %}
+                    <tr>
+                        <td> {{forloop.counter}} </td>
+                        <td class="file-name"> {{fileName}} </td>
+                        <td>
+                            <button type="button" class="btn btn-primary see">See</button>
+                        </td>
+                    </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
+    </div>
     {% endfor %}
+
 
     {% else %}
     <h2>There is no prediction to show you!</h2>
@@ -57,4 +87,27 @@
 {% endblock content %}
 
 {% block scripts %}
+<script src="{% static 'js/wait-tool.js' %}"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#files-table tr td .see').click(function () {
+            const contentSelector = "#main-content";
+            let tdParent = $(this).parent().parent();
+            let fileNameItem = $(tdParent).find('.file-name');
+            if (fileNameItem) {
+                fileName = fileNameItem.text();
+                if (fileName) {
+                    let content = showWaitTool(contentSelector);
+                    $.get("", { filename: fileName }, function (data) {
+                        content = data; /* new page */
+                    }).always(function () {
+                        /* it loads the new page or restores the old one. */
+                        hideWaitTool(contentSelector, content);
+                    });
+                }
+            }
+        });
+    });
+</script>
 {% endblock scripts %}

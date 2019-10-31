@@ -53,7 +53,7 @@
                                     for="tableDefaultCheck{{ forloop.counter }}"></label>
 
                                 </div>
-                                <button type="button" class="btn btn-dark see">See</button>
+                                <button type="button" class="btn btn-primary see">See</button>
 
                         </td>
                         <td class="file-name" value="{{ stepFile.title }}">{{ stepFile.title }} </td>
@@ -129,7 +129,7 @@
             if (fileNameItem != null) {
                 fileName = fileNameItem.text();
                 if (fileName) {
-                    let contentSelector = "#main-content";
+                    const contentSelector = "#main-content";
                     content = showWaitTool(contentSelector);
                     $.get("", { filename: fileName }, function (data) {
                         content = data; /* new page */

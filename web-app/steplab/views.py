@@ -126,7 +126,7 @@ def newDiagnose(request):
     if request.method == 'POST':
         postFilesJSON = request.POST.get("analyse", "")
         postFiles = json.loads(postFilesJSON)
-        classificationMethods = set(ClassifierType.MOCKED, ClassifierType.KNN, ClassifierType.DNN)
+        classificationMethods = set([ClassifierType.MOCKED, ClassifierType.KNN, ClassifierType.DNN])
         if postFiles and isinstance(postFiles, Iterable) and len(postFiles) > 0:
             filePaths = []
             for fileName in postFiles:
@@ -152,6 +152,23 @@ def diagnosisResult(request):
         'prediction'       :  {},
     }
 
+    if request.method == 'GET':
+        fileName = request.GET.get('filename', '').strip()
+        if fileName:
+            path = getUserFile(request.user, fileName)
+
+            if os.path.exists(path):
+                fields, samples = get_data(path)
+                fileContent = {'fields': fields, 'samples': samples}
+                context = {
+                    'fileName'          :  fileName,
+                    'fileContent'       :  fileContent,
+                    'title'             : 'Recordings/' + fileName
+                }
+
+                return render(request, 'steplab/recordingDetail.html', context) # request, template and context(arguments)
+
+
     if stepPredictionID and stepPredictionID.isdigit():
         #  StepPrediction
         stepPredictionID = int(stepPredictionID)
@@ -175,8 +192,10 @@ def diagnosisResult(request):
                 classifiers.add(stepGroupClassiffier.classifierTypeStr)
                 
         predictions = {stepPrediction : groups}
+        fileNames = {stepPrediction : json.loads(stepPrediction.files)}
         context ['predictions'] = predictions
         context ['classifiers'] = classifiers
+        context ['files'] = fileNames
 
     return render(request, url, context)
     

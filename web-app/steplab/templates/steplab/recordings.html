@@ -84,11 +84,10 @@
 
     $(document).ready(function () {
         $('#recordings-table td').click(function () {
-            let contentSelector = "#main-content";
-            content = showWaitTool(contentSelector);
-
+            const contentSelector = "#main-content";
             let fileName = this.innerText;
             if (fileName) {
+                let content = showWaitTool(contentSelector);
                 $.get("", { filename: fileName }, function (data) {
                     content = data; /* new page */
                 }).always(function() {
