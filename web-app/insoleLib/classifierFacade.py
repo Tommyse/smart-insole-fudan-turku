@@ -18,9 +18,9 @@ class ClassifierFacade:
         classifierResult = None
         
         if classifierType == ClassifierType.KNN:
-            classifierResult = "" # TODO = KNN.analyseImbalance(predictSamples)
+            classifierResult = RandomClassifier.analyseImbalance(inputData)
         elif classifierType == ClassifierType.DNN:
-            classifierResult = "" # TODO = DNN.analyseImbalance(predictSamples)
+            classifierResult = RandomClassifier.analyseImbalance(inputData)
         elif classifierType == ClassifierType.MOCKED:
             classifierResult = RandomClassifier.analyseImbalance(inputData)
         elif classifierType == ClassifierType.BOOSTING:

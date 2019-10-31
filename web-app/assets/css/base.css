@@ -116,3 +116,7 @@ table thead th
         max-height: 500px;
     }
 }
+
+.last-group-column {
+    border-right: 1px solid #dee2e6;
+}

@@ -8,56 +8,45 @@
     {% if predictions and classifiers %}
     {% for stepPrediction, groups in predictions.items %}
         <div class="row">
-            <h1>
+            <h2>
                 Analysis # {{stepPrediction.id}}
                 <span class="badge badge-secondary">{{stepPrediction.creationDate}}</span>
-            </h1>
+            </h2>
         </div>
-        <div class="row">
-            <p>{{stepPrediction.files}}</p>
-        </div>
-        <div>
-            {% for stepGroup, stepGroupClassiffiers in groups.items %}
-            <p>stepGroup: {{stepGroup.groupIndex}} {{stepGroup.originIndex}} {{stepGroup.endIndex}} {{stepGroup.size}} </p>
-            {% for stepGroupClassiffier in stepGroupClassiffiers %}
-            <p>stepGroupClassiffier: {{stepGroupClassiffier.goodSteps}} {{stepGroupClassiffier.badSteps}}
-                {{stepGroupClassiffier.riskFalling}}</p>
-            {% endfor %}
-            {% endfor %}
-        </div>
-
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Step Groups#</th>
-                    {% for classifier in classifiers %}
-                        <th>
-                            {{classifier}}
-                        </th>
-                    {% endfor %}
-                </tr>
-            </thead>
-            <tbody>
-                    {% for stepGroup, stepGroupClassiffiers in groups.items %}
+        <div class="overflow-auto">
+            <table class="table text-center">
+                <thead>
                     <tr>
-                        <td> {{stepGroup.groupIndex}} [{{stepGroup.originIndex}}-{{stepGroup.endIndex}}] {{stepGroup.size}} </td>
-                        {% for stepGroupClassiffier in stepGroupClassiffiers %}
-                            <td>
-                            {{stepGroupClassiffier.goodSteps}} 
-                            {{stepGroupClassiffier.badSteps}}
-                            {{stepGroupClassiffier.riskFalling}}
-                            </td>
+                        <th></th>
+                        {% for classifier in classifiers %}
+                            <th colspan="3">
+                                {{classifier}}
+                            </th>
                         {% endfor %}
                     </tr>
-                {% endfor %}
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td></td>
-                    <td colspan="{{classifiers|length}}">There are not any step file!</td>
-                </tr>
-            </tfoot>
-        </table>
+                    <tr>
+                        <th>Step Groups#</th>
+                        {% for classifier in classifiers %}
+                            <th>GoodSteps</th>
+                            <th>BadSteps</th>
+                            <th class="last-group-column">RiskFalling</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                        {% for stepGroup, stepGroupClassiffiers in groups.items %}
+                        <tr>
+                            <td class="last-group-column"> {{stepGroup.groupIndex}} [{{stepGroup.originIndex}}-{{stepGroup.endIndex}}] {{stepGroup.size}} </td>
+                            {% for stepGroupClassiffier in stepGroupClassiffiers %}
+                                <td> {{stepGroupClassiffier.goodSteps}} </td>
+                                <td> {{stepGroupClassiffier.badSteps}}  </td>
+                                <td class="last-group-column"> {{stepGroupClassiffier.riskFalling}}  </td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     {% endfor %}
 
     {% else %}
