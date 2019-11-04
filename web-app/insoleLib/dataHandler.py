@@ -2,7 +2,7 @@ import os
 import pandas as pd
 import numpy as np
 from scipy.stats import zscore
-from columns import DataColumns
+from .columns import DataColumns
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.preprocessing import QuantileTransformer
 

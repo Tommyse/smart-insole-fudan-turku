@@ -4,12 +4,12 @@ import numpy as np
 from scipy.stats import zscore
 from collections import namedtuple
 
-from columns import DataColumns
-from dataHandler import DataHandler
-from knnClassifiers import KnnClassifiers
-from treeClassifiers import TreeClassifiers
-from svmClassifiers import SvmClassifiers
-from mlpClassifiers import MlpClassifiers
+from .columns import DataColumns
+from .dataHandler import DataHandler
+from .knnClassifiers import KnnClassifiers
+from .treeClassifiers import TreeClassifiers
+from .svmClassifiers import SvmClassifiers
+from .mlpClassifiers import MlpClassifiers
 
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix

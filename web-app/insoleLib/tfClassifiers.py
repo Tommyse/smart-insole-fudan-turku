@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 import numpy as np
-from columns import DataColumns
+from .columns import DataColumns
 import tensorflow as tf
 from keras.models import Sequential
 from keras.layers import Dense
