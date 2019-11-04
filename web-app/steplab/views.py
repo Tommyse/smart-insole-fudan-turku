@@ -11,6 +11,7 @@ from django.core.files.storage import default_storage
 from insoleLib.utils import get_data
 from insoleLib.classifiers import ClassifierType
 from insoleLib.classifierFacade import ClassifierFacade
+from insole_charts.utils import ChartContainerFactory, getNumberLabels
 
 from collections import Iterable
 from django.shortcuts import redirect
@@ -74,11 +75,14 @@ def recordings(request):
 
             if os.path.exists(path):
                 fields, samples = get_data(path)
+                forceLinearData = ChartContainerFactory.createForceLinearChartContainers(samples)
                 fileContent = {'fields': fields, 'samples': samples}
                 context = {
-                    'fileName'          :  fileName,
-                    'fileContent'       :  fileContent,
-                    'title'             : 'Recordings/' + fileName
+                    'fileName'                  :   fileName,
+                    'fileContent'               :   fileContent,
+                    'title'                     :   'Recordings/' + fileName,
+                    'linearForceChartData'      :   forceLinearData,
+                    'forceLabels'               :   getNumberLabels(len(forceLinearData[0].data))
                 }
 
                 return render(request, 'steplab/recordingDetail.html', context) # request, template and context(arguments)

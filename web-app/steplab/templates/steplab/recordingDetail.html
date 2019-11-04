@@ -1,6 +1,35 @@
 {% if fileContent %}
 <h1 class="col-md-11 badge-secondary">{{fileName}}</h1>
 <button type="button" class="btn btn-link" onclick="location.reload();">Back</button>
+
+{% if linearForceChartData %}
+<canvas id="force-line-chart" width="600" height="450"></canvas>
+<script>
+        new Chart(document.getElementById("force-line-chart"), {
+            type: 'line',
+            data: {
+              labels: {{forceLabels}},
+              datasets: [
+                    {% for linearContainer in linearForceChartData %}
+                    { 
+                        data: {{linearContainer.data}},
+                        label: "{{linearContainer.label}}",
+                        borderColor: "{{linearContainer.borderColor}}",
+                        fill: {{linearContainer.fill}}
+                    },
+                    {% endfor %}  
+              ]
+            },
+            options: {
+              title: {
+                display: true,
+                text: 'Force Distribution'
+              }
+            }
+          });
+        </script>
+
+{% endif %}
 <div class="overflow-auto table-container">
     <table class="table table-hover table-striped text-center" id="recording-detail-table">
         <thead>
@@ -32,3 +61,6 @@
 </div>
 
 {% endif %}
+
+
+
