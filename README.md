@@ -24,6 +24,8 @@ Various python files in **"classifier/jupyter notebooks"** are jupyter notebooks
 
 	- Seems to be a small change towards worse accuracy. Might be bigger problem when using data from multiple different persons.
 
+- The implemented classifiers can only predict normal walking scenarios. Many things can throw the predictions off such as carrying something.
+
 ### To-Do
 
 - Cleaning up code

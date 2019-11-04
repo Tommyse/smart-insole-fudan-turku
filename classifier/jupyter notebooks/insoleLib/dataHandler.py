@@ -432,19 +432,19 @@ class DataHandler:
             f_med_diff = round(np.mean(f_med_diff_arr), 3)
             data.loc[row,"force_median_diff_avg"] = f_med_diff
             
-            #Calculating average difference to mean
-            f_mean_diff0 = f0 - f_mean
-            f_mean_diff1 = f1 - f_mean
-            f_mean_diff2 = f2 - f_mean
-            f_mean_diff3 = f3 - f_mean
-            f_mean_diff4 = f4 - f_mean
-            f_mean_diff5 = f5 - f_mean
-            f_mean_diff6 = f6 - f_mean
-            
-            f_mean_diff_arr = [f_mean_diff0, f_mean_diff1, f_mean_diff2, f_mean_diff3, f_mean_diff4, f_mean_diff5, f_mean_diff6]
-            
-            f_mean_diff = round(np.mean(f_mean_diff_arr), 3)
-            data.loc[row,"force_mean_diff_avg"] = f_mean_diff
+            #Calculating average difference to mean, not needed
+            #f_mean_diff0 = f0 - f_mean
+            #f_mean_diff1 = f1 - f_mean
+            #f_mean_diff2 = f2 - f_mean
+            #f_mean_diff3 = f3 - f_mean
+            #f_mean_diff4 = f4 - f_mean
+            #f_mean_diff5 = f5 - f_mean
+            #f_mean_diff6 = f6 - f_mean
+            #
+            #f_mean_diff_arr = [f_mean_diff0, f_mean_diff1, f_mean_diff2, f_mean_diff3, f_mean_diff4, f_mean_diff5, f_mean_diff6]
+            #
+            #f_mean_diff = round(np.mean(f_mean_diff_arr), 3)
+            #data.loc[row,"force_mean_diff_avg"] = f_mean_diff
         
         return(data)
 
@@ -487,15 +487,15 @@ class DataHandler:
             f_med_diff = round(np.mean(f_med_diff_arr), 3)
             data.loc[row,"phase_force_median_diff_avg"] = f_med_diff
             
-            #Calculating average difference to mean
-            f_mean_diff0 = f0 - f_mean
-            f_mean_diff1 = f1 - f_mean
-            f_mean_diff2 = f2 - f_mean
-            
-            f_mean_diff_arr = [f_mean_diff0, f_mean_diff1, f_mean_diff2]
-            
-            f_mean_diff = round(np.mean(f_mean_diff_arr), 3)
-            data.loc[row,"phase_force_mean_diff_avg"] = f_mean_diff
+            #Calculating average difference to mean, not needed
+            #f_mean_diff0 = f0 - f_mean
+            #f_mean_diff1 = f1 - f_mean
+            #f_mean_diff2 = f2 - f_mean
+            #
+            #f_mean_diff_arr = [f_mean_diff0, f_mean_diff1, f_mean_diff2]
+            #
+            #f_mean_diff = round(np.mean(f_mean_diff_arr), 3)
+            #data.loc[row,"phase_force_mean_diff_avg"] = f_mean_diff
         
         return(data)
 
@@ -698,7 +698,7 @@ class DataHandler:
     @staticmethod
     def genRandomDatasets(data, amount, dropAmount):
         """
-        New generating datasets method.
+        New dataset generation method.
         With some data balancing.
         
         Arguments:
@@ -707,7 +707,7 @@ class DataHandler:
             dropAmount {int} -- rows to drop randomly
         """
         datasets = []
-        print("input data", data)
+        #print("input data", data)
         
         for a in range(0,amount):
             dataset = pd.DataFrame(data)

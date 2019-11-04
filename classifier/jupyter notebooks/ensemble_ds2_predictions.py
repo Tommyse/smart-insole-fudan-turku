@@ -34,12 +34,17 @@ plt.ticklabel_format(style='plain', useOffset=False)
 
 #%% testing method for the website
 train = pd.read_csv('../tommi+diego_test_data.csv', sep=";", header=0)
-data2 = pd.read_csv('../tommi_test_data.csv', sep=";", header=0)
+#data2 = pd.read_csv('../tommi_test_data.csv', sep=";", header=0)
+data2 = pd.read_csv('../tommi-grass_test.csv', sep=";", header=0)
+
+real_labels = data2["label"]
 
 predictions, normal_count, fall_count = Ensemble.getBoostingPredictions(train, data2)
 
-print(predictions)
+print(classification_report(real_labels, predictions))
 
+print(predictions)
+real_labels
 print("normal_count:", normal_count)
 
 print("fall_count:", fall_count)

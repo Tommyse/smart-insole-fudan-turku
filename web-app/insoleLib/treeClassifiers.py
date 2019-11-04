@@ -8,7 +8,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics import roc_auc_score
 import matplotlib.pyplot as plt
 from collections import namedtuple
-from .columns import DataColumns
+from columns import DataColumns
 import io
 import pydot
 

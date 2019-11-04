@@ -64,8 +64,8 @@ class Ensemble:
             train.loc[:,"label"] = ytrain
 
             #generating datasets where data has been suffled and last random x rows has been dropped
-            dataset_amount = 10
-            drop_amount = 40
+            dataset_amount = 5
+            drop_amount = 500
             datasets = DataHandler.genRandomDatasets(train, dataset_amount, drop_amount)
 
             
@@ -75,11 +75,6 @@ class Ensemble:
             knn3_pred_label = KnnClassifiers.getKnnPredictions(datasets[2], xtest, k, x_cols)
             knn4_pred_label = KnnClassifiers.getKnnPredictions(datasets[3], xtest, k, x_cols)
             knn5_pred_label = KnnClassifiers.getKnnPredictions(datasets[4], xtest, k, x_cols)
-            knn6_pred_label = KnnClassifiers.getKnnPredictions(datasets[5], xtest, k, x_cols)
-            knn7_pred_label = KnnClassifiers.getKnnPredictions(datasets[6], xtest, k, x_cols)
-            knn8_pred_label = KnnClassifiers.getKnnPredictions(datasets[7], xtest, k, x_cols)
-            knn9_pred_label = KnnClassifiers.getKnnPredictions(datasets[8], xtest, k, x_cols)
-            knn10_pred_label = KnnClassifiers.getKnnPredictions(datasets[9], xtest, k, x_cols)
 
             #Tree1 parameters
             params1 = parameters(class_weight=None, criterion='gini', max_depth=5, max_features=None,
@@ -91,11 +86,6 @@ class Ensemble:
             tree1_3_pred_label = TreeClassifiers.getTreePredictions(datasets[2], xtest, params1, x_cols, y_cols)
             tree1_4_pred_label = TreeClassifiers.getTreePredictions(datasets[3], xtest, params1, x_cols, y_cols)
             tree1_5_pred_label = TreeClassifiers.getTreePredictions(datasets[4], xtest, params1, x_cols, y_cols)
-            tree1_6_pred_label = TreeClassifiers.getTreePredictions(datasets[5], xtest, params1, x_cols, y_cols)
-            tree1_7_pred_label = TreeClassifiers.getTreePredictions(datasets[6], xtest, params1, x_cols, y_cols)
-            tree1_8_pred_label = TreeClassifiers.getTreePredictions(datasets[7], xtest, params1, x_cols, y_cols)
-            tree1_9_pred_label = TreeClassifiers.getTreePredictions(datasets[8], xtest, params1, x_cols, y_cols)
-            tree1_10_pred_label = TreeClassifiers.getTreePredictions(datasets[9], xtest, params1, x_cols, y_cols)
 
             #Tree2 parameters
             params2 = parameters(class_weight=None, criterion='entropy', max_depth=5, max_features=None,
@@ -107,22 +97,12 @@ class Ensemble:
             tree2_3_pred_label = TreeClassifiers.getTreePredictions(datasets[2], xtest, params2, x_cols, y_cols)
             tree2_4_pred_label = TreeClassifiers.getTreePredictions(datasets[3], xtest, params2, x_cols, y_cols)
             tree2_5_pred_label = TreeClassifiers.getTreePredictions(datasets[4], xtest, params2, x_cols, y_cols)
-            tree2_6_pred_label = TreeClassifiers.getTreePredictions(datasets[5], xtest, params2, x_cols, y_cols)
-            tree2_7_pred_label = TreeClassifiers.getTreePredictions(datasets[6], xtest, params2, x_cols, y_cols)
-            tree2_8_pred_label = TreeClassifiers.getTreePredictions(datasets[7], xtest, params2, x_cols, y_cols)
-            tree2_9_pred_label = TreeClassifiers.getTreePredictions(datasets[8], xtest, params2, x_cols, y_cols)
-            tree2_10_pred_label = TreeClassifiers.getTreePredictions(datasets[9], xtest, params2, x_cols, y_cols)
 
             xgboost1_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[0], xtest, x_cols, y_cols)
             xgboost2_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[1], xtest, x_cols, y_cols)
             xgboost3_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[2], xtest, x_cols, y_cols)
             xgboost4_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[3], xtest, x_cols, y_cols)
             xgboost5_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[4], xtest, x_cols, y_cols)
-            xgboost6_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[5], xtest, x_cols, y_cols)
-            xgboost7_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[6], xtest, x_cols, y_cols)
-            xgboost8_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[7], xtest, x_cols, y_cols)
-            xgboost9_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[8], xtest, x_cols, y_cols)
-            xgboost10_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[9], xtest, x_cols, y_cols)
 
             #SVM parameters
             kern = "rbf"
@@ -132,11 +112,6 @@ class Ensemble:
             svm3_pred_label = SvmClassifiers.svmGetPredictions(datasets[2], xtest, kern, x_cols)
             svm4_pred_label = SvmClassifiers.svmGetPredictions(datasets[3], xtest, kern, x_cols)
             svm5_pred_label = SvmClassifiers.svmGetPredictions(datasets[4], xtest, kern, x_cols)
-            svm6_pred_label = SvmClassifiers.svmGetPredictions(datasets[5], xtest, kern, x_cols)
-            svm7_pred_label = SvmClassifiers.svmGetPredictions(datasets[6], xtest, kern, x_cols)
-            svm8_pred_label = SvmClassifiers.svmGetPredictions(datasets[7], xtest, kern, x_cols)
-            svm9_pred_label = SvmClassifiers.svmGetPredictions(datasets[8], xtest, kern, x_cols)
-            svm10_pred_label = SvmClassifiers.svmGetPredictions(datasets[9], xtest, kern, x_cols)
 
             #tensorflow
 
@@ -144,15 +119,10 @@ class Ensemble:
 
             predictionSets = [
                 knn1_pred_label, knn2_pred_label, knn3_pred_label, knn4_pred_label, knn5_pred_label,
-                knn6_pred_label, knn7_pred_label, knn8_pred_label, knn9_pred_label, knn10_pred_label,
                 tree1_1_pred_label, tree1_2_pred_label, tree1_3_pred_label, tree1_4_pred_label, tree1_5_pred_label,
-                tree1_6_pred_label, tree1_7_pred_label, tree1_8_pred_label, tree1_9_pred_label, tree1_10_pred_label,
                 tree2_1_pred_label, tree2_2_pred_label, tree2_3_pred_label, tree2_4_pred_label, tree2_5_pred_label,
-                tree2_6_pred_label, tree2_7_pred_label, tree2_8_pred_label, tree2_9_pred_label, tree2_10_pred_label,
                 xgboost1_pred_label, xgboost2_pred_label, xgboost3_pred_label, xgboost4_pred_label, xgboost5_pred_label,
-                xgboost6_pred_label, xgboost7_pred_label, xgboost8_pred_label, xgboost9_pred_label, xgboost10_pred_label,
-                svm1_pred_label, svm2_pred_label, svm3_pred_label, svm4_pred_label, svm5_pred_label,
-                svm6_pred_label, svm7_pred_label, svm8_pred_label, svm9_pred_label, svm10_pred_label
+                svm1_pred_label, svm2_pred_label, svm3_pred_label, svm4_pred_label, svm5_pred_label
             ]
 
             results = []
@@ -314,8 +284,8 @@ class Ensemble:
 
 
         #generating datasets where data has been suffled and last random x rows has been dropped
-        dataset_amount = 10
-        drop_amount = 40
+        dataset_amount = 5
+        drop_amount = 500
         datasets = DataHandler.genRandomDatasets(train, dataset_amount, drop_amount)
 
         #KNN parameters
@@ -326,11 +296,6 @@ class Ensemble:
         knn3_pred_label = KnnClassifiers.getKnnPredictions(datasets[2], xtest, k)
         knn4_pred_label = KnnClassifiers.getKnnPredictions(datasets[3], xtest, k)
         knn5_pred_label = KnnClassifiers.getKnnPredictions(datasets[4], xtest, k)
-        knn6_pred_label = KnnClassifiers.getKnnPredictions(datasets[5], xtest, k)
-        knn7_pred_label = KnnClassifiers.getKnnPredictions(datasets[6], xtest, k)
-        knn8_pred_label = KnnClassifiers.getKnnPredictions(datasets[7], xtest, k)
-        knn9_pred_label = KnnClassifiers.getKnnPredictions(datasets[8], xtest, k)
-        knn10_pred_label = KnnClassifiers.getKnnPredictions(datasets[9], xtest, k)
 
         #Tree1 parameters
         params1 = parameters(class_weight=None, criterion='gini', max_depth=5, max_features=None,
@@ -342,11 +307,6 @@ class Ensemble:
         tree1_3_pred_label = TreeClassifiers.getTreePredictions(datasets[2], xtest, params1, x_cols, y_cols)
         tree1_4_pred_label = TreeClassifiers.getTreePredictions(datasets[3], xtest, params1, x_cols, y_cols)
         tree1_5_pred_label = TreeClassifiers.getTreePredictions(datasets[4], xtest, params1, x_cols, y_cols)
-        tree1_6_pred_label = TreeClassifiers.getTreePredictions(datasets[5], xtest, params1, x_cols, y_cols)
-        tree1_7_pred_label = TreeClassifiers.getTreePredictions(datasets[6], xtest, params1, x_cols, y_cols)
-        tree1_8_pred_label = TreeClassifiers.getTreePredictions(datasets[7], xtest, params1, x_cols, y_cols)
-        tree1_9_pred_label = TreeClassifiers.getTreePredictions(datasets[8], xtest, params1, x_cols, y_cols)
-        tree1_10_pred_label = TreeClassifiers.getTreePredictions(datasets[9], xtest, params1, x_cols, y_cols)
 
         #Tree2 parameters
         params2 = parameters(class_weight=None, criterion='entropy', max_depth=5, max_features=None,
@@ -358,22 +318,12 @@ class Ensemble:
         tree2_3_pred_label = TreeClassifiers.getTreePredictions(datasets[2], xtest, params2, x_cols, y_cols)
         tree2_4_pred_label = TreeClassifiers.getTreePredictions(datasets[3], xtest, params2, x_cols, y_cols)
         tree2_5_pred_label = TreeClassifiers.getTreePredictions(datasets[4], xtest, params2, x_cols, y_cols)
-        tree2_6_pred_label = TreeClassifiers.getTreePredictions(datasets[5], xtest, params2, x_cols, y_cols)
-        tree2_7_pred_label = TreeClassifiers.getTreePredictions(datasets[6], xtest, params2, x_cols, y_cols)
-        tree2_8_pred_label = TreeClassifiers.getTreePredictions(datasets[7], xtest, params2, x_cols, y_cols)
-        tree2_9_pred_label = TreeClassifiers.getTreePredictions(datasets[8], xtest, params2, x_cols, y_cols)
-        tree2_10_pred_label = TreeClassifiers.getTreePredictions(datasets[9], xtest, params2, x_cols, y_cols)
 
         xgboost1_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[0], xtest, x_cols, y_cols)
         xgboost2_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[1], xtest, x_cols, y_cols)
         xgboost3_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[2], xtest, x_cols, y_cols)
         xgboost4_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[3], xtest, x_cols, y_cols)
         xgboost5_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[4], xtest, x_cols, y_cols)
-        xgboost6_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[5], xtest, x_cols, y_cols)
-        xgboost7_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[6], xtest, x_cols, y_cols)
-        xgboost8_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[7], xtest, x_cols, y_cols)
-        xgboost9_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[8], xtest, x_cols, y_cols)
-        xgboost10_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[9], xtest, x_cols, y_cols)
 
         #SVM parameters
         kern = "rbf"
@@ -383,27 +333,15 @@ class Ensemble:
         svm3_pred_label = SvmClassifiers.svmGetPredictions(datasets[2], xtest, kern)
         svm4_pred_label = SvmClassifiers.svmGetPredictions(datasets[3], xtest, kern)
         svm5_pred_label = SvmClassifiers.svmGetPredictions(datasets[4], xtest, kern)
-        svm6_pred_label = SvmClassifiers.svmGetPredictions(datasets[5], xtest, kern)
-        svm7_pred_label = SvmClassifiers.svmGetPredictions(datasets[6], xtest, kern)
-        svm8_pred_label = SvmClassifiers.svmGetPredictions(datasets[7], xtest, kern)
-        svm9_pred_label = SvmClassifiers.svmGetPredictions(datasets[8], xtest, kern)
-        svm10_pred_label = SvmClassifiers.svmGetPredictions(datasets[9], xtest, kern)
-
-        #tensorflow
 
 
 
         predictionSets = [
                 knn1_pred_label, knn2_pred_label, knn3_pred_label, knn4_pred_label, knn5_pred_label,
-                knn6_pred_label, knn7_pred_label, knn8_pred_label, knn9_pred_label, knn10_pred_label,
                 tree1_1_pred_label, tree1_2_pred_label, tree1_3_pred_label, tree1_4_pred_label, tree1_5_pred_label,
-                tree1_6_pred_label, tree1_7_pred_label, tree1_8_pred_label, tree1_9_pred_label, tree1_10_pred_label,
                 tree2_1_pred_label, tree2_2_pred_label, tree2_3_pred_label, tree2_4_pred_label, tree2_5_pred_label,
-                tree2_6_pred_label, tree2_7_pred_label, tree2_8_pred_label, tree2_9_pred_label, tree2_10_pred_label,
                 xgboost1_pred_label, xgboost2_pred_label, xgboost3_pred_label, xgboost4_pred_label, xgboost5_pred_label,
-                xgboost6_pred_label, xgboost7_pred_label, xgboost8_pred_label, xgboost9_pred_label, xgboost10_pred_label,
-                svm1_pred_label, svm2_pred_label, svm3_pred_label, svm4_pred_label, svm5_pred_label,
-                svm6_pred_label, svm7_pred_label, svm8_pred_label, svm9_pred_label, svm10_pred_label
+                svm1_pred_label, svm2_pred_label, svm3_pred_label, svm4_pred_label, svm5_pred_label
             ]
 
         results = []
@@ -469,7 +407,7 @@ class Ensemble:
             data {array} -- Data
         """
 
-        x_cols = DataColumns.getSelectedCols2()
+        x_cols = DataColumns.getSelectedCols3()
         y_cols = ["label"]
 
         x = data.loc[:, x_cols]
@@ -498,21 +436,14 @@ class Ensemble:
             train.loc[:,"label"] = ytrain
 
             #generating datasets where data has been suffled and last random x rows has been dropped
-            dataset_amount = 10
-            drop_amount = 40
+            dataset_amount = 3
+            drop_amount = 500
             datasets = DataHandler.genRandomDatasets(train, dataset_amount, drop_amount)
 
             
-            knn1_pred_label = KnnClassifiers.getKnnPredictions(datasets[0], xtest, k)
-            knn2_pred_label = KnnClassifiers.getKnnPredictions(datasets[1], xtest, k)
-            knn3_pred_label = KnnClassifiers.getKnnPredictions(datasets[2], xtest, k)
-            knn4_pred_label = KnnClassifiers.getKnnPredictions(datasets[3], xtest, k)
-            knn5_pred_label = KnnClassifiers.getKnnPredictions(datasets[4], xtest, k)
-            knn6_pred_label = KnnClassifiers.getKnnPredictions(datasets[5], xtest, k)
-            knn7_pred_label = KnnClassifiers.getKnnPredictions(datasets[6], xtest, k)
-            knn8_pred_label = KnnClassifiers.getKnnPredictions(datasets[7], xtest, k)
-            knn9_pred_label = KnnClassifiers.getKnnPredictions(datasets[8], xtest, k)
-            knn10_pred_label = KnnClassifiers.getKnnPredictions(datasets[9], xtest, k)
+            knn1_pred_label = KnnClassifiers.getKnnPredictions(datasets[0], xtest, k, x_cols)
+            knn2_pred_label = KnnClassifiers.getKnnPredictions(datasets[1], xtest, k, x_cols)
+            knn3_pred_label = KnnClassifiers.getKnnPredictions(datasets[2], xtest, k, x_cols)
 
             #Tree1 parameters
             params1 = parameters(class_weight=None, criterion='gini', max_depth=5, max_features=None,
@@ -522,13 +453,6 @@ class Ensemble:
             tree1_1_pred_label = TreeClassifiers.getTreePredictions(datasets[0], xtest, params1, x_cols, y_cols)
             tree1_2_pred_label = TreeClassifiers.getTreePredictions(datasets[1], xtest, params1, x_cols, y_cols)
             tree1_3_pred_label = TreeClassifiers.getTreePredictions(datasets[2], xtest, params1, x_cols, y_cols)
-            tree1_4_pred_label = TreeClassifiers.getTreePredictions(datasets[3], xtest, params1, x_cols, y_cols)
-            tree1_5_pred_label = TreeClassifiers.getTreePredictions(datasets[4], xtest, params1, x_cols, y_cols)
-            tree1_6_pred_label = TreeClassifiers.getTreePredictions(datasets[5], xtest, params1, x_cols, y_cols)
-            tree1_7_pred_label = TreeClassifiers.getTreePredictions(datasets[6], xtest, params1, x_cols, y_cols)
-            tree1_8_pred_label = TreeClassifiers.getTreePredictions(datasets[7], xtest, params1, x_cols, y_cols)
-            tree1_9_pred_label = TreeClassifiers.getTreePredictions(datasets[8], xtest, params1, x_cols, y_cols)
-            tree1_10_pred_label = TreeClassifiers.getTreePredictions(datasets[9], xtest, params1, x_cols, y_cols)
 
             #Tree2 parameters
             params2 = parameters(class_weight=None, criterion='entropy', max_depth=5, max_features=None,
@@ -538,68 +462,61 @@ class Ensemble:
             tree2_1_pred_label = TreeClassifiers.getTreePredictions(datasets[0], xtest, params2, x_cols, y_cols)
             tree2_2_pred_label = TreeClassifiers.getTreePredictions(datasets[1], xtest, params2, x_cols, y_cols)
             tree2_3_pred_label = TreeClassifiers.getTreePredictions(datasets[2], xtest, params2, x_cols, y_cols)
-            tree2_4_pred_label = TreeClassifiers.getTreePredictions(datasets[3], xtest, params2, x_cols, y_cols)
-            tree2_5_pred_label = TreeClassifiers.getTreePredictions(datasets[4], xtest, params2, x_cols, y_cols)
-            tree2_6_pred_label = TreeClassifiers.getTreePredictions(datasets[5], xtest, params2, x_cols, y_cols)
-            tree2_7_pred_label = TreeClassifiers.getTreePredictions(datasets[6], xtest, params2, x_cols, y_cols)
-            tree2_8_pred_label = TreeClassifiers.getTreePredictions(datasets[7], xtest, params2, x_cols, y_cols)
-            tree2_9_pred_label = TreeClassifiers.getTreePredictions(datasets[8], xtest, params2, x_cols, y_cols)
-            tree2_10_pred_label = TreeClassifiers.getTreePredictions(datasets[9], xtest, params2, x_cols, y_cols)
 
             xgboost1_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[0], xtest, x_cols, y_cols)
             xgboost2_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[1], xtest, x_cols, y_cols)
             xgboost3_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[2], xtest, x_cols, y_cols)
-            xgboost4_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[3], xtest, x_cols, y_cols)
-            xgboost5_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[4], xtest, x_cols, y_cols)
-            xgboost6_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[5], xtest, x_cols, y_cols)
-            xgboost7_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[6], xtest, x_cols, y_cols)
-            xgboost8_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[7], xtest, x_cols, y_cols)
-            xgboost9_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[8], xtest, x_cols, y_cols)
-            xgboost10_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[9], xtest, x_cols, y_cols)
 
             #SVM parameters
             kern = "rbf"
 
-            svm1_pred_label = SvmClassifiers.svmGetPredictions(datasets[0], xtest, kern)
-            svm2_pred_label = SvmClassifiers.svmGetPredictions(datasets[1], xtest, kern)
-            svm3_pred_label = SvmClassifiers.svmGetPredictions(datasets[2], xtest, kern)
-            svm4_pred_label = SvmClassifiers.svmGetPredictions(datasets[3], xtest, kern)
-            svm5_pred_label = SvmClassifiers.svmGetPredictions(datasets[4], xtest, kern)
-            svm6_pred_label = SvmClassifiers.svmGetPredictions(datasets[5], xtest, kern)
-            svm7_pred_label = SvmClassifiers.svmGetPredictions(datasets[6], xtest, kern)
-            svm8_pred_label = SvmClassifiers.svmGetPredictions(datasets[7], xtest, kern)
-            svm9_pred_label = SvmClassifiers.svmGetPredictions(datasets[8], xtest, kern)
-            svm10_pred_label = SvmClassifiers.svmGetPredictions(datasets[9], xtest, kern)
+            svm1_pred_label = SvmClassifiers.svmGetPredictions(datasets[0], xtest, kern, x_cols)
+            svm2_pred_label = SvmClassifiers.svmGetPredictions(datasets[1], xtest, kern, x_cols)
+            svm3_pred_label = SvmClassifiers.svmGetPredictions(datasets[2], xtest, kern, x_cols)
 
-            #tensorflow
+            #MLP, takes too much time
+            #mlp_parameters = namedtuple("parameters", ["hidden_layer_sizes", "solver", "alpha", "batch_size", "learning_rate",
+            #    "learning_rate_init", "max_iter", "random_state", "verbose", "early_stopping", "validation_fraction"])
+            #
+            ##Parameters
+            #params = mlp_parameters(
+            #		hidden_layer_sizes=[100, 100],
+            #		solver="lbfgs",
+            #		alpha=0.1,
+            #		batch_size="auto",
+            #		learning_rate="constant",
+            #		learning_rate_init=0.001,
+            #		max_iter=200,
+            #		random_state=123,
+            #		verbose=True,
+            #		early_stopping=False,
+            #		validation_fraction=0.1
+            #	)
+            #
+            #mlp1_pred_label = MlpClassifiers.mlpGetPredictions(datasets[0], xtest, params, x_cols)
+            #mlp2_pred_label = MlpClassifiers.mlpGetPredictions(datasets[1], xtest, params, x_cols)
+            #mlp3_pred_label = MlpClassifiers.mlpGetPredictions(datasets[2], xtest, params, x_cols)
+
 
 
 
             predictionSets = [
-                knn1_pred_label, knn2_pred_label, knn3_pred_label, knn4_pred_label, knn5_pred_label,
-                knn6_pred_label, knn7_pred_label, knn8_pred_label, knn9_pred_label, knn10_pred_label,
-                tree1_1_pred_label, tree1_2_pred_label, tree1_3_pred_label, tree1_4_pred_label, tree1_5_pred_label,
-                tree1_6_pred_label, tree1_7_pred_label, tree1_8_pred_label, tree1_9_pred_label, tree1_10_pred_label,
-                tree2_1_pred_label, tree2_2_pred_label, tree2_3_pred_label, tree2_4_pred_label, tree2_5_pred_label,
-                tree2_6_pred_label, tree2_7_pred_label, tree2_8_pred_label, tree2_9_pred_label, tree2_10_pred_label,
-                xgboost1_pred_label, xgboost2_pred_label, xgboost3_pred_label, xgboost4_pred_label, xgboost5_pred_label,
-                xgboost6_pred_label, xgboost7_pred_label, xgboost8_pred_label, xgboost9_pred_label, xgboost10_pred_label,
-                svm1_pred_label, svm2_pred_label, svm3_pred_label, svm4_pred_label, svm5_pred_label,
-                svm6_pred_label, svm7_pred_label, svm8_pred_label, svm9_pred_label, svm10_pred_label
+                knn1_pred_label, knn2_pred_label, knn3_pred_label,
+                tree1_1_pred_label, tree1_2_pred_label, tree1_3_pred_label,
+                tree2_1_pred_label, tree2_2_pred_label, tree2_3_pred_label,
+                xgboost1_pred_label, xgboost2_pred_label, xgboost3_pred_label,
+                svm1_pred_label, svm2_pred_label, svm3_pred_label
+                #mlp1_pred_label, mlp2_pred_label, mlp3_pred_label
                 ]
         
             #prediction sources array (for weighting different classifiers)
             setTypes = [
-                "knn", "knn", "knn", "knn", "knn",
-                "knn", "knn", "knn", "knn", "knn",
-                "tree1", "tree1", "tree1", "tree1", "tree1",
-                "tree1", "tree1", "tree1", "tree1", "tree1",
-                "tree2", "tree2", "tree2", "tree2", "tree2",
-                "tree2", "tree2", "tree2", "tree2", "tree2",
-                "xgboost", "xgboost", "xgboost", "xgboost", "xgboost",
-                "xgboost", "xgboost", "xgboost", "xgboost", "xgboost",
-                "svm", "svm", "svm", "svm", "svm",
-                "svm", "svm", "svm", "svm", "svm"
+                "knn", "knn", "knn",
+                "tree1", "tree1", "tree1",
+                "tree2", "tree2", "tree2",
+                "xgboost", "xgboost", "xgboost",
+                "svm", "svm", "svm"
+                #"mlp", "mlp", "mlp"
                 ]
 
 
@@ -613,25 +530,29 @@ class Ensemble:
                 for setIndex in range(0, len(predictionSets)): #counting votes
                     if(predictionSets[setIndex][index] == "Fall"):
                         if(setTypes[setIndex] == "knn"):
-                            fall_votes = fall_votes + 1.1
+                            fall_votes = fall_votes + 1.3
                         elif(setTypes[setIndex] == "tree1"):
                             fall_votes = fall_votes + 1.1
                         elif(setTypes[setIndex] == "tree2"):
                             fall_votes = fall_votes + 1.1
                         elif(setTypes[setIndex] == "xgboost"):
-                            fall_votes = fall_votes + 1.2
+                            fall_votes = fall_votes + 1.3
                         elif(setTypes[setIndex] == "svm"):
+                            fall_votes = fall_votes + 1.3
+                        elif(setTypes[setIndex] == "mlp"):
                             fall_votes = fall_votes + 1
                     elif(predictionSets[setIndex][index] == "Normal"):
                         if(setTypes[setIndex] == "knn"):
-                            normal_votes = normal_votes + 1.1
+                            normal_votes = normal_votes + 1.3
                         elif(setTypes[setIndex] == "tree1"):
                             normal_votes = normal_votes + 1.1
                         elif(setTypes[setIndex] == "tree2"):
                             normal_votes = normal_votes + 1.1
                         elif(setTypes[setIndex] == "xgboost"):
-                            normal_votes = normal_votes + 1.2
+                            normal_votes = normal_votes + 1.3
                         elif(setTypes[setIndex] == "svm"):
+                            normal_votes = normal_votes + 1.3
+                        elif(setTypes[setIndex] == "mlp"):
                             normal_votes = normal_votes + 1
                     else:
                         print("Unknown label")
@@ -799,21 +720,16 @@ class Ensemble:
             train.loc[:,"label"] = ytrain
 
             #generating datasets where data has been suffled and last random x rows has been dropped
-            dataset_amount = 10
-            drop_amount = 40
+            dataset_amount = 5
+            drop_amount = 500
             datasets = DataHandler.genRandomDatasets(train, dataset_amount, drop_amount)
 
             
-            knn1_pred_label = KnnClassifiers.getKnnPredictions(datasets[0], xtest, k)
-            knn2_pred_label = KnnClassifiers.getKnnPredictions(datasets[1], xtest, k)
-            knn3_pred_label = KnnClassifiers.getKnnPredictions(datasets[2], xtest, k)
-            knn4_pred_label = KnnClassifiers.getKnnPredictions(datasets[3], xtest, k)
-            knn5_pred_label = KnnClassifiers.getKnnPredictions(datasets[4], xtest, k)
-            knn6_pred_label = KnnClassifiers.getKnnPredictions(datasets[5], xtest, k)
-            knn7_pred_label = KnnClassifiers.getKnnPredictions(datasets[6], xtest, k)
-            knn8_pred_label = KnnClassifiers.getKnnPredictions(datasets[7], xtest, k)
-            knn9_pred_label = KnnClassifiers.getKnnPredictions(datasets[8], xtest, k)
-            knn10_pred_label = KnnClassifiers.getKnnPredictions(datasets[9], xtest, k)
+            knn1_pred_label = KnnClassifiers.getKnnPredictions(datasets[0], xtest, k, x_cols)
+            knn2_pred_label = KnnClassifiers.getKnnPredictions(datasets[1], xtest, k, x_cols)
+            knn3_pred_label = KnnClassifiers.getKnnPredictions(datasets[2], xtest, k, x_cols)
+            knn4_pred_label = KnnClassifiers.getKnnPredictions(datasets[3], xtest, k, x_cols)
+            knn5_pred_label = KnnClassifiers.getKnnPredictions(datasets[4], xtest, k, x_cols)
 
             #Tree1 parameters
             params1 = parameters(class_weight=None, criterion='gini', max_depth=5, max_features=None,
@@ -825,11 +741,6 @@ class Ensemble:
             tree1_3_pred_label = TreeClassifiers.getTreePredictions(datasets[2], xtest, params1, x_cols, y_cols)
             tree1_4_pred_label = TreeClassifiers.getTreePredictions(datasets[3], xtest, params1, x_cols, y_cols)
             tree1_5_pred_label = TreeClassifiers.getTreePredictions(datasets[4], xtest, params1, x_cols, y_cols)
-            tree1_6_pred_label = TreeClassifiers.getTreePredictions(datasets[5], xtest, params1, x_cols, y_cols)
-            tree1_7_pred_label = TreeClassifiers.getTreePredictions(datasets[6], xtest, params1, x_cols, y_cols)
-            tree1_8_pred_label = TreeClassifiers.getTreePredictions(datasets[7], xtest, params1, x_cols, y_cols)
-            tree1_9_pred_label = TreeClassifiers.getTreePredictions(datasets[8], xtest, params1, x_cols, y_cols)
-            tree1_10_pred_label = TreeClassifiers.getTreePredictions(datasets[9], xtest, params1, x_cols, y_cols)
 
             #Tree2 parameters
             params2 = parameters(class_weight=None, criterion='entropy', max_depth=5, max_features=None,
@@ -841,66 +752,65 @@ class Ensemble:
             tree2_3_pred_label = TreeClassifiers.getTreePredictions(datasets[2], xtest, params2, x_cols, y_cols)
             tree2_4_pred_label = TreeClassifiers.getTreePredictions(datasets[3], xtest, params2, x_cols, y_cols)
             tree2_5_pred_label = TreeClassifiers.getTreePredictions(datasets[4], xtest, params2, x_cols, y_cols)
-            tree2_6_pred_label = TreeClassifiers.getTreePredictions(datasets[5], xtest, params2, x_cols, y_cols)
-            tree2_7_pred_label = TreeClassifiers.getTreePredictions(datasets[6], xtest, params2, x_cols, y_cols)
-            tree2_8_pred_label = TreeClassifiers.getTreePredictions(datasets[7], xtest, params2, x_cols, y_cols)
-            tree2_9_pred_label = TreeClassifiers.getTreePredictions(datasets[8], xtest, params2, x_cols, y_cols)
-            tree2_10_pred_label = TreeClassifiers.getTreePredictions(datasets[9], xtest, params2, x_cols, y_cols)
 
             xgboost1_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[0], xtest, x_cols, y_cols)
             xgboost2_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[1], xtest, x_cols, y_cols)
             xgboost3_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[2], xtest, x_cols, y_cols)
             xgboost4_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[3], xtest, x_cols, y_cols)
             xgboost5_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[4], xtest, x_cols, y_cols)
-            xgboost6_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[5], xtest, x_cols, y_cols)
-            xgboost7_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[6], xtest, x_cols, y_cols)
-            xgboost8_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[7], xtest, x_cols, y_cols)
-            xgboost9_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[8], xtest, x_cols, y_cols)
-            xgboost10_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[9], xtest, x_cols, y_cols)
 
             #SVM parameters
             kern = "rbf"
 
-            svm1_pred_label = SvmClassifiers.svmGetPredictions(datasets[0], xtest, kern)
-            svm2_pred_label = SvmClassifiers.svmGetPredictions(datasets[1], xtest, kern)
-            svm3_pred_label = SvmClassifiers.svmGetPredictions(datasets[2], xtest, kern)
-            svm4_pred_label = SvmClassifiers.svmGetPredictions(datasets[3], xtest, kern)
-            svm5_pred_label = SvmClassifiers.svmGetPredictions(datasets[4], xtest, kern)
-            svm6_pred_label = SvmClassifiers.svmGetPredictions(datasets[5], xtest, kern)
-            svm7_pred_label = SvmClassifiers.svmGetPredictions(datasets[6], xtest, kern)
-            svm8_pred_label = SvmClassifiers.svmGetPredictions(datasets[7], xtest, kern)
-            svm9_pred_label = SvmClassifiers.svmGetPredictions(datasets[8], xtest, kern)
-            svm10_pred_label = SvmClassifiers.svmGetPredictions(datasets[9], xtest, kern)
+            svm1_pred_label = SvmClassifiers.svmGetPredictions(datasets[0], xtest, kern, x_cols)
+            svm2_pred_label = SvmClassifiers.svmGetPredictions(datasets[1], xtest, kern, x_cols)
+            svm3_pred_label = SvmClassifiers.svmGetPredictions(datasets[2], xtest, kern, x_cols)
+            svm4_pred_label = SvmClassifiers.svmGetPredictions(datasets[3], xtest, kern, x_cols)
+            svm5_pred_label = SvmClassifiers.svmGetPredictions(datasets[4], xtest, kern, x_cols)
 
-            #tensorflow
+            #MLP
+            mlp_parameters = namedtuple("parameters", ["hidden_layer_sizes", "solver", "alpha", "batch_size", "learning_rate",
+            "learning_rate_init", "max_iter", "random_state", "verbose", "early_stopping", "validation_fraction"])
 
+            #Parameters
+            params = mlp_parameters(
+            		hidden_layer_sizes=[100, 100],
+            		solver="lbfgs",
+            		alpha=0.1,
+            		batch_size="auto",
+            		learning_rate="constant",
+            		learning_rate_init=0.001,
+            		max_iter=200,
+            		random_state=123,
+            		verbose=True,
+            		early_stopping=False,
+            		validation_fraction=0.1
+            	)
+        
+            mlp1_pred_label = MlpClassifiers.mlpGetPredictions(datasets[0], xtest, params, x_cols)
+            mlp2_pred_label = MlpClassifiers.mlpGetPredictions(datasets[1], xtest, params, x_cols)
+            mlp3_pred_label = MlpClassifiers.mlpGetPredictions(datasets[2], xtest, params, x_cols)
+            mlp4_pred_label = MlpClassifiers.mlpGetPredictions(datasets[3], xtest, params, x_cols)
+            mlp5_pred_label = MlpClassifiers.mlpGetPredictions(datasets[4], xtest, params, x_cols)
 
 
             predictionSets = [
                 knn1_pred_label, knn2_pred_label, knn3_pred_label, knn4_pred_label, knn5_pred_label,
-                knn6_pred_label, knn7_pred_label, knn8_pred_label, knn9_pred_label, knn10_pred_label,
                 tree1_1_pred_label, tree1_2_pred_label, tree1_3_pred_label, tree1_4_pred_label, tree1_5_pred_label,
-                tree1_6_pred_label, tree1_7_pred_label, tree1_8_pred_label, tree1_9_pred_label, tree1_10_pred_label,
                 tree2_1_pred_label, tree2_2_pred_label, tree2_3_pred_label, tree2_4_pred_label, tree2_5_pred_label,
-                tree2_6_pred_label, tree2_7_pred_label, tree2_8_pred_label, tree2_9_pred_label, tree2_10_pred_label,
                 xgboost1_pred_label, xgboost2_pred_label, xgboost3_pred_label, xgboost4_pred_label, xgboost5_pred_label,
-                xgboost6_pred_label, xgboost7_pred_label, xgboost8_pred_label, xgboost9_pred_label, xgboost10_pred_label,
                 svm1_pred_label, svm2_pred_label, svm3_pred_label, svm4_pred_label, svm5_pred_label,
-                svm6_pred_label, svm7_pred_label, svm8_pred_label, svm9_pred_label, svm10_pred_label
+                mlp1_pred_label, mlp2_pred_label, mlp3_pred_label, mlp4_pred_label, mlp5_pred_label
                 ]
         
             #prediction sources array (for weighting different classifiers)
             setTypes = [
                 "knn", "knn", "knn", "knn", "knn",
-                "knn", "knn", "knn", "knn", "knn",
-                "tree1", "tree1", "tree1", "tree1", "tree1",
                 "tree1", "tree1", "tree1", "tree1", "tree1",
                 "tree2", "tree2", "tree2", "tree2", "tree2",
-                "tree2", "tree2", "tree2", "tree2", "tree2",
-                "xgboost", "xgboost", "xgboost", "xgboost", "xgboost",
                 "xgboost", "xgboost", "xgboost", "xgboost", "xgboost",
                 "svm", "svm", "svm", "svm", "svm",
-                "svm", "svm", "svm", "svm", "svm"
+                "mlp", "mlp", "mlp", "mlp", "mlp",
                 ]
 
 
@@ -915,25 +825,29 @@ class Ensemble:
                     #print("setIndex: ", setIndex)
                     if(predictionSets[setIndex][index] == "Fall"):
                         if(setTypes[setIndex] == "knn"):
-                            fall_votes = fall_votes + 6.5
+                            fall_votes = fall_votes + 1.3
                         elif(setTypes[setIndex] == "tree1"):
-                            fall_votes = fall_votes + 5.0
+                            fall_votes = fall_votes + 1.1
                         elif(setTypes[setIndex] == "tree2"):
-                            fall_votes = fall_votes + 1.5
+                            fall_votes = fall_votes + 1.1
                         elif(setTypes[setIndex] == "xgboost"):
-                            fall_votes = fall_votes + 5.5
+                            fall_votes = fall_votes + 1.3
                         elif(setTypes[setIndex] == "svm"):
+                            fall_votes = fall_votes + 1.3
+                        elif(setTypes[setIndex] == "mlp"):
                             fall_votes = fall_votes + 1
                     elif(predictionSets[setIndex][index] == "Normal"):
                         if(setTypes[setIndex] == "knn"):
-                            normal_votes = normal_votes + 2.5
+                            normal_votes = normal_votes + 1.3
                         elif(setTypes[setIndex] == "tree1"):
-                            normal_votes = normal_votes + 2.5
+                            normal_votes = normal_votes + 1.1
                         elif(setTypes[setIndex] == "tree2"):
-                            normal_votes = normal_votes + 1.5
+                            normal_votes = normal_votes + 1.1
                         elif(setTypes[setIndex] == "xgboost"):
-                            normal_votes = normal_votes + 3.0
+                            normal_votes = normal_votes + 1.3
                         elif(setTypes[setIndex] == "svm"):
+                            normal_votes = normal_votes + 1.3
+                        elif(setTypes[setIndex] == "mlp"):
                             normal_votes = normal_votes + 1
                     else:
                         print("Unknown label")
@@ -1108,20 +1022,12 @@ class Ensemble:
         train = DataHandler.calculateTotalForce(train)
         train = DataHandler.calculateStepTime(train)
         train = DataHandler.calculateForceValues(train)
-        #train = DataHandler.calculateStepStartValues(train)
-        #train = DataHandler.calculateStepMaxTimeValues(train)
-        #train = DataHandler.calculateStepEndTimeValues(train)
         train = DataHandler.calculatePhaseForceValues(train)
-        #train = DataHandler.calculatePressTimeValues(train)
         
         unlabeled = DataHandler.calculateTotalForce(unlabeled)
         unlabeled = DataHandler.calculateStepTime(unlabeled)
         unlabeled = DataHandler.calculateForceValues(unlabeled)
-        #unlabeled = DataHandler.calculateStepStartValues(unlabeled)
-        #unlabeled = DataHandler.calculateStepMaxTimeValues(unlabeled)
-        #unlabeled = DataHandler.calculateStepEndTimeValues(unlabeled)
         unlabeled = DataHandler.calculatePhaseForceValues(unlabeled)
-        #unlabeled = DataHandler.calculatePressTimeValues(unlabeled)
         
         #Normalize features here
 
@@ -1158,7 +1064,7 @@ class Ensemble:
 
         #generating datasets where data has been suffled and last random x rows has been dropped
         dataset_amount = 5
-        drop_amount = 50
+        drop_amount = 500
         datasets = DataHandler.genRandomDatasets(train, dataset_amount, drop_amount)
 
 
@@ -1167,8 +1073,6 @@ class Ensemble:
         knn1_pred_label = KnnClassifiers.getKnnPredictions(datasets[0], xtest, k, x_cols)
         knn2_pred_label = KnnClassifiers.getKnnPredictions(datasets[1], xtest, k, x_cols)
         knn3_pred_label = KnnClassifiers.getKnnPredictions(datasets[2], xtest, k, x_cols)
-        knn4_pred_label = KnnClassifiers.getKnnPredictions(datasets[3], xtest, k, x_cols)
-        knn5_pred_label = KnnClassifiers.getKnnPredictions(datasets[4], xtest, k, x_cols)
 
         #Tree1 parameters
         params1 = parameters(class_weight=None, criterion='gini', max_depth=5, max_features=None,
@@ -1178,8 +1082,6 @@ class Ensemble:
         tree1_1_pred_label = TreeClassifiers.getTreePredictions(datasets[0], xtest, params1, x_cols, y_cols)
         tree1_2_pred_label = TreeClassifiers.getTreePredictions(datasets[1], xtest, params1, x_cols, y_cols)
         tree1_3_pred_label = TreeClassifiers.getTreePredictions(datasets[2], xtest, params1, x_cols, y_cols)
-        tree1_4_pred_label = TreeClassifiers.getTreePredictions(datasets[3], xtest, params1, x_cols, y_cols)
-        tree1_5_pred_label = TreeClassifiers.getTreePredictions(datasets[4], xtest, params1, x_cols, y_cols)
 
         #Tree2 parameters
         params2 = parameters(class_weight=None, criterion='entropy', max_depth=5, max_features=None,
@@ -1189,14 +1091,10 @@ class Ensemble:
         tree2_1_pred_label = TreeClassifiers.getTreePredictions(datasets[0], xtest, params2, x_cols, y_cols)
         tree2_2_pred_label = TreeClassifiers.getTreePredictions(datasets[1], xtest, params2, x_cols, y_cols)
         tree2_3_pred_label = TreeClassifiers.getTreePredictions(datasets[2], xtest, params2, x_cols, y_cols)
-        tree2_4_pred_label = TreeClassifiers.getTreePredictions(datasets[3], xtest, params2, x_cols, y_cols)
-        tree2_5_pred_label = TreeClassifiers.getTreePredictions(datasets[4], xtest, params2, x_cols, y_cols)
 
         xgboost1_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[0], xtest, x_cols, y_cols)
         xgboost2_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[1], xtest, x_cols, y_cols)
         xgboost3_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[2], xtest, x_cols, y_cols)
-        xgboost4_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[3], xtest, x_cols, y_cols)
-        xgboost5_pred_label = TreeClassifiers.getXGBoostPredictions(datasets[4], xtest, x_cols, y_cols)
 
         #SVM parameters
         kern = "rbf"
@@ -1204,54 +1102,50 @@ class Ensemble:
         svm1_pred_label = SvmClassifiers.svmGetPredictions(datasets[0], xtest, kern, x_cols)
         svm2_pred_label = SvmClassifiers.svmGetPredictions(datasets[1], xtest, kern, x_cols)
         svm3_pred_label = SvmClassifiers.svmGetPredictions(datasets[2], xtest, kern, x_cols)
-        svm4_pred_label = SvmClassifiers.svmGetPredictions(datasets[3], xtest, kern, x_cols)
-        svm5_pred_label = SvmClassifiers.svmGetPredictions(datasets[4], xtest, kern, x_cols)
 
-        #MLP
-        mlp_parameters = namedtuple("parameters", ["hidden_layer_sizes", "solver", "alpha", "batch_size", "learning_rate",
-            "learning_rate_init", "max_iter", "random_state", "verbose", "early_stopping", "validation_fraction"])
-
-        #Parameters
-        params = mlp_parameters(
-        		hidden_layer_sizes=[100, 100],
-        		solver="lbfgs",
-        		alpha=0.1,
-        		batch_size="auto",
-        		learning_rate="constant",
-        		learning_rate_init=0.001,
-        		max_iter=200,
-        		random_state=123,
-        		verbose=True,
-        		early_stopping=False,
-        		validation_fraction=0.1
-        	)
-        
-        mlp1_pred_label = MlpClassifiers.mlpGetPredictions(datasets[0], xtest, params, x_cols)
-        mlp2_pred_label = MlpClassifiers.mlpGetPredictions(datasets[1], xtest, params, x_cols)
-        mlp3_pred_label = MlpClassifiers.mlpGetPredictions(datasets[2], xtest, params, x_cols)
-        mlp4_pred_label = MlpClassifiers.mlpGetPredictions(datasets[3], xtest, params, x_cols)
-        mlp5_pred_label = MlpClassifiers.mlpGetPredictions(datasets[4], xtest, params, x_cols)
+        #MLP, takes a lot of time
+        #mlp_parameters = namedtuple("parameters", ["hidden_layer_sizes", "solver", "alpha", "batch_size", "learning_rate",
+        #    "learning_rate_init", "max_iter", "random_state", "verbose", "early_stopping", "validation_fraction"])
+        #
+        ##Parameters
+        #params = mlp_parameters(
+        #		hidden_layer_sizes=[100, 100],
+        #		solver="lbfgs",
+        #		alpha=0.1,
+        #		batch_size="auto",
+        #		learning_rate="constant",
+        #		learning_rate_init=0.001,
+        #		max_iter=200,
+        #		random_state=123,
+        #		verbose=True,
+        #		early_stopping=False,
+        #		validation_fraction=0.1
+        #	)
+        #
+        #mlp1_pred_label = MlpClassifiers.mlpGetPredictions(datasets[0], xtest, params, x_cols)
+        #mlp2_pred_label = MlpClassifiers.mlpGetPredictions(datasets[1], xtest, params, x_cols)
+        #mlp3_pred_label = MlpClassifiers.mlpGetPredictions(datasets[2], xtest, params, x_cols)
 
 
 
 
         predictionSets = [
-            knn1_pred_label, knn2_pred_label, knn3_pred_label, knn4_pred_label, knn5_pred_label,
-            tree1_1_pred_label, tree1_2_pred_label, tree1_3_pred_label, tree1_4_pred_label, tree1_5_pred_label,
-            tree2_1_pred_label, tree2_2_pred_label, tree2_3_pred_label, tree2_4_pred_label, tree2_5_pred_label,
-            xgboost1_pred_label, xgboost2_pred_label, xgboost3_pred_label, xgboost4_pred_label, xgboost5_pred_label,
-            svm1_pred_label, svm2_pred_label, svm3_pred_label, svm4_pred_label, svm5_pred_label,
-            mlp1_pred_label, mlp2_pred_label, mlp3_pred_label, mlp4_pred_label, mlp5_pred_label
+            knn1_pred_label, knn2_pred_label, knn3_pred_label,
+            tree1_1_pred_label, tree1_2_pred_label, tree1_3_pred_label,
+            tree2_1_pred_label, tree2_2_pred_label, tree2_3_pred_label,
+            xgboost1_pred_label, xgboost2_pred_label, xgboost3_pred_label,
+            svm1_pred_label, svm2_pred_label, svm3_pred_label
+            #mlp1_pred_label, mlp2_pred_label, mlp3_pred_label
             ]
         
         #prediction sources array (for weighting different classifiers)
         setTypes = [
-            "knn", "knn", "knn", "knn", "knn",
-            "tree1", "tree1", "tree1", "tree1", "tree1",
-            "tree2", "tree2", "tree2", "tree2", "tree2",
-            "xgboost", "xgboost", "xgboost", "xgboost", "xgboost",
-            "svm", "svm", "svm", "svm", "svm",
-            "mlp", "mlp", "mlp", "mlp", "mlp",
+            "knn", "knn", "knn",
+            "tree1", "tree1", "tree1",
+            "tree2", "tree2", "tree2",
+            "xgboost", "xgboost", "xgboost",
+            "svm", "svm", "svm"
+            #"mlp", "mlp", "mlp"
             ]
 
 
@@ -1267,28 +1161,28 @@ class Ensemble:
             for setIndex in range(0, len(predictionSets)): #counting votes
                 if(predictionSets[setIndex][index] == "Fall"):
                     if(setTypes[setIndex] == "knn"):
-                        fall_votes = fall_votes + 1.2
+                        fall_votes = fall_votes + 1.3
                     elif(setTypes[setIndex] == "tree1"):
-                        fall_votes = fall_votes + 1.2
+                        fall_votes = fall_votes + 1.1
                     elif(setTypes[setIndex] == "tree2"):
-                        fall_votes = fall_votes + 1.2
+                        fall_votes = fall_votes + 1.1
                     elif(setTypes[setIndex] == "xgboost"):
                         fall_votes = fall_votes + 1.3
                     elif(setTypes[setIndex] == "svm"):
-                        fall_votes = fall_votes + 1
+                        fall_votes = fall_votes + 1.3
                     elif(setTypes[setIndex] == "mlp"):
                         fall_votes = fall_votes + 1
                 elif(predictionSets[setIndex][index] == "Normal"):
                     if(setTypes[setIndex] == "knn"):
-                        normal_votes = normal_votes + 1.2
+                        normal_votes = normal_votes + 1.3
                     elif(setTypes[setIndex] == "tree1"):
-                        normal_votes = normal_votes + 1.2
+                        normal_votes = normal_votes + 1.1
                     elif(setTypes[setIndex] == "tree2"):
-                        normal_votes = normal_votes + 1.2
+                        normal_votes = normal_votes + 1.1
                     elif(setTypes[setIndex] == "xgboost"):
                         normal_votes = normal_votes + 1.3
                     elif(setTypes[setIndex] == "svm"):
-                        normal_votes = normal_votes + 1
+                        normal_votes = normal_votes + 1.3
                     elif(setTypes[setIndex] == "mlp"):
                         normal_votes = normal_votes + 1
                 else:

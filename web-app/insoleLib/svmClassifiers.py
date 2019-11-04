@@ -8,7 +8,7 @@ from sklearn.metrics import confusion_matrix
 from sklearn.metrics import classification_report
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import roc_auc_score
-from .columns import DataColumns
+from columns import DataColumns
 
 import matplotlib.pyplot as plt
 import seaborn as sn
