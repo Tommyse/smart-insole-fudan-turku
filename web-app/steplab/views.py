@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_protect
 
 from .models import Post, StepSession, StepFile, StepPrediction, StepGroup, StepGroupClassiffier
 from django.core.files.storage import default_storage
-from insoleLib.utils import get_data
+from insoleLib.utils import get_data, get_insole_property, get_number_steps
 from insoleLib.classifiers import ClassifierType
 from insoleLib.classifierFacade import ClassifierFacade
 from insole_charts.utils import ChartContainerFactory, getNumberLabels
@@ -82,11 +82,13 @@ def recordings(request):
         for stepfile in stepfiles:
             #full_filename = os.path.join(settings.MEDIA_ROOT, usrFolder, stepfile.name)
             full_filename = getUserFile(user, stepfile.name)
-            # TODO: SAVE THE FILE INTO DB FOR LINDA USERS
             path = default_storage.save(full_filename, stepfile)
 
             fileName = os.path.basename(path)
-            stepFileObj = StepFile(title=fileName, author=user, footsize=42, productId='KKJFDUD58', steps=150, content='')
+            productId = get_insole_property(path, "Insole_id")
+            size = get_insole_property(path, "Size")
+            steps = get_number_steps(path)
+            stepFileObj = StepFile(title=fileName, author=user, footsize=size, productId=productId, steps=steps, content='')
             stepFileObj.save()
 
     elif request.method == 'GET':

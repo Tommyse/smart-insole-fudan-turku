@@ -20,7 +20,7 @@ def getNumberLabels(n, number=30):
     else:
         increment = n // number
     
-    return [i for i in range(0, n+1, increment)]
+    return [i for i in range(0, n+increment, increment)]
 
 class LinearContainer(object):
 
