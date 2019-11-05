@@ -28,7 +28,7 @@ class StepPrediction(models.Model):
     user =  models.ForeignKey(User, on_delete=models.CASCADE)
     files = models.TextField()
     creationDate = models.DateTimeField(auto_now_add=True)
-
+    riskFalling = models.BooleanField(default=False)
 
 class StepGroup(models.Model):
     '''

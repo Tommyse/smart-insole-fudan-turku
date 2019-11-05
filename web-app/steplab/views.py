@@ -8,9 +8,10 @@ from django.views.decorators.csrf import csrf_protect
 
 from .models import Post, StepSession, StepFile, StepPrediction, StepGroup, StepGroupClassiffier
 from django.core.files.storage import default_storage
-from insoleLib.utils import get_data
+from insoleLib.utils import get_data, get_insole_property, get_number_steps
 from insoleLib.classifiers import ClassifierType
 from insoleLib.classifierFacade import ClassifierFacade
+from insole_charts.utils import ChartContainerFactory, getNumberLabels
 
 from collections import Iterable
 from django.shortcuts import redirect
@@ -49,6 +50,27 @@ def home(request):
     }
     return render(request, 'steplab/home.html', context) # request, template and context(arguments)
 
+def getRecordingDetailsContext(fileName, path):
+    fields, samples = get_data(path)
+    forceLinearData = ChartContainerFactory.createForceLinearChartContainers(samples)
+    startTimeData = ChartContainerFactory.createStartTimeLinearChartContainers(samples)
+    maxTimeData = ChartContainerFactory.createMaxTimeLinearChartContainers(samples)
+    endTimeData = ChartContainerFactory.createEndTimeLinearChartContainers(samples)
+
+    fileContent = {'fields': fields, 'samples': samples}
+    context = {
+        'fileName'                      :   fileName,
+        'fileContent'                   :   fileContent,
+        'title'                         :   'Recordings/' + fileName,
+        'linearForceChartData'          :   forceLinearData,
+        'linearStartTimeChartData'      :   startTimeData,
+        'linearMaxTimeChartData'        :   maxTimeData,
+        'linearEndTimeChartData'        :   endTimeData,
+        'steps'                         :   getNumberLabels(len(forceLinearData[0].data))
+    }
+
+    return context
+
 @login_required(login_url='login')
 def recordings(request):
     user = request.user
@@ -60,11 +82,13 @@ def recordings(request):
         for stepfile in stepfiles:
             #full_filename = os.path.join(settings.MEDIA_ROOT, usrFolder, stepfile.name)
             full_filename = getUserFile(user, stepfile.name)
-            # TODO: SAVE THE FILE INTO DB FOR LINDA USERS
             path = default_storage.save(full_filename, stepfile)
 
             fileName = os.path.basename(path)
-            stepFileObj = StepFile(title=fileName, author=user, footsize=42, productId='KKJFDUD58', steps=150, content='')
+            productId = get_insole_property(path, "Insole_id")
+            size = get_insole_property(path, "Size")
+            steps = get_number_steps(path)
+            stepFileObj = StepFile(title=fileName, author=user, footsize=size, productId=productId, steps=steps, content='')
             stepFileObj.save()
 
     elif request.method == 'GET':
@@ -73,14 +97,7 @@ def recordings(request):
             path = getUserFile(user, fileName)
 
             if os.path.exists(path):
-                fields, samples = get_data(path)
-                fileContent = {'fields': fields, 'samples': samples}
-                context = {
-                    'fileName'          :  fileName,
-                    'fileContent'       :  fileContent,
-                    'title'             : 'Recordings/' + fileName
-                }
-
+                context = getRecordingDetailsContext(fileName, path)
                 return render(request, 'steplab/recordingDetail.html', context) # request, template and context(arguments)
 
     stepFiles = StepFile.objects.filter(author=user)
@@ -113,14 +130,7 @@ def newDiagnose(request):
             path = getUserFile(request.user, fileName)
 
             if os.path.exists(path):
-                fields, samples = get_data(path)
-                fileContent = {'fields': fields, 'samples': samples}
-                context = {
-                    'fileName'          :  fileName,
-                    'fileContent'       :  fileContent,
-                    'title'             : 'Recordings/' + fileName
-                }
-
+                context = getRecordingDetailsContext(fileName, path)
                 return render(request, 'steplab/recordingDetail.html', context) # request, template and context(arguments)
 
     if request.method == 'POST':
@@ -141,6 +151,20 @@ def newDiagnose(request):
 
 @login_required(login_url='login')
 @csrf_protect
+def diagnosisHistory(request):
+    
+    # Get the predicitons
+    predictions = StepPrediction.objects.filter(user=request.user)
+
+    context = {
+        'title'             :   'history',
+        'predictions'       :   predictions
+    }
+    
+    return render(request, 'steplab/history.html', context)
+
+@login_required(login_url='login')
+@csrf_protect
 def diagnosisResult(request):
     
     url = "steplab/result.html"
@@ -158,13 +182,7 @@ def diagnosisResult(request):
             path = getUserFile(request.user, fileName)
 
             if os.path.exists(path):
-                fields, samples = get_data(path)
-                fileContent = {'fields': fields, 'samples': samples}
-                context = {
-                    'fileName'          :  fileName,
-                    'fileContent'       :  fileContent,
-                    'title'             : 'Recordings/' + fileName
-                }
+                context = getRecordingDetailsContext(fileName, path)
 
                 return render(request, 'steplab/recordingDetail.html', context) # request, template and context(arguments)
 

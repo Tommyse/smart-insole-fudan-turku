@@ -1,6 +1,137 @@
 {% if fileContent %}
 <h1 class="col-md-11 badge-secondary">{{fileName}}</h1>
-<button type="button" class="btn btn-link" onclick="location.reload();">Back</button>
+<button type="button" class="btn btn-link" onclick="location.reload(true);">Back</button>
+
+{% if linearForceChartData %}
+<div class="container-fluid">
+    <div class="row overflow-auto">
+        {% if linearForceChartData %}
+        <div column="col-md-12 col-lg-6" style="margin:auto;">
+            <canvas id="force-line-chart" width="625" height="500"></canvas>
+        </div>
+        {% endif%}
+        {% if linearStartTimeChartData %}
+        <div column="col-md-12 col-lg-6" style="margin:auto;">
+            <canvas id="start-time-line-chart" width="625" height="500"></canvas>
+        </div>
+        {% endif%}
+    </div>
+    <div class="row overflow-auto">
+        {% if linearMaxTimeChartData %}
+        <div column="col-md-12 col-lg-6" style="margin:auto;">
+            <canvas id="max-time-line-chart" width="625" height="500"></canvas>
+        </div>
+        {% endif%}
+        {% if linearEndTimeChartData %}
+        <div column="col-md-12 col-lg-6" style="margin:auto;">
+            <canvas id="end-time-line-chart" width="625" height="500"></canvas>
+        </div>
+        {% endif%}
+    </div>
+</div>
+    
+<script>
+        {% if linearForceChartData %}
+        new Chart(document.getElementById("force-line-chart"), {
+            type: 'line',
+            data: {
+              labels: {{steps}},
+              datasets: [
+                    {% for linearContainer in linearForceChartData %}
+                    { 
+                        data: {{linearContainer.data}},
+                        label: "{{linearContainer.label}}",
+                        borderColor: "{{linearContainer.borderColor}}",
+                        fill: {{linearContainer.fill}}
+                    },
+                    {% endfor %}  
+              ]
+            },
+            options: {
+              title: {
+                display: true,
+                text: 'Force Distribution'
+              }
+            }
+          });
+          {% endif%}
+          {% if linearStartTimeChartData %}
+          new Chart(document.getElementById("start-time-line-chart"), {
+            type: 'line',
+            data: {
+              labels: {{steps}},
+              datasets: [
+                    {% for linearContainer in linearStartTimeChartData %}
+                    { 
+                        data: {{linearContainer.data}},
+                        label: "{{linearContainer.label}}",
+                        borderColor: "{{linearContainer.borderColor}}",
+                        fill: {{linearContainer.fill}}
+                    },
+                    {% endfor %}  
+              ]
+            },
+            options: {
+              title: {
+                display: true,
+                text: 'Start Time Chart'
+              }
+            }
+          });
+          {% endif%}
+
+          {% if linearStartTimeChartData %}
+          new Chart(document.getElementById("max-time-line-chart"), {
+            type: 'line',
+            data: {
+              labels: {{steps}},
+              datasets: [
+                    {% for linearContainer in linearMaxTimeChartData %}
+                    { 
+                        data: {{linearContainer.data}},
+                        label: "{{linearContainer.label}}",
+                        borderColor: "{{linearContainer.borderColor}}",
+                        fill: {{linearContainer.fill}}
+                    },
+                    {% endfor %}  
+              ]
+            },
+            options: {
+              title: {
+                display: true,
+                text: 'Max Time Chart'
+              }
+            }
+          });
+          {% endif%}
+
+          {% if linearStartTimeChartData %}
+          new Chart(document.getElementById("end-time-line-chart"), {
+            type: 'line',
+            data: {
+              labels: {{steps}},
+              datasets: [
+                    {% for linearContainer in linearEndTimeChartData %}
+                    { 
+                        data: {{linearContainer.data}},
+                        label: "{{linearContainer.label}}",
+                        borderColor: "{{linearContainer.borderColor}}",
+                        fill: {{linearContainer.fill}}
+                    },
+                    {% endfor %}  
+              ]
+            },
+            options: {
+              title: {
+                display: true,
+                text: 'End Time Chart'
+              }
+            }
+          });
+          {% endif%}
+        </script>
+
+{% endif %}
 <div class="overflow-auto table-container">
     <table class="table table-hover table-striped text-center" id="recording-detail-table">
         <thead>
@@ -32,3 +163,6 @@
 </div>
 
 {% endif %}
+
+
+

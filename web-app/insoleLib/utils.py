@@ -1,4 +1,5 @@
 import os
+from .columns import DataColumns
 
 def get_files_from_directory(directory, default_label=True):
     files = []
@@ -7,7 +8,7 @@ def get_files_from_directory(directory, default_label=True):
             files.append((directory + '/' + filename, default_label))
     return files
 	
-def get_data(filePath, delimiter=';'):
+def get_data(filePath, delimiter=';', onlyOne=False):
     '''
         TODO optimize the method.
     '''
@@ -28,8 +29,25 @@ def get_data(filePath, delimiter=';'):
                 fieldValues = sampleLine.split(delimiter)
                 fieldValues = list(map(str.strip, fieldValues))
                 samples.append(fieldValues)
+                if onlyOne:
+                    break
                             
     return (fields, samples)
+
+def get_insole_property(filePath, columnName, delimiter=';'):
+    row = 0
+    fields, samples = get_data(filePath, delimiter, True)
+
+    value = ""
+    if samples:
+        sample = samples[row]
+        index = DataColumns.getColumnIndex(columnName)
+        value = sample[index]
+    return value
+
+def get_number_steps(filePath, delimiter=';'):
+    fields, samples = get_data(filePath, delimiter)
+    return len(samples)
 
 def get_data_from_files(filePaths, delimiter=';'):
     fieldsList = []

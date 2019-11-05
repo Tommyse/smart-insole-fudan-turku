@@ -17,7 +17,7 @@
                 Information about all the diagnosis. It tracks the current evolution of the patient.
             </p>
             <!-- Button -->
-            <a href="#" class="btn btn-primary">Check History</a>
+            <a href="{% url 'steplab-diagnosis-history' %}" class="btn btn-primary">Check History</a>
         
         </div>
         
@@ -47,17 +47,17 @@
     <!-- Card -->
     <div class="col-md-4">
             <!-- Card image -->
-            <img class="card-img-top" src="{% static 'images/diagnosis/faq.png' %}" alt="Card image cap">
+            <img class="card-img-top" src="{% static 'images/diagnosis/foot.png' %}" alt="Card image cap">
             
             <!-- Card content -->
             <div class="card-body text-center">
             
                 <!-- Title -->
-                <h4 class="card-title"><a>FAQ</a></h4>
+                <h4 class="card-title"><a>Upload Step Files</a></h4>
                 <!-- Text -->
-                <p class="card-text">Answers to the most frequently asked question about the application and its use.</p>
+                <p class="card-text">Upload, visualize a MoveSole session files into the system for making predictions.</p>
                 <!-- Button -->
-                <a href="#" class="btn btn-primary">Check FAQ</a>
+                <a href="{% url 'steplab-recordings' %}" class="btn btn-primary">Step Files</a>
             
             </div>
             
