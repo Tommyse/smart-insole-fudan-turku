@@ -55,6 +55,54 @@ class ChartContainerFactory(object):
         return forceLinearChartContainers  
 
     @staticmethod
+    def createStartTimeLinearChartContainers(input_data):
+        forceLinearChartContainers = []
+        labels = [
+            "S0_start_time", "S1_start_time", "S2_start_time", "S3_start_time",
+            "S4_start_time", "S5_start_time", "S6_start_time",
+        ]
+
+        allLabelData = ChartContainerFactory.getLabelData(input_data, labels)
+        colors = generateColors(len(labels))
+        fills = [False] * 10
+
+        for label, data, color, fill in zip(labels, allLabelData, colors, fills):
+            forceLinearChartContainers.append(LinearContainer(label, data, color, fill))
+        return forceLinearChartContainers
+
+    @staticmethod
+    def createMaxTimeLinearChartContainers(input_data):
+        forceLinearChartContainers = []
+        labels = [
+            "S0_max_time", "S1_max_time", "S2_max_time", "S3_max_time",
+            "S4_max_time", "S5_max_time", "S6_max_time",
+        ]
+
+        allLabelData = ChartContainerFactory.getLabelData(input_data, labels)
+        colors = generateColors(len(labels))
+        fills = [False] * 10
+
+        for label, data, color, fill in zip(labels, allLabelData, colors, fills):
+            forceLinearChartContainers.append(LinearContainer(label, data, color, fill))
+        return forceLinearChartContainers
+
+    @staticmethod
+    def createEndTimeLinearChartContainers(input_data):
+        forceLinearChartContainers = []
+        labels = [
+           "S0_end_time", "S1_end_time", "S2_end_time", "S3_end_time",
+           "S4_end_time", "S5_end_time", "S6_end_time",
+        ]
+
+        allLabelData = ChartContainerFactory.getLabelData(input_data, labels)
+        colors = generateColors(len(labels))
+        fills = [False] * 10
+
+        for label, data, color, fill in zip(labels, allLabelData, colors, fills):
+            forceLinearChartContainers.append(LinearContainer(label, data, color, fill))
+        return forceLinearChartContainers
+
+    @staticmethod
     def getLabelData(input_data, labels):
 
         data = []

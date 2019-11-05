@@ -50,6 +50,27 @@ def home(request):
     }
     return render(request, 'steplab/home.html', context) # request, template and context(arguments)
 
+def getRecordingDetailsContext(fileName, path):
+    fields, samples = get_data(path)
+    forceLinearData = ChartContainerFactory.createForceLinearChartContainers(samples)
+    startTimeData = ChartContainerFactory.createStartTimeLinearChartContainers(samples)
+    maxTimeData = ChartContainerFactory.createMaxTimeLinearChartContainers(samples)
+    endTimeData = ChartContainerFactory.createEndTimeLinearChartContainers(samples)
+
+    fileContent = {'fields': fields, 'samples': samples}
+    context = {
+        'fileName'                      :   fileName,
+        'fileContent'                   :   fileContent,
+        'title'                         :   'Recordings/' + fileName,
+        'linearForceChartData'          :   forceLinearData,
+        'linearStartTimeChartData'      :   startTimeData,
+        'linearMaxTimeChartData'        :   maxTimeData,
+        'linearEndTimeChartData'        :   endTimeData,
+        'steps'                         :   getNumberLabels(len(forceLinearData[0].data))
+    }
+
+    return context
+
 @login_required(login_url='login')
 def recordings(request):
     user = request.user
@@ -74,17 +95,7 @@ def recordings(request):
             path = getUserFile(user, fileName)
 
             if os.path.exists(path):
-                fields, samples = get_data(path)
-                forceLinearData = ChartContainerFactory.createForceLinearChartContainers(samples)
-                fileContent = {'fields': fields, 'samples': samples}
-                context = {
-                    'fileName'                  :   fileName,
-                    'fileContent'               :   fileContent,
-                    'title'                     :   'Recordings/' + fileName,
-                    'linearForceChartData'      :   forceLinearData,
-                    'forceLabels'               :   getNumberLabels(len(forceLinearData[0].data))
-                }
-
+                context = getRecordingDetailsContext(fileName, path)
                 return render(request, 'steplab/recordingDetail.html', context) # request, template and context(arguments)
 
     stepFiles = StepFile.objects.filter(author=user)
@@ -117,14 +128,7 @@ def newDiagnose(request):
             path = getUserFile(request.user, fileName)
 
             if os.path.exists(path):
-                fields, samples = get_data(path)
-                fileContent = {'fields': fields, 'samples': samples}
-                context = {
-                    'fileName'          :  fileName,
-                    'fileContent'       :  fileContent,
-                    'title'             : 'Recordings/' + fileName
-                }
-
+                context = getRecordingDetailsContext(fileName, path)
                 return render(request, 'steplab/recordingDetail.html', context) # request, template and context(arguments)
 
     if request.method == 'POST':
@@ -162,13 +166,7 @@ def diagnosisResult(request):
             path = getUserFile(request.user, fileName)
 
             if os.path.exists(path):
-                fields, samples = get_data(path)
-                fileContent = {'fields': fields, 'samples': samples}
-                context = {
-                    'fileName'          :  fileName,
-                    'fileContent'       :  fileContent,
-                    'title'             : 'Recordings/' + fileName
-                }
+                context = getRecordingDetailsContext(fileName, path)
 
                 return render(request, 'steplab/recordingDetail.html', context) # request, template and context(arguments)
 
