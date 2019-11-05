@@ -152,7 +152,15 @@ def newDiagnose(request):
 @login_required(login_url='login')
 @csrf_protect
 def diagnosisHistory(request):
-    context = {}
+    
+    # Get the predicitons
+    predictions = StepPrediction.objects.filter(user=request.user)
+
+    context = {
+        'title'             :   'history',
+        'predictions'       :   predictions
+    }
+    
     return render(request, 'steplab/history.html', context)
 
 @login_required(login_url='login')
