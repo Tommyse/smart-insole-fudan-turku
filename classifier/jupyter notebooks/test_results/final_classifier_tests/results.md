@@ -85,3 +85,18 @@ average accuracy:  0.92
 weighted avg       0.92      0.92      0.92      2041
 
 AUC score:  0.92
+
+---
+
+# Boosting
+
+average accuracy:  0.92
+
+              precision    recall  f1-score   support
+        Fall       0.93      0.87      0.90       851
+      Normal       0.91      0.95      0.93      1190
+   micro avg       0.92      0.92      0.92      2041
+   macro avg       0.92      0.91      0.91      2041
+weighted avg       0.92      0.92      0.92      2041
+
+AUC score:  0.91
