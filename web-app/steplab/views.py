@@ -149,6 +149,12 @@ def newDiagnose(request):
 
 @login_required(login_url='login')
 @csrf_protect
+def diagnosisHistory(request):
+    context = {}
+    return render(request, 'steplab/history.html', context)
+
+@login_required(login_url='login')
+@csrf_protect
 def diagnosisResult(request):
     
     url = "steplab/result.html"
