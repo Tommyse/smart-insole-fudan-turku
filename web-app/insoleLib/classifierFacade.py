@@ -46,6 +46,8 @@ class ClassifierFacade:
         stepPrediction = StepPrediction(user=currentUser, files=json.dumps(fileNames))
         stepPrediction.save()
 
+        goodSteps = 0
+        badSteps = 0
         stepGroupIndex = 0
         origin = 0
         for stepGroupSamples in chunks(samples, groupSize):
@@ -67,8 +69,20 @@ class ClassifierFacade:
                     riskFalling= classifierResult.riskFalling,
                     classifierTypeStr= classifierType.name)
                 stepGroupClassiffier.save()
+                goodSteps += classifierResult.goodSteps
+                badSteps += classifierResult.badSteps
+
 
             origin += size
             stepGroupIndex += 1
         
+        totalSteps =  goodSteps + badSteps     
+
+        stepPrediction.riskFalling = False
+        if totalSteps > 0:
+            stepPrediction.riskFalling = (goodSteps / totalSteps) < 0.9
+
+
+        stepPrediction.save()
+
         return stepPrediction

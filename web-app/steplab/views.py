@@ -160,7 +160,7 @@ def diagnosisHistory(request):
         'title'             :   'history',
         'predictions'       :   predictions
     }
-    
+
     return render(request, 'steplab/history.html', context)
 
 @login_required(login_url='login')
@@ -197,6 +197,9 @@ def diagnosisResult(request):
         if (stepPrediction):
             stepGroups = StepGroup.objects.filter(stepPrediction=stepPrediction)
 
+        goodSteps = 0
+        badSteps = 0
+        threshold = 0.9
         classifiers = set()
         # StepGroupClassiffiers
         groups = {}
@@ -205,15 +208,28 @@ def diagnosisResult(request):
             groups[stepGroup] = stepGroupClassiffiers
             
 
-            # labels for the classification methods
             for stepGroupClassiffier in stepGroupClassiffiers:
+                goodSteps += stepGroupClassiffier.goodSteps
+                badSteps += stepGroupClassiffier.badSteps
+
+                # labels for the classification methods
                 classifiers.add(stepGroupClassiffier.classifierTypeStr)
-                
+
+        totalSteps =  goodSteps + badSteps     
+
         predictions = {stepPrediction : groups}
         fileNames = {stepPrediction : json.loads(stepPrediction.files)}
         context ['predictions'] = predictions
         context ['classifiers'] = classifiers
         context ['files'] = fileNames
+        context ['result'] = {
+            'goodSteps' : goodSteps,
+            'goodPercentageSteps' : goodSteps if totalSteps == 0 else goodSteps / totalSteps,
+            'badSteps' : badSteps,
+            'badPercentageSteps' :  badSteps if totalSteps == 0 else badSteps / totalSteps,
+            'threshold' : threshold,
+            'result' : stepPrediction.riskFalling,
+        }
 
     return render(request, url, context)
     
