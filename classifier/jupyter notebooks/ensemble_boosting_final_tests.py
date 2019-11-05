@@ -44,7 +44,9 @@ data = DataHandler.calculateForceValues(data)
 data = DataHandler.calculatePhaseForceValues(data)
 
 pd.set_option('display.max_columns', None)
-data
+selected_data = data.loc[:, DataColumns.getSelectedCols3andY()]
+
+selected_data
 
 #%% Boosting test
 
