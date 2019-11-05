@@ -27,7 +27,18 @@
                     <th>{{prediction.creationDate}}</th>
                     <th>{{prediction.user.username}}</th>
                     <th>{{prediction.files}}</th>
-                    <th>{{prediction.riskFalling}}</th>
+                    <th
+                    {% if prediction.riskFalling %}
+                        class="table-danger"
+                    {% else %}
+                        class="table-success"
+                    {% endif %}>
+                    {% if prediction.riskFalling %}
+                        RISK    
+                    {% else %}
+                        NORMAL
+                    {% endif %}
+                    </th>
                 </tr>
                 {% endfor %}
             </tbody>
