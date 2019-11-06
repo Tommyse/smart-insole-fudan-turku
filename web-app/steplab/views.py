@@ -135,16 +135,17 @@ def newDiagnose(request):
 
     if request.method == 'POST':
         postFilesJSON = request.POST.get("analyse", "")
-        postFiles = json.loads(postFilesJSON)
-        classificationMethods = set([ClassifierType.MOCKED, ClassifierType.KNN, ClassifierType.DNN])
-        if postFiles and isinstance(postFiles, Iterable) and len(postFiles) > 0:
-            filePaths = []
-            for fileName in postFiles:
-                filePaths.append(getUserFile(request.user, fileName.strip()))
+        if postFilesJSON:
+            postFiles = json.loads(postFilesJSON)
+            classificationMethods = set([ClassifierType.BOOSTING, ClassifierType.KNN, ClassifierType.DNN])
+            if postFiles and isinstance(postFiles, Iterable) and len(postFiles) > 0:
+                filePaths = []
+                for fileName in postFiles:
+                    filePaths.append(getUserFile(request.user, fileName.strip()))
 
-            stepPrediction = ClassifierFacade.analyseImbalances(request.user, postFiles, filePaths, classificationMethods, 100)
-            if (stepPrediction):
-                return redirect(f'/diagnosis/result?stepPrediction={stepPrediction.id}')
+                stepPrediction = ClassifierFacade.analyseImbalances(request.user, postFiles, filePaths, classificationMethods, 100)
+                if (stepPrediction):
+                    return redirect(f'/diagnosis/result?stepPrediction={stepPrediction.id}')
 
     return render(request, url, context)
 

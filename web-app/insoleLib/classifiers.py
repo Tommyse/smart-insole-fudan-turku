@@ -38,13 +38,20 @@ class RandomClassifier(ClassifierInterface):
             else:
                 badSteps += 1
 
+        totalSteps = goodSteps + badSteps
+        goodSteps = random.choice([e for e in range(int(totalSteps*0.8), totalSteps)])
+        # goodSteps = random.choice([e for e in range(int(totalSteps*0.5), int(totalSteps*0.8))])
+        badSteps = totalSteps - goodSteps
         riskFalling = RandomClassifier.riskFalling(goodSteps, badSteps)
-
         return ClassifierAnalysisResult(goodSteps=goodSteps, badSteps=badSteps, riskFalling=riskFalling)
     
     @staticmethod
     def riskFalling(goodSteps, badSteps):
-        return random.choice([True, False])
+        totalSteps = goodSteps + badSteps
+        if totalSteps > 0:
+            return goodSteps / totalSteps < 0.9
+        return False
+        #return random.choice([True, False])
        
 
 class ClassifierAnalysisResult(object):
