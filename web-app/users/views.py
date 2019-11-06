@@ -39,7 +39,7 @@ def profile(request):
             messages.success(request, f'Your Account has been updated!')
 
             # password = form.clean_data.get('password')
-            return redirect('profile')
+            return redirect('steplab-profile')
     else:
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)
