@@ -5,8 +5,8 @@
 {% endblock addionalDependencies %}
 
 {% block content%}
-<h1>Step Predictions - History</h1>
 {% if predictions %}
+    <h1>Step Predictions - History</h1>
     <div class="overflow-auto table-container">
         <table class="table table-hover table-striped text-center" id="predictions-table">
             <thead>
@@ -43,7 +43,7 @@
         </table>
     </div>
 {% else %}
-    <h1>There are not predictons to show</h1>
+    <h1>There are not any prediction to be shown</h1>
 {% endif %}
 
 

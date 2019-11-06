@@ -162,7 +162,7 @@
 
 <script>
     $(document).ready(function () {
-        $('#files-table tr td .see').click(function () {
+        $('#files-table tbody tr td .see').click(function () {
             const contentSelector = "#main-content";
             let tdParent = $(this).parent().parent();
             let fileNameItem = $(tdParent).find('.file-name');

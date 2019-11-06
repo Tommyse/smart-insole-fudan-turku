@@ -67,7 +67,7 @@
                 {% if not stepFiles %}
                 <tfoot>
                     <tr>
-                        <td colspan="6">There are not any step file!</td>
+                        <td colspan="6" class="text-center">There are not any diagnosis!</td>
                     </tr>
                 </tfoot>
                 {% endif %}
@@ -103,7 +103,7 @@
 
         $('button[name="analyse"]').val(JSON.stringify(files));
         
-        $('#recordings-table td').click(function () {
+        $('#recordings-table tbody td').click(function () {
             let fileName = this.innerText;
             $.get("", { filename: fileName }, function (data) {
                 $("#main-content").html(data);
@@ -123,7 +123,7 @@
             });
         });
 
-        $('#recordings-table tr td .see').click(function() {
+        $('#recordings-table tbody tr td .see').click(function() {
             tdParent = $( this ).parent().parent();
             fileNameItem = $( tdParent ).find('.file-name');
             if (fileNameItem != null) {
@@ -145,7 +145,7 @@
 
             let files = []; // $('#analyse').val
 
-            $('#recordings-table tr').each(function() {
+            $('#recordings-table tbody tr').each(function() {
                 let checkBox = $( this ).find('td input[type="checkbox"]');
                 selected = checkBox.prop('checked');
                 if (selected) {

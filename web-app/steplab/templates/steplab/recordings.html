@@ -59,7 +59,7 @@
             {% if not stepFiles %}
             <tfoot>
                 <tr>
-                    <td colspan="5">There are not any step file!</td>
+                    <td colspan="5" class="text-center">There are not any step file!</td>
                 </tr>
             </tfoot>
             {% endif %}
@@ -83,7 +83,7 @@
     }
 
     $(document).ready(function () {
-        $('#recordings-table td').click(function () {
+        $('#recordings-table tbody td').click(function () {
             const contentSelector = "#main-content";
             let fileName = this.innerText;
             if (fileName) {
