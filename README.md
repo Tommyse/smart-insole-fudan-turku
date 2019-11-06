@@ -135,14 +135,14 @@ cd web-app
 
 Initialize the DB:
 ```
-python managa.py makemigrations
+python manage.py makemigrations
 ```
 ```
-python managa.py migrate
+python manage.py migrate
 ```
 Run DJANGO server:
 ```
-python managa.py runserver
+python manage.py runserver
 ```
 
 ### Dependencies
