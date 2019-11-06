@@ -130,6 +130,6 @@ MEDIA_URL = '/media/' # how are we going to access the image on the browser
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-LOGIN_REDIRECT_URL = 'steplab-home'
+LOGIN_REDIRECT_URL = 'steplab-diagnosis'
 
 LOGIN_URL = 'login' # login is the  name that we gave to our URL pattern for the login route
