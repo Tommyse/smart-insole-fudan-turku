@@ -2,11 +2,11 @@
 
 # Classifier integration
 
-Boosting selected as integrated classifier.
+Boosting selected as integrated classifier for the website.
 
 ## Code
 
-- Pydoc documentation
+- Using pydoc for documentation
 
 ## Data
 
@@ -14,9 +14,19 @@ Boosting selected as integrated classifier.
 
 ## Classifier
 
-The classifier and data processing library is currently at **"classifier/jupyter notebooks/insoleLib"**
+The classifier and data processing library is currently at **"classifier/jupyter notebooks/insoleLib"** and copied to website for use.
 
-Various python files in **"classifier/jupyter notebooks"** are jupyter notebooks in alternate format
+Various python files in **"classifier/jupyter notebooks"** are jupyter notebooks in alternate format. Visual studio code with python extension is recommended.
+
+#%% starts a new cell in this format
+
+### Tests
+
+- Some of the test results are in the **"classifier/jupyter notebooks/test_results"**  folder.
+
+- Data labels suffled and test many times + plots + compared to real results
+
+- Those classifiers don't learn anything from the data (AUC always near 0.5). Meanwhile our real classifiers learn things from the data. (AUC around 0.9 or 0.8 usually)
 
 ### Notes
 
@@ -24,71 +34,12 @@ Various python files in **"classifier/jupyter notebooks"** are jupyter notebooks
 
 	- Seems to be a small change towards worse accuracy. Might be bigger problem when using data from multiple different persons.
 
-- The implemented classifiers can only predict normal walking scenarios. Many things can throw the predictions off such as carrying something.
+- The implemented classifiers can only predict normal walking scenarios on a flat surface. Many things can throw the predictions off such as carrying something.
 
-### To-Do
+	- Similar scenarios like the training data.
 
-- Cleaning up code
+- Some of the early data exploration code might not work anymore due to many changes to the code that it used.
 
-- Fixing some old code
-
-	- Check concats. Might be faulty
-
-- Documenting code
-
-- Apply normalization to all features
-
-	- https://medium.com/@urvashilluniya/why-data-normalization-is-necessary-for-machine-learning-models-681b65a05029
-
-	- http://www.grroups.com/blog/about-feature-scaling-and-normalization-and-the-effect-of-standardization-for-machine-learning-algorithms
-
-	- https://sebastianraschka.com/Articles/2014_about_feature_scaling.html
-
-![Sklearn Flowchart](https://scikit-learn.org/stable/_static/ml_map.png)
-
----
-
-### Implemented
-
-- Some features
-
-- Classifiers
-
----
-
-- Tests
-
-	- Data labels suffled and test many times + plots + compared to real results
-
-		- Those classifiers don't learn anything from the data (AUC always near 0.5). Meanwhile our real classifiers learn things from the data.
-
-#### Ensemble learning
-
-Bagging average accuracy:  **0.89**
-
-              	precision    recall  f1-score   support
-        Fall       	0.74      0.60      0.66        84
-      Normal       	0.92      0.95      0.93       389
-
-AUC score:  0.77
-
-
-Boosting accuracy:  **0.9**
-
-              	precision    recall  f1-score   support
-        Fall       	0.75      0.62      0.68        84
-      Normal       	0.92      0.96      0.94       389
-
-AUC score:  0.79
-
-
-Fall skewed boosting accuracy:  **0.88**
-
-              	precision    recall  f1-score   support
-        Fall       	0.65      0.69      0.67        84
-      Normal       	0.93      0.92      0.93       389
-
-AUC score:  0.81
 
 ---
 
