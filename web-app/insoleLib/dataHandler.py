@@ -135,7 +135,7 @@ class DataHandler:
     @staticmethod
     def calculateForceDiff(data):
         """
-        Comparing forces between steps.
+        Comparing forces between steps. Not very helpful due to errors in the data.
         Pick same step number and calculate the difference in force to all sensors, (left - right force)
         
         Arguments:

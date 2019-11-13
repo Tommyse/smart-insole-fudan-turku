@@ -128,7 +128,7 @@ plt.show()
 from sklearn.decomposition import PCA
 from mpl_toolkits.mplot3d import Axes3D
 
-x_cols = DataColumns.getSelectedCols2()
+x_cols = DataColumns.getSelectedCols3()
 y_cols = ["label"]
 
 x = data.loc[:, x_cols]

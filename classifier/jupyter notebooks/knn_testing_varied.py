@@ -42,7 +42,6 @@ basedf = data
 
 tforce_DF = DataHandler.calculateTotalForce(data)
 step_t_DF = DataHandler.calculateStepTime(data)
-#force_diff_DF = DataHandler.calculateForceDiff(data) #doesn't work currently
 
 standardized_data = DataHandler.minmaxStandardizeForces(step_t_DF)
 
@@ -123,7 +122,6 @@ basedf = data
 
 tforce_DF = DataHandler.calculateTotalForce(data)
 step_t_DF = DataHandler.calculateStepTime(data)
-#force_diff_DF = DataHandler.calculateForceDiff(data) #doesn't work currently
 
 standardized_data = DataHandler.minmaxStandardizeForces(step_t_DF)
 

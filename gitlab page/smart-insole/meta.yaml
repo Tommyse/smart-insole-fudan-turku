@@ -3,20 +3,21 @@ title:
 
 date: "2019-11-07 00:00:00"
 desc: 
-  en: "Smart insole for balance classification."
+  en: "Smart insole for balance assessment."
 
 tags: 
  - data analysis
  - machine learning
+ - django
  - international
 
 team: Team InsoleSoft
 team_members: 
  - Chao Zhuoran
+ - Tocklin Tommi
+ - Sanz Villafruela Diego
  - Cai Xiaojun
  - Chen Hao
  - Fang Huohao
  - Li Qiang
- - Sanz Villafruela Diego
  - Sun Yang
- - Tocklin Tommi

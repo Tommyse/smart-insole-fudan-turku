@@ -39,7 +39,6 @@ data = data.reset_index(drop=True)
 
 tforce_DF = DataHandler.calculateTotalForce(data)
 step_t_DF = DataHandler.calculateStepTime(data)
-#force_diff_DF = DataHandler.calculateForceDiff(data)
 
 
 #%% Bagging test
@@ -64,7 +63,7 @@ print("AUC score: ", round(avg_auc, 2))
 #%% 2d scatter
 from sklearn.decomposition import PCA
 
-x_cols = DataColumns.getSelectedCols2()
+x_cols = DataColumns.getSelectedCols3()
 y_cols = ["label"]
 
 x = data.loc[:, x_cols]
@@ -122,7 +121,7 @@ plt.show()
 from sklearn.decomposition import PCA
 from mpl_toolkits.mplot3d import Axes3D
 
-x_cols = DataColumns.getSelectedCols2()
+x_cols = DataColumns.getSelectedCols3()
 y_cols = ["label"]
 
 x = data.loc[:, x_cols]
@@ -227,7 +226,6 @@ data = data.reset_index(drop=True)
 
 tforce_DF = DataHandler.calculateTotalForce(data)
 step_t_DF = DataHandler.calculateStepTime(data)
-#force_diff_DF = DataHandler.calculateForceDiff(data)
 
 
 
@@ -258,7 +256,6 @@ data = data.reset_index(drop=True)
 
 tforce_DF = DataHandler.calculateTotalForce(data)
 step_t_DF = DataHandler.calculateStepTime(data)
-#force_diff_DF = DataHandler.calculateForceDiff(data)
 
 #%% Fall skewed boosting test
 
@@ -281,7 +278,7 @@ print("AUC score: ", round(avg_auc, 2))
 #%% 2d scatter
 from sklearn.decomposition import PCA
 
-x_cols = DataColumns.getSelectedCols2()
+x_cols = DataColumns.getSelectedCols3()
 y_cols = ["label"]
 
 x = data.loc[:, x_cols]
@@ -339,7 +336,7 @@ plt.show()
 from sklearn.decomposition import PCA
 from mpl_toolkits.mplot3d import Axes3D
 
-x_cols = DataColumns.getSelectedCols2()
+x_cols = DataColumns.getSelectedCols3()
 y_cols = ["label"]
 
 x = data.loc[:, x_cols]
@@ -453,7 +450,6 @@ data = data.reset_index(drop=True)
 
 data = DataHandler.calculateTotalForce(data)
 data = DataHandler.calculateStepTime(data)
-#data = DataHandler.calculateForceDiff(data)
 data = DataHandler.calculateForceValues(data)
 data = DataHandler.calculateStepStartValues(data)
 data = DataHandler.calculateStepMaxTimeValues(data)
@@ -544,7 +540,7 @@ plt.show()
 from sklearn.decomposition import PCA
 from mpl_toolkits.mplot3d import Axes3D
 
-x_cols = DataColumns.getSelectedCols2()
+x_cols = DataColumns.getSelectedCols3()
 y_cols = ["label"]
 
 x = data.loc[:, x_cols]
@@ -738,7 +734,7 @@ plt.show()
 from sklearn.decomposition import PCA
 from mpl_toolkits.mplot3d import Axes3D
 
-x_cols = DataColumns.getSelectedCols2()
+x_cols = DataColumns.getSelectedCols3()
 y_cols = ["label"]
 
 x = data.loc[:, x_cols]
@@ -842,7 +838,6 @@ data = data.reset_index(drop=True)
 
 data = DataHandler.calculateTotalForce(data)
 data = DataHandler.calculateStepTime(data)
-#data = DataHandler.calculateForceDiff(data)
 data = DataHandler.calculateForceValues(data)
 data = DataHandler.calculateStepStartValues(data)
 data = DataHandler.calculateStepMaxTimeValues(data)
@@ -933,7 +928,7 @@ plt.show()
 from sklearn.decomposition import PCA
 from mpl_toolkits.mplot3d import Axes3D
 
-x_cols = DataColumns.getSelectedCols2()
+x_cols = DataColumns.getSelectedCols3()
 y_cols = ["label"]
 
 x = data.loc[:, x_cols]
@@ -1037,7 +1032,6 @@ data = data.reset_index(drop=True)
 
 data = DataHandler.calculateTotalForce(data)
 data = DataHandler.calculateStepTime(data)
-#data = DataHandler.calculateForceDiff(data)
 data = DataHandler.calculateForceValues(data)
 data = DataHandler.calculateStepStartValues(data)
 data = DataHandler.calculateStepMaxTimeValues(data)
@@ -1128,7 +1122,7 @@ plt.show()
 from sklearn.decomposition import PCA
 from mpl_toolkits.mplot3d import Axes3D
 
-x_cols = DataColumns.getSelectedCols2()
+x_cols = DataColumns.getSelectedCols3()
 y_cols = ["label"]
 
 x = data.loc[:, x_cols]
@@ -1232,7 +1226,6 @@ data = data.reset_index(drop=True)
 
 data = DataHandler.calculateTotalForce(data)
 data = DataHandler.calculateStepTime(data)
-#data = DataHandler.calculateForceDiff(data)
 data = DataHandler.calculateForceValues(data)
 data = DataHandler.calculateStepStartValues(data)
 data = DataHandler.calculateStepMaxTimeValues(data)
@@ -1323,7 +1316,7 @@ plt.show()
 from sklearn.decomposition import PCA
 from mpl_toolkits.mplot3d import Axes3D
 
-x_cols = DataColumns.getSelectedCols2()
+x_cols = DataColumns.getSelectedCols3()
 y_cols = ["label"]
 
 x = data.loc[:, x_cols]

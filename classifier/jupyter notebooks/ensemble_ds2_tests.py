@@ -43,7 +43,6 @@ data = data.reset_index(drop=True)
 
 tforce_DF = DataHandler.calculateTotalForce(data)
 step_t_DF = DataHandler.calculateStepTime(data)
-#force_diff_DF = DataHandler.calculateForceDiff(data)
 
 
 #%% Bagging test
@@ -231,7 +230,6 @@ data = data.reset_index(drop=True)
 
 tforce_DF = DataHandler.calculateTotalForce(data)
 step_t_DF = DataHandler.calculateStepTime(data)
-#force_diff_DF = DataHandler.calculateForceDiff(data)
 
 
 
@@ -261,7 +259,6 @@ data = data.reset_index(drop=True)
 
 tforce_DF = DataHandler.calculateTotalForce(data)
 step_t_DF = DataHandler.calculateStepTime(data)
-#force_diff_DF = DataHandler.calculateForceDiff(data)
 
 #%% Fall skewed boosting test
 

@@ -40,7 +40,6 @@ data = data.reset_index(drop=True)
 
 tforce_DF = DataHandler.calculateTotalForce(data)
 step_t_DF = DataHandler.calculateStepTime(data)
-#force_diff_DF = DataHandler.calculateForceDiff(data)
 
 
 #%% Bagging test
@@ -247,7 +246,6 @@ data = data.reset_index(drop=True)
 
 tforce_DF = DataHandler.calculateTotalForce(data)
 step_t_DF = DataHandler.calculateStepTime(data)
-#force_diff_DF = DataHandler.calculateForceDiff(data)
 
 
 
@@ -279,7 +277,6 @@ data = data.reset_index(drop=True)
 
 tforce_DF = DataHandler.calculateTotalForce(data)
 step_t_DF = DataHandler.calculateStepTime(data)
-#force_diff_DF = DataHandler.calculateForceDiff(data)
 
 #%% Fall skewed boosting test
 
@@ -493,7 +490,6 @@ data = data.reset_index(drop=True)
 
 data = DataHandler.calculateTotalForce(data)
 data = DataHandler.calculateStepTime(data)
-#data = DataHandler.calculateForceDiff(data)
 data = DataHandler.calculateForceValues(data)
 data = DataHandler.calculateStepStartValues(data)
 data = DataHandler.calculateStepMaxTimeValues(data)
@@ -707,7 +703,6 @@ data = data.reset_index(drop=True)
 
 data = DataHandler.calculateTotalForce(data)
 data = DataHandler.calculateStepTime(data)
-#data = DataHandler.calculateForceDiff(data)
 data = DataHandler.calculateForceValues(data)
 data = DataHandler.calculateStepStartValues(data)
 data = DataHandler.calculateStepMaxTimeValues(data)
@@ -921,7 +916,6 @@ data = data.reset_index(drop=True)
 
 data = DataHandler.calculateTotalForce(data)
 data = DataHandler.calculateStepTime(data)
-#data = DataHandler.calculateForceDiff(data)
 data = DataHandler.calculateForceValues(data)
 data = DataHandler.calculateStepStartValues(data)
 data = DataHandler.calculateStepMaxTimeValues(data)
@@ -1135,7 +1129,6 @@ data = data.reset_index(drop=True)
 
 data = DataHandler.calculateTotalForce(data)
 data = DataHandler.calculateStepTime(data)
-#data = DataHandler.calculateForceDiff(data)
 data = DataHandler.calculateForceValues(data)
 data = DataHandler.calculateStepStartValues(data)
 data = DataHandler.calculateStepMaxTimeValues(data)
@@ -1349,7 +1342,6 @@ data = data.reset_index(drop=True)
 
 data = DataHandler.calculateTotalForce(data)
 data = DataHandler.calculateStepTime(data)
-#data = DataHandler.calculateForceDiff(data)
 data = DataHandler.calculateForceValues(data)
 data = DataHandler.calculateStepStartValues(data)
 data = DataHandler.calculateStepMaxTimeValues(data)
