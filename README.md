@@ -24,8 +24,6 @@ The classifier and data processing library is currently at **"classifier/jupyter
 
 Various python files in **"classifier/jupyter notebooks"** are jupyter notebooks in alternate format. Visual studio code with python extension is recommended.
 
-#%% starts a new cell in this format
-
 ### Tests
 
 - Some of the test results are in the **"classifier/jupyter notebooks/test_results"**  folder.
@@ -41,8 +39,6 @@ Various python files in **"classifier/jupyter notebooks"** are jupyter notebooks
 	- Seems to be a small change towards worse accuracy. Might be bigger problem when using data from multiple different persons.
 
 - The implemented classifiers can only predict normal walking scenarios on a flat surface. Many things can throw the predictions off such as carrying something.
-
-	- Similar scenarios like the training data.
 
 - Some of the early data exploration code might not work anymore due to many changes to the code that it used.
 
