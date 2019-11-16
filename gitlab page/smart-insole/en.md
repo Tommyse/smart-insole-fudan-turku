@@ -1,5 +1,5 @@
 ### Goal
-	Easy to use web platform for analyzing walking data, which is collected from a smart insole. Users can monitor their walking trends via handy graphs after the data has been uploaded and processed on the server. Additionally we have implemented classifiers for fall detection based on the step data. This can be used to get help for people when the classifier is used in real time. Overall balance can also be monitored.
+	Easy to use web platform for analyzing walking data, which is collected from a smart insole. Users can monitor their walking trends via handy graphs after the data has been uploaded and processed on the server. Additionally we have implemented classifiers for fall detection based on the step data. This can be extended for real time usage. Overall balance for different sessions can also be monitored.
 
 
 ### Implementation
